@@ -1,0 +1,228 @@
+@layer responsive {
+  .wordmark > span {
+    font-size: 25px;
+    letter-spacing: -1.2px;
+  }
+  .wordmark small {
+    font-size: 6px;
+    letter-spacing: 1.1px;
+  }
+  .quote-workbench {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 6%;
+    padding-bottom: 64px;
+    align-items: center;
+  }
+  .cargo-study {
+    min-width: 0;
+  }
+  .cargo-study-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 0;
+    border-block: 1px solid var(--line);
+  }
+  .cargo-study-top .eyebrow {
+    font-size: 9px;
+    margin: 0;
+  }
+  .cargo-view-controls {
+    display: flex;
+    gap: 4px;
+  }
+  .cargo-view-controls button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    background: transparent;
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+  .cargo-view-controls button[aria-pressed="true"] {
+    border-color: #ff9c72;
+    color: #ffbb93;
+    background: #263638;
+  }
+  .cargo-study > svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--line);
+  }
+  .cargo-study svg text {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.6px;
+  }
+  .cargo-study-readout {
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr 1fr;
+    gap: 16px;
+    padding: 24px 0;
+  }
+  .cargo-study-readout .mono {
+    display: block;
+    font-size: 9px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .cargo-study-readout strong {
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+  .cargo-study-readout small {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cargo-measurements h2 {
+    font-size: clamp(32px, 3.5vw, 52px);
+    margin: 12px 0 16px;
+  }
+  .cargo-measurements > p {
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-size: 13px;
+    max-width: 38ch;
+  }
+  .cargo-measurements .fields {
+    gap: 16px;
+  }
+  .cargo-measurements .field:first-child {
+    grid-column: auto;
+  }
+  .cargo-measurements .fields .field:last-child {
+    grid-column: 1/-1;
+  }
+  :root .quote-form-shell {
+    background: #152328;
+  }
+  .quote-live-route {
+    font-size: 20px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    margin-block: 16px;
+  }
+  .cargo-documents {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .cargo-documents li {
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #d2ddd4;
+  }
+  .cargo-documents ul {
+    padding-left: 18px;
+    margin-bottom: 18px;
+  }
+  .quote-next {
+    padding-block: 60px 100px;
+    border-top: 1px solid var(--line);
+  }
+  .quote-next > h2 {
+    font-size: 36px;
+    margin-bottom: 32px;
+  }
+  .quote-next ol {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 0;
+    list-style: none;
+  }
+  .quote-next li {
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+  }
+  .quote-next h3 {
+    font-size: 22px;
+    margin: 18px 0 12px;
+  }
+  .quote-next p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  @media (min-width: 1100px) {
+    .quote-aside {
+      position: sticky;
+      top: 120px;
+    }
+  }
+  @media (max-width: 1100px) {
+    .quote-workbench {
+      gap: 4%;
+    }
+    .desktop-nav {
+      gap: 22px;
+    }
+  }
+  @media (max-width: 820px) {
+    .wordmark > span {
+      font-size: 21px;
+    }
+    .wordmark > svg {
+      width: 25px;
+    }
+    .wordmark small {
+      font-size: 5.2px;
+    }
+    .quote-workbench {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .cargo-measurements {
+      max-width: 640px;
+    }
+    .quote-aside {
+      display: block;
+    }
+    .quote-aside > .eyebrow,
+    .quote-aside > h2,
+    .quote-aside > p {
+      display: block;
+    }
+    .cargo-study-readout strong {
+      font-size: 30px;
+    }
+    .quote-next ol {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+  }
+  @media (max-width: 350px) {
+    .wordmark > span {
+      font-size: 17px;
+    }
+    .wordmark > svg {
+      width: 22px;
+    }
+    .wordmark small {
+      font-size: 4.3px;
+    }
+    .cargo-study-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .cargo-study-readout {
+      gap: 10px;
+    }
+    .cargo-study-readout strong {
+      font-size: 23px;
+    }
+  }
+}
+
+@layer responsive {
+  .cargo-measurements input:disabled {
+    opacity: 0.7;
+  }
+  .quote-live-route {
+    overflow-wrap: anywhere;
+  }
+}

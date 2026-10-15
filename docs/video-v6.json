@@ -1,0 +1,43 @@
+{
+  "provider": "Higgsfield",
+  "model": "wan3_0",
+  "duration": 3,
+  "resolution": "720p",
+  "generate_audio": false,
+  "estimatedCreditsEach": 5.25,
+  "estimatedCreditsTotal": 21,
+  "jobs": [
+    {
+      "kind": "services",
+      "id": "676d7f33-a79c-4d05-8034-44c1b662e33a",
+      "sourceUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3D7SITGAFNJQy8hDJYwUlQ1zuXD/hf_20261012_140323_676d7f33-a79c-4d05-8034-44c1b662e33a.mp4",
+      "prompt": "Locked-off camera, exactly preserve first-frame framing and aircraft position. The parked cargo aircraft remains still. Only a small navigation beacon glows gently, the engine fan slowly rotates, and wet apron reflections shimmer subtly. No camera movement, zoom, geometry changes or object travel. Calm premium logistics cinematography. End on exactly the supplied end-frame composition.",
+      "startAndEndImage": "https://structural-media-socioloca-5in5-sasco.ved-593.workers.dev/images/opening-v6-services.webp",
+      "finalAsset": "public/images/opening-v6-services.mp4"
+    },
+    {
+      "kind": "industries",
+      "id": "17e80380-03e4-4c28-8c44-c7d7e1a675db",
+      "sourceUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3D7SITGAFNJQy8hDJYwUlQ1zuXD/hf_20261012_140329_17e80380-03e4-4c28-8c44-c7d7e1a675db.mp4",
+      "prompt": "Locked-off camera, preserve exact framing and forklift shape. Stationary forklift, subtle hydraulic settling of the loaded pallet no more than a few centimeters, then returns to original pose. Very faint ambient warehouse lighting fluctuation. No driving, camera movement, rotation or zoom, no people, no new objects. End exactly on supplied end frame.",
+      "startAndEndImage": "https://structural-media-socioloca-5in5-sasco.ved-593.workers.dev/images/opening-v6-industries.webp",
+      "finalAsset": "public/images/opening-v6-industries.mp4"
+    },
+    {
+      "kind": "about",
+      "id": "f5c1461f-fe07-4f73-a62f-002609edd78f",
+      "sourceUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3D7SITGAFNJQy8hDJYwUlQ1zuXD/hf_20261012_140333_f5c1461f-fe07-4f73-a62f-002609edd78f.mp4",
+      "prompt": "Locked-off camera, exact fixed vessel composition. Small gentle ripples move across the dark water and lights shimmer in reflections. Ship stays exactly in the same place and pose with barely perceptible buoyancy. No camera move, no travel, no zoom, no shape change. Calm cinematic loop returning exactly to end frame.",
+      "startAndEndImage": "https://structural-media-socioloca-5in5-sasco.ved-593.workers.dev/images/opening-v6-about.webp",
+      "finalAsset": "public/images/opening-v6-about.mp4"
+    },
+    {
+      "kind": "quote",
+      "id": "cc6b4bec-3cf3-4823-87d4-246cfe77f398",
+      "sourceUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3D7SITGAFNJQy8hDJYwUlQ1zuXD/hf_20261012_140337_cc6b4bec-3cf3-4823-87d4-246cfe77f398.mp4",
+      "prompt": "Locked-off camera, exact same crate and roller-conveyor pose and framing. A subtle soft illumination passes across the wood grain while the crate remains stationary; tiny ambient light change only. No camera move, rotation, zoom, travel, text or added objects. Preserve composition exactly and return to supplied end frame.",
+      "startAndEndImage": "https://structural-media-socioloca-5in5-sasco.ved-593.workers.dev/images/opening-v6-quote.webp",
+      "finalAsset": "public/images/opening-v6-quote.mp4"
+    }
+  ]
+}

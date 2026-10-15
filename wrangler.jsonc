@@ -1,0 +1,6 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "socioloca-5in5-routeform",
+  "compatibility_date": "2026-10-12",
+  "assets": { "directory": "./dist", "not_found_handling": "404-page" },
+}

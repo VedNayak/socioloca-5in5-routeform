@@ -1,0 +1,50 @@
+@layer components {
+  .home-page {
+    animation: none;
+  }
+}
+@layer responsive {
+  @media (min-width: 821px) {
+    .home-header {
+      position: fixed;
+      left: 0;
+      right: 0;
+      background: transparent;
+      color: white;
+    }
+    .home-header.scrolled {
+      box-shadow: none;
+    }
+    .home-header .concept-banner {
+      color: var(--ink);
+    }
+    .home-header .header-inner {
+      margin: 21px var(--gutter) 0;
+      padding-inline: 26px;
+      height: 76px;
+      background: #0e1b24e8;
+      border: 1px solid #ffffff25;
+      backdrop-filter: blur(14px);
+    }
+    .home-header.scrolled .header-inner {
+      margin-top: 10px;
+      height: 66px;
+    }
+    .home-header .desktop-nav a:hover,
+    .home-header .desktop-nav a.active {
+      color: #ff9a70;
+    }
+    .home-header .header-quote {
+      border-color: #ffffff70;
+    }
+    .home-header .header-quote:hover {
+      background: var(--cta);
+    }
+    .home-header .mega-menu {
+      color: var(--ink);
+    }
+    .home-header .mega-menu a:hover {
+      color: var(--orange-ink);
+    }
+  }
+}
