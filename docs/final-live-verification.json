@@ -1,0 +1,36 @@
+{
+  "origin": "https://socioloca-5in5-routeform.ved-593.workers.dev",
+  "source": "6f750a17ac40c126238d6464f0f7ed41875622e3",
+  "version": "76193c5c-8113-4293-ad22-b7de1452993f",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200
+    },
+    {
+      "route": "/services/",
+      "status": 200
+    },
+    {
+      "route": "/industries/",
+      "status": 200
+    },
+    {
+      "route": "/about/",
+      "status": 200
+    },
+    {
+      "route": "/quote/",
+      "status": 200
+    }
+  ],
+  "main": "/assets/index-Cj8qRjgy.js",
+  "sha256": "4b367b4cd312d1ddd95fb03636244a2f2dddf03be80657f4f0ad25893e08bc8d",
+  "homepageWidths": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "pageErrors": []
+}

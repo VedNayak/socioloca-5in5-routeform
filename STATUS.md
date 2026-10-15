@@ -15,6 +15,8 @@ Existing unique cinematic openings, GSAP scroll choreography, registered wire ge
 | Visual review | Pass (internal) | Captured and inspected desktop/home and desktop/mobile workbench screenshots; user acceptance not inferred |
 | Performance | Pass (quote lab) | Desktop LCP 0.47s / CLS <0.001; mobile LCP 2.19s / CLS 0.007; local production lab, field CWV unavailable |
 | Browsers / devices | Partial | Installed Chrome on Windows; other engines and physical devices not verified |
-| Deployment | Pending | New Worker preflight confirms target does not exist; source Worker untouched |
+| Deployment | Pass | Separate Routeform Worker live; all five HTTPS routes, assets, CSP/noindex, useful 404 and eight live functional/video checks pass. Final exact bundle and identity verified |
 
 [Concept direction](docs/CONCEPT_DIRECTION.md) · [QA](docs/QA.md) · [Asset provenance](ASSET_MANIFEST.md).
+
+Deployed source: 6f750a17ac40c126238d6464f0f7ed41875622e3. Worker version: 76193c5c-8113-4293-ad22-b7de1452993f. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . GitHub: https://github.com/VedNayak/socioloca-5in5-routeform . Final caption verified at 1440/768/390/320px; exact served main bundle matches the local build. Follow-up documentation commits do not change deployed application code.
