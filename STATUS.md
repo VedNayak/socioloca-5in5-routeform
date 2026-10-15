@@ -1,3 +1,17 @@
+# Routeform — journey icons and editorial colour sweep
+
+15 October 2026. Five original animated workflow icons replace the repeated box on Home and Services. Each stage has its own finite GSAP action and a visible mobile layout. All five pages gain coordinated line/word masks, technical labels, section rules, shaped panel entrances and a moving orange/warm-white band inside the heading glyphs. The sweep aligns across words/lines, recalculates on resize and resolves to the base text colour. Reduced motion restores unsplit static text and static icons; forced colours use normal text. Existing hero renderers and quote functionality remain unchanged.
+
+Build / TypeScript / lint / whitespace: Pass. Targeted Chrome QA: 47 unique checks resolved, comprising seven new editorial/icon checks and 40 existing navigation, route, motion, accessibility and quote checks. The broad run found one transient contrast issue; text and panel opacity dips were removed, and the final 16-case sweep/accessibility/route/quote subset passes (1.7m). Four widths (1440/768/390/320px) have no journey icon/copy overlap. Actual five-stage desktop and mobile panels captured and visually inspected.
+
+Deployment pending. Chrome on Windows verified; other engines and physical devices were not rerun. No field-performance claim. No new media, assets from the reference, dependencies or media spend. The source company repository and Worker remain untouched.
+
+[Motion architecture](docs/EDITORIAL_MOTION.md).
+
+---
+
+## Previous fictional-brand release
+
 # Routeform — fictional logistics showcase
 
 15 October 2026. Five complete routes: /, /services/, /industries/, /about/, /quote/. Independent Git history, repository and Cloudflare Worker. The source company project remains unchanged at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c.

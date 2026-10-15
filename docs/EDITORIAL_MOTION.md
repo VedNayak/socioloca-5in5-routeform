@@ -1,0 +1,11 @@
+# Journey icons and editorial motion
+
+Terminal Industries was revisited in the browser on 15 October 2026. The review focused on restrained large headings, staged text entrances, technical light accents and shaped media/section frames. The implementation is original code with Routeform’s orange and sage palette; no reference code, branding or media was copied.
+
+JourneyIcon.tsx replaces the repeated box on the Home and Services workflows with five original SVG studies: inspection document/cargo scan; a route map with a travelling probe; packing flaps and a sealing strip; a truck with rotating wheel spokes and speed traces; a receiving bay with cargo arrival and a confirmation mark. GSAP draws the strokes and animates each stage for roughly 1.2–1.5 seconds. Animations pause offscreen or when the document is hidden, restart on stage changes, and are static under reduced motion. Icons remain decorative alongside the labelled textual stage content. Mobile retains compact visible icons without colliding with the text.
+
+MotionDirection.tsx now owns editorial entrances rather than competing with App’s old parent-opacity observer. Masked words stagger by their rendered line; technical labels, copy, a thin orange tracer and section rules share a coordinated timeline. Media and shaped panels use a restrained shutter reveal. Text remains at full opacity throughout, avoiding contrast dips. Existing hero cinema, geometry, quote flow and fictional content are unchanged. The route explorer retains its viewport-triggered route drawing. Async initialization is invalidated across preference changes, and all effects restore their DOM/styles on cleanup.
+
+No new packages, generated media, downloaded assets or media spend. Source company repository/Worker untouched.
+
+The follow-up colour sweep is a band clipped inside the heading glyphs. One shared GSAP custom-property phase drives all words, with each word’s background offset aligned to its actual position in the full heading. The orange/warm-white band crosses the lines, then resolves to the base text colour. Positions are recalculated on resize. Reduced motion restores ordinary unsplit text; forced-colour mode uses native text colour. This is additional to the thin technical light trace, not a replacement for the heading’s readable base colour.

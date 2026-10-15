@@ -4,7 +4,6 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  Box,
   Check,
   ChevronDown,
   Menu,
@@ -16,6 +15,7 @@ import FreightExperience from "./FreightExperience";
 import PageOpening from "./PageOpening";
 import LogisticsIcon from "./LogisticsIcon";
 import MotionDirection from "./MotionDirection";
+import JourneyIcon from "./JourneyIcon";
 import Quote from "./Quote";
 import ImageRelief from "./components/ui/media-assembly";
 import { useScrollSequence } from "./useScrollSequence";
@@ -425,7 +425,7 @@ function Journey({ compact = false }: { compact?: boolean }) {
             <p>{journey[active].text}</p>
             <span className="mono">{journey[active].detail}</span>
           </div>
-          <Box size={80} strokeWidth={0.6} aria-hidden="true" />
+          <JourneyIcon stage={active} />
         </div>
         <p className="section-note">
           Illustrative process. Actual scope and milestones are agreed for each
@@ -1373,22 +1373,6 @@ export default function App() {
     const reduce = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-            obs.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08 },
-    );
-    document.querySelectorAll(".reveal").forEach((el) => {
-      if (!reduce) {
-        el.classList.add("reveal-ready");
-        obs.observe(el);
-      }
-    });
     if (location.hash) {
       requestAnimationFrame(() =>
         document
@@ -1401,7 +1385,6 @@ export default function App() {
         .querySelector<HTMLElement>("main")
         ?.focus({ preventScroll: true });
     first.current = false;
-    return () => obs.disconnect();
   }, [location.pathname, location.hash]);
   return (
     <>

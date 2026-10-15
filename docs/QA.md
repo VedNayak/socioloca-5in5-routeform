@@ -11,3 +11,9 @@ Only installed Chrome was verified on this Windows host. Other engines, physical
 Quote page Lighthouse production-preview lab: desktop LCP 0.47s, TBT 12ms, CLS <0.001; mobile LCP 2.19s, TBT 76ms, CLS 0.007. Reports are local lab results, not field measurements or INP. No other page performance claim is inferred. Detailed reports and summary are committed.
 
 Initial separate live deployment: all five HTTPS pages return 200 with decoded images, correct titles, CSP and noindex headers; unknown routes return 404; no unexpected console errors. Eight live Chrome checks pass (1.3m): all four internal poster/film handoffs on desktop/mobile, full quote edit/validation/download flow, dimensional workbench, final-review revalidation and five-page fictional identity. Final review also replaced a remaining geographic foundation caption with the Routeform positioning.
+
+## Editorial/icons/colour sweep revision — 15 October 2026
+
+Seven new cases verify the actual intermediate glyph-sweep phase and final base state, five distinct stage geometries and finite GSAP completions, reduced-motion cleanup, four viewport icon/copy non-overlap and accessibility, and settled heading/reduced-motion cleanup on all five routes. Existing 40-case targeted regression: 39 initial passes; one transient contrast failure corrected by removing text/panel opacity dips. The final 16-case subset passes, including all seven new tests, service objects/contrast, all five page accessibility audits, network controls, full quote workflow and normal-motion navigation cleanup. All 47 unique targeted cases resolved. No older full-suite total is claimed as a fresh run. Build, TypeScript, lint and whitespace checks pass.
+
+Desktop five-stage contact sheet and mobile panel were captured and inspected under docs/screenshots (ignored local artefacts). Original hero renderer assets are unchanged. Other browser engines, physical devices and field performance were not rerun.

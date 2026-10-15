@@ -22,3 +22,4 @@ if (root.hasChildNodes() && !window.location.search)
 else ReactDOM.createRoot(root).render(app);
 
 import "./routeform.css";
+import "./editorial-motion.css";
