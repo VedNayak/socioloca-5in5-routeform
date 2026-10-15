@@ -19,3 +19,9 @@ Seven new cases verify the actual intermediate glyph-sweep phase and final base 
 Desktop five-stage contact sheet and mobile panel were captured and inspected under docs/screenshots (ignored local artefacts). Original hero renderer assets are unchanged. Other browser engines, physical devices and field performance were not rerun.
 
 Live editorial release: all five HTTPS routes, decoded images, useful 404, CSP/noindex headers and zero unexpected console errors pass. Three live Chrome motion checks pass (37.7s), including the actual intermediate colour phase, five icon actions and all-route reduced-motion cleanup. Exact served source verified in editorial-live-bundle.json. Actual intermediate colour-band screenshot captured and visually inspected.
+
+## Clean hero endings — 15 October 2026
+
+14 targeted Chrome checks pass (3.5m): geometry finiteness/bounds/no point-cloud objects; four original registered poster/film handoffs; pointer/graphics fallback and reduced-motion/mobile film behaviour; all four separation/clean-form/reversal/pause sequences; three mobile/tablet viewport cases each testing all four forms for visible geometry clearing copy and controls. Final opacity is asserted to be 0.000 at .96 scroll progress. Existing screenshot difference thresholds remain intact; only the intended endpoint descriptions/identities are updated. Desktop contact sheet captured and visually inspected. A final desktop-only About offset adjustment is being rebuilt/rechecked. Home geometry source is unchanged.
+
+Final About spacing rebuild and lint pass. About clean-form/reversal/pause recheck and Home’s unchanged cinematic/globe desktop/mobile/reduced-motion regression both pass (39.4s). Updated four-page contact sheet and full About ending captured and visually inspected. No additional application changes followed these checks.

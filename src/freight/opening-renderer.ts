@@ -54,9 +54,9 @@ const staging: Record<
   },
   about: {
     focus: [0.45, 0.62, 0.5],
-    place: [0.62, 0.56],
+    place: [0.7, 0.56],
     peel: 1,
-    width: 0.48,
+    width: 0.44,
     turn: 0.45,
   },
   quote: {
@@ -70,7 +70,7 @@ const staging: Record<
 
 /** The same choreography as Home's cargo story, on each route's registered
  * subject: film -> pixel peel -> rendered model -> push into the structure ->
- * separation and particle burst -> scanned point-cloud formation. */
+ * separation and particle burst -> sparse geometric formation. */
 export async function createOpeningRenderer(
   host: HTMLElement,
   kind: OpeningKind,
@@ -186,10 +186,8 @@ export async function createOpeningRenderer(
 
   // Particles start on the actual model surfaces and follow their component.
   type Face = { a: T.Vector3; b: T.Vector3; c: T.Vector3; end: number };
-  const faces: (Face & { delta: T.Vector3 })[] = [],
-    edges: { a: T.Vector3; b: T.Vector3; end: number }[] = [];
-  let area = 0,
-    length = 0;
+  const faces: (Face & { delta: T.Vector3 })[] = [];
+  let area = 0;
   const shown = (o: T.Object3D) => {
     for (let n: T.Object3D | null = o; n; n = n.parent)
       if (!n.visible) return false;
@@ -227,16 +225,6 @@ export async function createOpeningRenderer(
         area += size;
         faces.push({ a, b, c, delta, end: area });
       }
-    } else if (o instanceof T.Line) {
-      const step = o instanceof T.LineSegments ? 2 : 1;
-      for (let i = 0; i + 1 < p.count; i += step) {
-        const a = vertex(i),
-          b = vertex(i + 1),
-          span = a.distanceTo(b);
-        if (span < 0.0001) continue;
-        length += span;
-        edges.push({ a, b, end: length });
-      }
     }
   });
   let seed = 117;
@@ -264,7 +252,7 @@ export async function createOpeningRenderer(
       .addScaledVector(face.b, r * (1 - s))
       .addScaledVector(face.c, r * s);
   };
-  const formation = createOpeningFormation(kind, rest, mobile);
+  const formation = createOpeningFormation(kind, rest);
   const count = mobile ? 6500 : 16000,
     positions = new Float32Array(count * 3),
     explode = new Float32Array(count * 3),
@@ -272,11 +260,7 @@ export async function createOpeningRenderer(
     targets = new Float32Array(count * 3),
     meta = new Float32Array(count * 2),
     seeds = new Float32Array(count);
-  // A sample of the finished twin frames the formation by its true outline.
-  // Phones frame the whole formation; desktop lets ground and paths bleed.
-  const silhouette: T.Vector3[] = mobile ? [...formation.outline] : [];
-  let groundUsed = 0;
-  const groundShare = Math.min(0.3, formation.ground.length / count);
+  const silhouette: T.Vector3[] = [...formation.outline];
   for (let i = 0; i < count; i++) {
     const face = pick(faces, area);
     onSurface(face).toArray(positions, i * 3);
@@ -292,28 +276,9 @@ export async function createOpeningRenderer(
       ],
       i * 3,
     );
-    const role = random();
-    let target: T.Vector3,
-      kindOf = 0,
-      fade = 0.72;
-    if (role < groundShare) {
-      const cell = formation.ground[groundUsed++ % formation.ground.length];
-      target = cell.point;
-      kindOf = 1;
-      fade = 0.18 + cell.fade * 0.82;
-    } else if (formation.path && role < groundShare + 0.06) {
-      target = formation.path
-        .getPointAt(random())
-        .add(new T.Vector3(0, random() * 0.05, (random() - 0.5) * 0.12));
-      kindOf = 2;
-      fade = 1;
-    } else if (role < groundShare + 0.3 && edges.length) {
-      const edge = pick(edges, length);
-      target = edge.a.clone().lerp(edge.b, random());
-    } else target = onSurface(pick(faces, area));
-    if ((!kindOf || mobile) && i % 6 === 0) silhouette.push(target);
+    const target = formation.sample(i / count);
     target.toArray(targets, i * 3);
-    meta.set([kindOf, fade], i * 2);
+    meta.set([0, 0.6], i * 2);
     seeds[i] = random();
   }
   const particleGeometry = new T.BufferGeometry();
@@ -332,9 +297,9 @@ export async function createOpeningRenderer(
     uForm: { value: 0 },
     uOpacity: { value: 0 },
     uTime: { value: 0 },
-    uWave: { value: formation.wave },
+    uWave: { value: 0 },
     uScan: { value: -100 },
-    uScanAxis: { value: formation.scanAxis },
+    uScanAxis: { value: 0 },
     uPointer: { value: pointer },
     uDpr: { value: renderer.getPixelRatio() },
   };
@@ -518,10 +483,12 @@ export async function createOpeningRenderer(
     particleUniforms.uExplode.value = explosion;
     particleUniforms.uBurst.value = smooth(0.34, 0.57, p);
     particleUniforms.uForm.value = form;
-    particleUniforms.uOpacity.value = smooth(0.18, 0.36, p);
+    particleUniforms.uOpacity.value =
+      smooth(0.18, 0.36, p) * (1 - smooth(0.64, 0.86, p));
     particleUniforms.uTime.value = time;
-    particleUniforms.uScan.value = formation.scan(time);
-    formation.update(smooth(0.69, 0.85, p), time);
+    particleUniforms.uScan.value = -100;
+    points.visible = particleUniforms.uOpacity.value > 0.001;
+    formation.update(smooth(0.65, 0.86, p), time);
     const pointed = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1;
     pivot.rotation.y =
       T.MathUtils.lerp(
@@ -556,6 +523,8 @@ export async function createOpeningRenderer(
     host.dataset.explosion = explosion.toFixed(3);
     host.dataset.particleBurst = particleUniforms.uBurst.value.toFixed(3);
     host.dataset.particleConnection = form.toFixed(3);
+    host.dataset.finalForm = formation.name;
+    host.dataset.particleOpacity = particleUniforms.uOpacity.value.toFixed(3);
   };
   const render = (now: number) => {
     raf = 0;

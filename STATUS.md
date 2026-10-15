@@ -1,3 +1,15 @@
+# Routeform — clean internal hero endings
+
+15 October 2026. Final internal hero frames now resolve into sparse original 3D line forms: Services orbital sphere, Industries modular cube, About navigation ring/core, Quote dimension cuboid. The detailed particle vehicles, floor grids, racking and long environment paths are removed from the endpoint. Particles converge to the form and fade completely by progress .86; their draw object is then hidden. The accepted plate, wireframes, component separation and Home globe source remain unchanged.
+
+Final build/TypeScript/lint/whitespace: Pass. Fourteen targeted Chrome checks pass (3.5m): bounded original line geometry, four registered film/poster handoffs at desktop/mobile, particle pointer/graphics fallback, reduced-motion/no-phone-film behaviour, four reversible separation/burst/clean-form sequences with zero endpoint particle opacity, and all four forms clearing text/controls at 320x844, 390x667 and 768x1024. A 1440px four-page contact sheet was captured and inspected; About’s ring was shifted farther from its copy. Final About spacing and reversal recheck pass; the unchanged Home cinematic/globe desktop/mobile/reduced-motion regression also passes (two final checks, 39.4s). Updated desktop sheet captured and inspected. Deployment pending.
+
+No new media, dependencies or paid generation. Other browsers/physical devices/field performance were not rerun. The source company repository and Worker remain untouched. [Architecture](docs/CLEAN_HERO_ENDINGS.md).
+
+---
+
+## Previous editorial motion release
+
 # Routeform — journey icons and editorial colour sweep
 
 15 October 2026. Five original animated workflow icons replace the repeated box on Home and Services. Each stage has its own finite GSAP action and a visible mobile layout. All five pages gain coordinated line/word masks, technical labels, section rules, shaped panel entrances and a moving orange/warm-white band inside the heading glyphs. The sweep aligns across words/lines, recalculates on resize and resolves to the base text colour. Reduced motion restores unsplit static text and static icons; forced colours use normal text. Existing hero renderers and quote functionality remain unchanged.

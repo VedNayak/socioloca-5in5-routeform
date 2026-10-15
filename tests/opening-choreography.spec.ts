@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import sharp from "sharp";
 
 for (const route of ["services", "industries", "about", "quote"]) {
-  test(`${route} scroll follows Home: separates, bursts and forms a reversible scanned formation`, async ({
+  test(`${route} separates and resolves into a reversible clean geometric form`, async ({
     page,
   }) => {
     test.setTimeout(90000);
@@ -51,6 +51,18 @@ for (const route of ["services", "industries", "about", "quote"]) {
       exploded = await capture(0.69),
       burst = await capture(0.8),
       connected = await capture(0.96);
+    await expect(host).toHaveAttribute(
+      "data-final-form",
+      (
+        {
+          services: "orbital-sphere",
+          industries: "modular-cube",
+          about: "navigation-ring",
+          quote: "dimension-cuboid",
+        } as Record<string, string>
+      )[route],
+    );
+    await expect(host).toHaveAttribute("data-particle-opacity", "0.000");
     expect(
       diff(structural, exploded),
       "components must visibly separate",
@@ -61,7 +73,7 @@ for (const route of ["services", "industries", "about", "quote"]) {
     ).toBeGreaterThan(0.5);
     expect(
       diff(burst, connected),
-      "particles must visibly form the scanned twin and its ground",
+      "the transition must resolve into crisp geometry with no particle cloud",
     ).toBeGreaterThan(0.5);
     const repeat = await capture(0.51);
     expect(
