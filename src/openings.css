@@ -111,7 +111,7 @@
   }
   .opening-copy h1 {
     font-size: clamp(48px, 5.75vw, 96px);
-    line-height: 1.04;
+    line-height: 1.08;
     letter-spacing: -0.065em;
   }
   .opening-copy h2 {
@@ -121,8 +121,8 @@
   .opening-mask {
     display: block;
     overflow: clip;
-    padding-bottom: 0.13em;
-    margin-bottom: -0.13em;
+    padding: 0.14em 0.04em 0.22em;
+    margin: -0.14em -0.04em -0.22em;
   }
   .opening-word {
     display: block;

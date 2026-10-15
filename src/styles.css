@@ -571,7 +571,8 @@
   .headline-mask {
     display: block;
     overflow: hidden;
-    padding-bottom: 6px;
+    padding: 0.14em 0.04em 0.22em;
+    margin: -0.14em -0.04em -0.22em;
   }
   .headline-mask > span {
     display: inline-block;

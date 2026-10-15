@@ -1,3 +1,11 @@
+# Routeform — typography clearance
+
+15 October 2026. Shared word and hero masks now reserve font-relative space above, below and beside glyphs. Gradient-filled words have their own expanded paint area. Heading wrappers retain horizontal containment for the orange sweep, with explicit glyph padding, and no longer override each section's bottom margin. The About disclosure regains its intended 40px desktop / 30px mobile separation from the following grid. Hero leading is adjusted to maintain readable lines with the safer reveal masks. All five pages retain their original fonts, colour sweeps and reveal choreography.
+
+Validation and live release details: docs/QA.md and docs/DEPLOYMENT.md. Original SASCO remains untouched.
+
+---
+
 # Routeform — Home-scale globes and dotted calculator
 
 15 October 2026. Internal final globes now match the accepted Home geographic viewing angle, three faint reference rings, dot density/treatment and desktop visible diameter. The camera framing is derived from Home's 8.4-unit globe, 13.8-unit lens and 1536×1024 plate aspect rather than padded route bounds. At 1440×1000 the globe diameter is approximately 609px, up from approximately 368px. Services and About sit opposite their left editorial columns; Industries mirrors the composition. Mobile retains safe fitting between copy and controls, with 6,500 dots as on Home.

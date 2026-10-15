@@ -1,3 +1,13 @@
+# Typography clearance — 15 October 2026
+
+Build including TypeScript/prerender, lint and whitespace: Pass. Targeted Chrome checks verify the orange glyph sweep, all-five-route editorial entrances/reduced-motion restoration, journey layout/accessibility at 1440/768/390/320px, narrow Home actions and each internal film/poster framing on desktop/mobile. New pixel checks compare representative headings on every route plus the exact About disclosure against unclipped masks and native font ink at 1440/390px; no lost solid strokes or page overflow. The disclosure's section margin is preserved (40px desktop, 30px mobile); screenshots captured and visually inspected at both widths.
+
+During verification, an expanded clipping-path approach let the decorative sweep enlarge the scrollable page. Replaced with overflow containment and explicit glyph padding. The native-ink comparison allows browser antialiasing differences; the mask-only comparison remains strict. A spacing assertion was corrected to follow the existing responsive margin rather than imposing the desktop minimum on mobile.
+
+Other browsers, physical devices and field Core Web Vitals were not tested in this revision. No fonts, media, 3D geometry, quote logic or source-company files were changed. Live release details follow in docs/DEPLOYMENT.md.
+
+---
+
 # Home-scale globes / dotted calculator — 15 October 2026
 
 Pass: build, TypeScript, lint and whitespace checks. Eleven targeted Chrome checks passed (1.7m): coherent calculator point groups/animated keypad; bounded geographic dots and moving transport markers; desktop/mobile screenshots of all four internal endings; each route's reversible registered model → separated structure → transient field → finished formation sequence, including pause/resume; text/control clearance at 320×844, 390×667 and 768×1024. Captured Home's actual finished scene at 1440×1000 and 390×844 for comparison; inspected Home, Services, Industries and Quote desktop screenshots and Services/Quote mobile screenshots. The desktop globe diameter now follows Home's camera ratio; mobile fitting preserves copy and controls. Quote's display is illustrative, not a freight rate or submitted enquiry.

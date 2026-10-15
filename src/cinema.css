@@ -3,11 +3,14 @@
     display: inline-block;
     overflow: hidden;
     vertical-align: top;
-    padding-bottom: 0.14em;
-    margin-bottom: -0.14em;
+    padding: 0.16em 0.04em 0.24em;
+    margin: -0.16em -0.04em -0.24em;
   }
   .type-word {
     display: inline-block;
+    /* Gradient text needs its own ink area, beyond the tight line box. */
+    padding-block: 0.12em 0.18em;
+    margin-block: -0.12em -0.18em;
     transform-origin: 0 100%;
   }
   .closing {
@@ -110,7 +113,7 @@
   .cinema-copy h1,
   .cinema-copy h2 {
     font-weight: 500;
-    line-height: 1.01;
+    line-height: 1.1;
     letter-spacing: -0.074em;
     font-size: clamp(74px, 8.6vw, 146px);
     margin: 0 0 27px;
@@ -119,7 +122,8 @@
   .cinema-line {
     display: block;
     overflow: hidden;
-    padding-bottom: 8px;
+    padding-block: 0.14em 0.22em;
+    margin-block: -0.14em -0.22em;
   }
   .cinema-word {
     display: inline-block;
@@ -708,7 +712,7 @@
       margin: 0 0 18px;
     }
     .cinema-line {
-      padding-bottom: 4px;
+      padding-block: 0.14em 0.22em;
     }
     .cinema-copy p {
       font-size: 12px;

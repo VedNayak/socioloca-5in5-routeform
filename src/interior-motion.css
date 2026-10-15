@@ -344,9 +344,11 @@
   .heading-lit {
     position: relative;
     isolation: isolate;
+    /* Clip the moving streak horizontally, with room for ascenders/descenders.
+       Keep each section's own heading margins intact. */
     overflow: clip;
-    padding-bottom: 0.14em;
-    margin-bottom: -0.14em;
+    overflow-clip-margin: 0.24em;
+    padding-block: 0.08em 0.16em;
   }
   .heading-lit::after {
     content: "";
