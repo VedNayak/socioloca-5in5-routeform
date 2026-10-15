@@ -3,6 +3,7 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 import { createHeroStudy, type OpeningKind } from "./hero-study";
 import { disposeVehicle } from "./vehicles";
 import { createOpeningAssembly } from "./opening-assembly";
+import { createCalculatorFormation } from "./calculator-formation";
 import { createOpeningFormation } from "./opening-formation";
 export type { OpeningKind } from "./hero-study";
 export type OpeningRenderer = {
@@ -40,28 +41,28 @@ const staging: Record<
 > = {
   services: {
     focus: [0.62, 0.45, 0.5],
-    place: [0.64, 0.5],
+    place: [0.66, 0.545],
     peel: 1,
     width: 0.46,
     turn: 0.42,
   },
   industries: {
     focus: [0.55, 0.55, 0.5],
-    place: [0.3, 0.54],
+    place: [0.32, 0.545],
     peel: -1,
     width: 0.5,
     turn: 0.4,
   },
   about: {
     focus: [0.45, 0.62, 0.5],
-    place: [0.7, 0.56],
+    place: [0.66, 0.545],
     peel: 1,
     width: 0.44,
     turn: 0.45,
   },
   quote: {
     focus: [0.5, 0.7, 0.6],
-    place: [0.7, 0.5],
+    place: [0.7, 0.545],
     peel: 1,
     width: 0.5,
     turn: -0.64,
@@ -255,7 +256,39 @@ export async function createOpeningRenderer(
   const land = await new T.TextureLoader().loadAsync(
     "/images/globe-land-mask.png",
   );
-  const formation = createOpeningFormation(kind, rest, land);
+  const homeCamera = new T.OrthographicCamera();
+  homeCamera.position.set(17, 10, 20);
+  homeCamera.lookAt(0, 2.6, 0);
+  const counterTurn = new T.Quaternion().setFromAxisAngle(
+    new T.Vector3(0, 1, 0),
+    -stage.turn,
+  );
+  const orientation = counterTurn.clone().multiply(camera.quaternion);
+  const formation =
+    kind === "quote"
+      ? createCalculatorFormation(
+          rest,
+          orientation
+            .clone()
+            .multiply(
+              new T.Quaternion().setFromEuler(new T.Euler(-0.12, -0.24, 0.04)),
+            ),
+        )
+      : createOpeningFormation(
+          kind,
+          rest,
+          land,
+          orientation
+            .clone()
+            .multiply(homeCamera.quaternion.clone().invert())
+            .multiply(
+              new T.Quaternion().setFromAxisAngle(
+                new T.Vector3(0, 1, 0),
+                -0.28,
+              ),
+            ),
+          mobile,
+        );
   const count = mobile ? 6500 : 16000,
     positions = new Float32Array(count * 3),
     explode = new Float32Array(count * 3),
@@ -400,10 +433,16 @@ export async function createOpeningRenderer(
       heightShare = (end - start) * 0.92;
       widthShare = 0.9;
     }
-    const sy = Math.max(
-        extent.y / heightShare,
-        extent.x / (aspect * widthShare),
-      ),
+    // Home's 8.4-unit globe through its 13.8-unit lens, fitted to actual
+    // sphere diameter rather than padded route bounds. Mobile keeps copy clearance.
+    const diameter = Math.max(size.x, size.y, size.z) * 0.72;
+    const homeShare = 8.4 / 13.8 / Math.min(1, 3 / 2 / aspect);
+    const sy = mobile
+        ? Math.max(extent.y / heightShare, extent.x / (aspect * widthShare))
+        : Math.max(
+            (kind === "quote" ? extent.y : diameter) / homeShare,
+            extent.x / (aspect * (kind === "industries" ? 0.55 : 0.61)),
+          ),
       sx = sy * aspect;
     settled = {
       l: mid.x - sx * cx,

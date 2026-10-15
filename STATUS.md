@@ -1,3 +1,11 @@
+# Routeform — Home-scale globes and dotted calculator
+
+15 October 2026. Internal final globes now match the accepted Home geographic viewing angle, three faint reference rings, dot density/treatment and desktop visible diameter. The camera framing is derived from Home's 8.4-unit globe, 13.8-unit lens and 1536×1024 plate aspect rather than padded route bounds. At 1440×1000 the globe diameter is approximately 609px, up from approximately 368px. Services and About sit opposite their left editorial columns; Industries mirrors the composition. Mobile retains safe fitting between copy and controls, with 6,500 dots as on Home.
+
+Quote ends in an original dotted 3D calculator: rounded layered chassis, seven-segment illustrative display, raised numeric/operator keys and a subtle orange key-press cycle. Its point geometry is also the convergence target for the existing assembly particles. It depicts a planning calculation, not a freight rate. Opening plates, wireframe/exploded stages, scroll cues and real quote workbench remain in place. Home renderer source and SASCO are unchanged. Fresh validation/deployment details: docs/QA.md and docs/DEPLOYMENT.md.
+
+---
+
 # Routeform — geographic globe endings
 
 15 October 2026. Supersedes the abstract line-form iteration below. All four internal openings now resolve into geographic dotted globes using the same local Natural Earth land mask, dot shading and restrained orange accents as the accepted Home. Services adds original aircraft silhouettes that follow spherical flight arcs and orient to each path tangent. About uses explicit ocean waypoints for illustrative connections. Industries and Quote use quieter connecting routes. Existing registered plates, wireframes, separated components, distinct page openings and Home renderer are preserved.

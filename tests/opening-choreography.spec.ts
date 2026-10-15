@@ -58,7 +58,7 @@ for (const route of ["services", "industries", "about", "quote"]) {
           services: "geographic-services",
           industries: "geographic-industries",
           about: "geographic-about",
-          quote: "geographic-quote",
+          quote: "dotted-calculator",
         } as Record<string, string>
       )[route],
     );

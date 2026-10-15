@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
 import * as T from "three";
 import { createOpeningFormation } from "../src/freight/opening-formation";
+import { createCalculatorFormation } from "../src/freight/calculator-formation";
 import { disposeVehicle } from "../src/freight/vehicles";
 test("geographic destinations remain bounded and transport markers follow routes", () => {
   const bounds = new T.Box3(new T.Vector3(-7, -1, -2), new T.Vector3(7, 4, 2));
-  for (const kind of ["services", "industries", "about", "quote"] as const) {
+  for (const kind of ["services", "industries", "about"] as const) {
     const form = createOpeningFormation(kind, bounds, new T.Texture());
     form.update(1, 0);
     let dots = 0;
@@ -36,4 +37,31 @@ test("geographic destinations remain bounded and transport markers follow routes
     expect(form.root.visible).toBe(false);
     disposeVehicle(form.root);
   }
+});
+
+test("calculator dots retain coherent chassis and keypad through animated calculation", () => {
+  const box = new T.Box3(new T.Vector3(-4, -1, -2), new T.Vector3(4, 4, 2));
+  const form = createCalculatorFormation(box, new T.Quaternion());
+  const points = form.root.children[0] as T.Points<
+    T.BufferGeometry,
+    T.ShaderMaterial
+  >;
+  const group = points.geometry.getAttribute("aGroup");
+  expect(new Set(Array.from(group.array)).size).toBe(18);
+  expect(group.count).toBeLessThan(16000);
+  form.update(1, 0);
+  const key = points.material.uniforms.uKey.value;
+  form.update(1, 2);
+  expect(points.material.uniforms.uKey.value).not.toBe(key);
+  expect(points.material.uniforms.uOpacity.value).toBe(1);
+  for (let i = 0; i < 100; i++)
+    expect(
+      form
+        .sample(i / 100)
+        .toArray()
+        .every(Number.isFinite),
+    ).toBe(true);
+  form.update(0, 2);
+  expect(form.root.visible).toBe(false);
+  disposeVehicle(form.root);
 });

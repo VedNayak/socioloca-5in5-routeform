@@ -7,16 +7,19 @@ export function createOpeningFormation(
   kind: OpeningKind,
   bounds: T.Box3,
   land?: T.Texture,
+  orientation = new T.Quaternion(),
+  mobile = false,
 ) {
   const centre = bounds.getCenter(new T.Vector3());
   const size = bounds.getSize(new T.Vector3());
   const radius = Math.max(size.x, size.y, size.z) * 0.36;
   const root = new T.Group();
   root.position.copy(centre);
-  // Keep north upright despite each original subject's different camera pitch.
+  // Match Home's geographic viewing angle despite each subject's camera pitch.
   const globe = new T.Group();
   root.add(globe);
-  const count = 16000;
+  globe.quaternion.copy(orientation);
+  const count = mobile ? 6500 : 16000;
   const positions = new Float32Array(count * 3),
     uvs = new Float32Array(count * 2),
     seeds = new Float32Array(count);
@@ -58,9 +61,30 @@ export function createOpeningFormation(
       },
     },
     vertexShader: `attribute vec2 aEarthUV;attribute float aSeed;uniform float uDpr;varying vec2 vUV;varying float vSeed,vFacing;void main(){vUV=aEarthUV;vSeed=aSeed;vFacing=smoothstep(-.1,.7,(mat3(modelViewMatrix)*normalize(position)).z);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);gl_PointSize=uDpr*(1.6+1.8*aSeed);}`,
-    fragmentShader: `uniform sampler2D uLand;uniform float uOpacity;varying vec2 vUV;varying float vSeed,vFacing;void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;float land=texture2D(uLand,vUV).r;vec3 color=mix(vec3(.64,.80,.80),vec3(1.,.28,.065),step(.83,fract(vSeed*127.)));float alpha=(1.-smoothstep(.12,.5,d))*uOpacity*mix(.025,1.,land)*mix(.55,.95,land)*mix(.035,1.,vFacing);gl_FragColor=vec4(color,alpha);}`,
+    fragmentShader: `uniform sampler2D uLand;uniform float uOpacity;varying vec2 vUV;varying float vSeed,vFacing;void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;float land=texture2D(uLand,vUV).r;vec3 color=mix(vec3(.64,.80,.80),vec3(1.,.28,.065),step(.83,vSeed));float alpha=(1.-smoothstep(.12,.5,d))*uOpacity*mix(.025,1.,land)*mix(.55,.95,land)*mix(.035,1.,vFacing);gl_FragColor=vec4(color,alpha);}`,
   });
   globe.add(new T.Points(geometry, material));
+  const ringMaterial = new T.LineBasicMaterial({
+    color: 0x819d9d,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+  });
+  for (const axis of ["xy", "yz", "xz"]) {
+    const points = Array.from({ length: 121 }, (_, i) => {
+      const a = (i / 120) * Math.PI * 2,
+        c = (Math.cos(a) * radius * 4.34) / 4.2,
+        s = (Math.sin(a) * radius * 4.34) / 4.2;
+      return axis === "xy"
+        ? new T.Vector3(c, s, 0)
+        : axis === "yz"
+          ? new T.Vector3(0, s, c)
+          : new T.Vector3(c, 0, s);
+    });
+    globe.add(
+      new T.Line(new T.BufferGeometry().setFromPoints(points), ringMaterial),
+    );
+  }
   const routeMaterial = new T.LineBasicMaterial({
     color: 0xff733e,
     transparent: true,
@@ -217,6 +241,7 @@ export function createOpeningFormation(
     update(amount: number, time: number) {
       root.visible = amount > 0.001;
       material.uniforms.uOpacity.value = amount;
+      ringMaterial.opacity = amount * 0.2;
       routeMaterial.opacity = amount * 0.48;
       markerMaterial.opacity = amount * 0.95;
       nodesMaterial.opacity = amount * 0.8;

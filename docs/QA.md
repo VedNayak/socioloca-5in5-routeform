@@ -1,3 +1,11 @@
+# Home-scale globes / dotted calculator — 15 October 2026
+
+Pass: build, TypeScript, lint and whitespace checks. Eleven targeted Chrome checks passed (1.7m): coherent calculator point groups/animated keypad; bounded geographic dots and moving transport markers; desktop/mobile screenshots of all four internal endings; each route's reversible registered model → separated structure → transient field → finished formation sequence, including pause/resume; text/control clearance at 320×844, 390×667 and 768×1024. Captured Home's actual finished scene at 1440×1000 and 390×844 for comparison; inspected Home, Services, Industries and Quote desktop screenshots and Services/Quote mobile screenshots. The desktop globe diameter now follows Home's camera ratio; mobile fitting preserves copy and controls. Quote's display is illustrative, not a freight rate or submitted enquiry.
+
+Final widescreen and live-deployment results follow in deployment documentation. Cross-browser/physical-device coverage and field Core Web Vitals were not measured in this revision. Home renderer source and quote form implementation were not changed.
+
+---
+
 # Geographic globe endings — 15 October 2026
 
 Build (including TypeScript and five-route prerender), lint and whitespace checks pass. Twenty-three targeted Chrome checks pass: geographic point buffers/route marker movement; four-page desktop and mobile screenshots; distinct internal openings; body models and keyboard/context recovery; native workflow scrolling; reduced motion; all four reversible assembly/burst/globe sequences and pause/resume; mobile clearance at 320x844, 390x667 and 768x1024. Desktop 1440x1000 and mobile 390x844 screenshots captured for all four internal pages; Services desktop, Industries mobile and About desktop visually inspected. Home renderer remains unchanged.
