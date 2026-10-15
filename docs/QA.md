@@ -67,3 +67,5 @@ Live editorial release: all five HTTPS routes, decoded images, useful 404, CSP/n
 Final About spacing rebuild and lint pass. About clean-form/reversal/pause recheck and Home’s unchanged cinematic/globe desktop/mobile/reduced-motion regression both pass (39.4s). Updated four-page contact sheet and full About ending captured and visually inspected. No additional application changes followed these checks.
 
 Live clean-form release: all five routes/assets/404/security headers and zero unexpected console errors pass. All four endpoint identities and zero particle opacity verified in live-clean-formations.json; exact served renderer SHA matches local build. A separate live mobile last-chapter-button check reaches progress .900 with the modular cube, zero particle opacity and fully visible final copy. Mobile live screenshot captured and inspected.
+
+Live verification (2026-10-16): all five deployed routes/assets/404/security headers passed with zero console errors after propagation; all four final-layout tests passed against the deployed Worker at 320, 390, 768 and 1440px. The initial propagation-time stylesheet failure was resolved on complete retry.
