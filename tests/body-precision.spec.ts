@@ -45,28 +45,42 @@ for (const width of [1440, 390])
           .getByRole("button", { name: "Reset object camera" })
           .click();
         await expect(figure).toHaveClass(/relief-ready/, { timeout: 30000 });
-        await expect(page.locator(".assembly-host canvas")).toHaveCount(1);
+        expect(
+          await page.locator(".assembly-host canvas").count(),
+        ).toBeLessThanOrEqual(3);
+        await expect(figure.locator("canvas")).toHaveCount(1);
         await expect
           .poll(async () => Number(await host.getAttribute("data-work-time")), {
             timeout: 15000,
           })
           .toBeGreaterThan(3);
         const before = await host.screenshot();
-        await page.waitForTimeout(2000);
-        const after = await host.screenshot();
         const a = await sharp(before)
-            .resize(400, 260)
-            .removeAlpha()
-            .raw()
-            .toBuffer(),
-          b = await sharp(after)
-            .resize(400, 260)
-            .removeAlpha()
-            .raw()
-            .toBuffer();
-        const change =
-          a.reduce((sum, v, i) => sum + Math.abs(v - b[i]), 0) / a.length;
-        expect(change, `${id} should visibly work`).toBeGreaterThan(0.03);
+          .resize(400, 260)
+          .removeAlpha()
+          .raw()
+          .toBuffer();
+        // A persistent scene can already be in a deliberate handling pause.
+        // Observe its full operation cycle instead of assuming activation resets it.
+        await expect
+          .poll(
+            async () => {
+              const b = await sharp(await host.screenshot())
+                .resize(400, 260)
+                .removeAlpha()
+                .raw()
+                .toBuffer();
+              return (
+                a.reduce((sum, v, i) => sum + Math.abs(v - b[i]), 0) / a.length
+              );
+            },
+            {
+              timeout: 25000,
+              intervals: [500, 1000],
+              message: `${id} should visibly work through its cycle`,
+            },
+          )
+          .toBeGreaterThan(0.03);
         await figure
           .getByRole("button", { name: "Pause working animation" })
           .click();

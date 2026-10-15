@@ -78,7 +78,7 @@ for (const route of ["services", "industries", "about", "quote"]) {
   });
 }
 
-test("service objects are 3D by default with one active body canvas", async ({
+test("service objects are 3D by default with a bounded body canvas budget", async ({
   page,
 }) => {
   test.setTimeout(90000);
@@ -119,7 +119,10 @@ test("service objects are 3D by default with one active body canvas", async ({
         { timeout: 15000 },
       )
       .toBeGreaterThan(0.65);
-    await expect(page.locator(".assembly-host canvas")).toHaveCount(1);
+    expect(
+      await page.locator(".assembly-host canvas").count(),
+    ).toBeLessThanOrEqual(3);
+    await expect(scene.locator("canvas")).toHaveCount(1);
     await expect(scene).toHaveAttribute("data-relief-view", "model");
     await expect(scene.locator("img,picture")).toHaveCount(0);
     await expect(

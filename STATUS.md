@@ -1,3 +1,22 @@
+
+
+## 16 October 2026 - body stability and fitted glazing
+
+Visible body studies now retain up to three stable renderer leases rather than swapping to SVG fallbacks as the pointer crosses cards. The first frame is drawn before revealing a canvas; offscreen resources dispose. Unused Skyline rise logic is removed. Heroes are unchanged.
+
+Truck panes fit within cab faces; turboprop glazing conforms to its curved shell, and widebody glazing sits closer to the surface. All 30 modified panes pass geometric bounds checks. Six fallback projections are regenerated. Fifteen model/action fingerprints remain distinct and finite.
+
+Build, TypeScript, lint and whitespace pass. Exact recording-size and 1440px pointer/scroll checks preserve all three canvases. Desktop/mobile body, fallback, pause, technical view, context-loss and reduced-motion checks pass. The final 14-case run passed 13 initially; one test assumed immediate movement during an intentional stacker hold. Its observation window now covers a full operation cycle at the same pixel threshold; that case and route cleanup pass on retry. Chrome on Windows verified; other engines, physical devices and field CWV unverified. No new media spend. SASCO untouched.
+
+
+## 16 October 2026 — body scene stability and fitted glazing
+
+The supplied recording exposed renderer ownership switching between visible cards: live PBR views reverted to SVG fallbacks on pointer movement, with a brief blank before the first frame. Visible studies now keep up to three stable renderer leases; offscreen scenes dispose their resources. The first WebGL frame is drawn before revealing the canvas. Unused Skyline rise logic is removed from the body renderer. Hero renderers are unchanged.
+
+Truck front/side glazing now uses thin bounded surfaces inside the cab faces. Turboprop cockpit and cabin panes conform to the ellipsoid shell; the widebody surface offset is reduced. The geometry audit passes for all 30 modified panes. Six static projections are regenerated from the corrected models.
+
+Build, TypeScript, lint and whitespace checks pass. Fifteen model/action fingerprints remain finite and distinct. Exact recording-size (1812×686) and 1440px pointer/scroll regressions preserve canvas identity with no replacements. Desktop/mobile body, fallback, pause, technical-view, context-loss and reduced-motion checks pass. The final 14-case run passed 13 initially; a test assuming immediate motion during an intentional stacker hold was corrected to observe a full operation cycle without reducing its pixel threshold. That case and route cleanup both pass on retry. Chrome on Windows verified; other engines, physical devices and field CWV remain unverified. No new media spend. SASCO remains untouched.
+
 # Detailed body equipment release
 
 16 October 2026. Upgraded all 15 body scenes with original detailed Three.js equipment, working mechanisms, studio reflections, contact shadows, and registered technical scans. Repeated subjects have distinct models or operations: departure versus apron loading, ocean passage versus quay handling, line haul versus trailer unloading versus project lifting, four different warehouse systems, and three cargo inspection/packing compositions. All five routes remain complete. Hero source and media are unchanged; the quote workbench remains intact. SASCO remains untouched.

@@ -2,15 +2,9 @@ import * as T from "three";
 import { disposeVehicle, type VehicleKind } from "./vehicles";
 import { createBodyModel } from "./body-models";
 import type { BodyStudy } from "./body-studies";
-import {
-  camera as skylineCamera,
-  easeInOutCubic,
-  lerp,
-  riseAt,
-} from "../components/ui/skyline-math";
+const lerp = T.MathUtils.lerp;
 
 export type AssemblyRenderer = {
-  update: (value: number) => void;
   reset: () => void;
   pause: (paused: boolean) => void;
   technical: (enabled: boolean) => void;
@@ -128,8 +122,6 @@ export function createAssemblyRenderer(
   scene.add(axes);
   let alive = true,
     frame = 0,
-    goal = 1,
-    progress = 1,
     yaw = 0,
     pitch = 0,
     yawGoal = 0,
@@ -166,23 +158,24 @@ export function createAssemblyRenderer(
     const dt = Math.max(0, Math.min(0.1, (now - previous) / 1000)),
       gain = 1 - Math.exp(-dt * 8);
     previous = now;
-    progress =
-      Math.abs(goal - progress) < 0.001 ? goal : lerp(progress, goal, gain);
     yaw = lerp(yaw, yawGoal, gain);
     pitch = lerp(pitch, pitchGoal, gain);
-    const e = easeInOutCubic(progress),
-      c = skylineCamera(
-        e,
-        yaw + (study === "services-road" ? Math.PI : 0),
-        pitch,
-      ),
+    const heading =
+        Math.PI / 4 + yaw + (study === "services-road" ? Math.PI : 0),
+      elevation = (34 * Math.PI) / 180 + pitch;
+    const c = {
+        sn: Math.sin(heading),
+        cs: Math.cos(heading),
+        ce: Math.cos(elevation),
+        se: Math.sin(elevation),
+      },
       distance = 28;
     cam.position.set(
       c.sn * c.ce * distance,
       c.se * distance + vehicle.height * 0.28,
       c.cs * c.ce * distance,
     );
-    cam.lookAt(0, vehicle.height * 0.5 * e, 0);
+    cam.lookAt(0, vehicle.height * 0.5, 0);
     cam.updateMatrixWorld(true);
     const aspect = host.clientWidth / Math.max(1, host.clientHeight);
     let frameHalf = host.clientWidth < 520 ? 6 : 5;
@@ -199,28 +192,22 @@ export function createAssemblyRenderer(
     cam.left = -frameHalf * aspect;
     cam.right = -cam.left;
     cam.updateProjectionMatrix();
-    for (const p of vehicle.parts) {
-      const rise = riseAt(progress, p.column, 18, p.row, 12);
-      p.group.position.y = p.home.y * Math.max(0.018, rise);
-      p.group.scale.y = Math.max(0.018, rise);
-    }
-    if (!paused && progress > 0.9) workTime += dt;
-    vehicle.work(workTime, Math.max(0, Math.min(1, (progress - 0.88) / 0.12)));
+    if (!paused) workTime += dt;
+    vehicle.work(workTime);
     technical = lerp(technical, technicalGoal, gain);
     vehicle.technical(technical);
     renderer.render(scene, cam);
-    host.dataset.assemblyProgress = progress.toFixed(3);
+    host.dataset.assemblyProgress = "1.000";
     host.dataset.cameraYaw = yaw.toFixed(3);
     host.dataset.workTime = workTime.toFixed(3);
-    host.dataset.working = String(!paused && progress > 0.9);
+    host.dataset.working = String(!paused);
     host.dataset.technical = technical.toFixed(3);
     host.dataset.cycle = (workTime % vehicle.duration).toFixed(3);
     if (
-      Math.abs(goal - progress) > 0.001 ||
       Math.abs(yaw - yawGoal) > 0.001 ||
       Math.abs(pitch - pitchGoal) > 0.001 ||
       Math.abs(technical - technicalGoal) > 0.001 ||
-      (!paused && goal > 0.9)
+      !paused
     )
       kick();
   };
@@ -321,11 +308,11 @@ export function createAssemblyRenderer(
   document.addEventListener("visibilitychange", visibility);
   resize.observe(host);
   fit();
+  // Populate the framebuffer before React exposes the canvas.
+  cancelAnimationFrame(frame);
+  frame = 0;
+  draw(performance.now());
   return {
-    update(value) {
-      goal = value;
-      kick();
-    },
     reset,
     pause(value) {
       paused = value;

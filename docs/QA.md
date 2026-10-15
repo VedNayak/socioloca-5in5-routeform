@@ -1,3 +1,12 @@
+
+
+## 16 October 2026 - body stability and fitted glazing
+
+Visible body studies now retain up to three stable renderer leases rather than swapping to SVG fallbacks as the pointer crosses cards. The first frame is drawn before revealing a canvas; offscreen resources dispose. Unused Skyline rise logic is removed. Heroes are unchanged.
+
+Truck panes fit within cab faces; turboprop glazing conforms to its curved shell, and widebody glazing sits closer to the surface. All 30 modified panes pass geometric bounds checks. Six fallback projections are regenerated. Fifteen model/action fingerprints remain distinct and finite.
+
+Build, TypeScript, lint and whitespace pass. Exact recording-size and 1440px pointer/scroll checks preserve all three canvases. Desktop/mobile body, fallback, pause, technical view, context-loss and reduced-motion checks pass. The final 14-case run passed 13 initially; one test assumed immediate movement during an intentional stacker hold. Its observation window now covers a full operation cycle at the same pixel threshold; that case and route cleanup pass on retry. Chrome on Windows verified; other engines, physical devices and field CWV unverified. No new media spend. SASCO untouched.
 # Detailed body equipment QA — 16 October 2026
 
 Build (including TypeScript and five-route prerender), lint and whitespace: Pass on the final source. All 15 scene factories have finite moving transforms and distinct model/action fingerprints. Hero source files are unchanged, verified against Git. No new video/image dependencies or equipment downloads.

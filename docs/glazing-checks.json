@@ -1,0 +1,26 @@
+[
+  {
+    "id": "home-road",
+    "panes": 4,
+    "maxSurfaceOffsetModelUnits": 0.003,
+    "bounded": true
+  },
+  {
+    "id": "services-road",
+    "panes": 4,
+    "maxSurfaceOffsetModelUnits": 0.003,
+    "bounded": true
+  },
+  {
+    "id": "industries-industrial",
+    "panes": 4,
+    "maxSurfaceOffsetModelUnits": 0.003,
+    "bounded": true
+  },
+  {
+    "id": "industries-food",
+    "panes": 18,
+    "maxSurfaceOffsetModelUnits": 0.002992,
+    "bounded": true
+  }
+]

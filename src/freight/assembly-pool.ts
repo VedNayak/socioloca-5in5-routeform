@@ -1,46 +1,44 @@
-/** Only the model nearest the viewport centre owns a body WebGL scene. */
+/** Keep visible studies stable together; lease at most three body renderers. */
 type Panel = {
   element: HTMLElement;
   eligible: () => boolean;
   activate: (on: boolean) => void;
 };
 const panels = new Set<Panel>();
-let owner: Panel | undefined,
-  preferred: Panel | undefined,
+const active = new Set<Panel>();
+let preferred: Panel | undefined,
   preferredAt = 0,
   frame = 0;
 function update() {
   frame = 0;
-  let best: Panel | undefined,
-    distance = Infinity;
   if (preferred && Math.abs(scrollY - preferredAt) > 90) preferred = undefined;
-  for (const p of panels) {
-    if (!p.eligible()) continue;
-    const rect = p.element.getBoundingClientRect();
-    if (rect.top > innerHeight - 100 || rect.bottom < 120) continue;
-    const d =
-      p === preferred
+  const candidates: { panel: Panel; score: number }[] = [];
+  for (const panel of panels) {
+    if (!panel.eligible()) continue;
+    const rect = panel.element.getBoundingClientRect();
+    if (rect.top > innerHeight + 120 || rect.bottom < -120) continue;
+    const visible = rect.top < innerHeight && rect.bottom > 0;
+    const focused = panel.element.contains(document.activeElement);
+    const priority =
+      panel === preferred
         ? -3
-        : p.element
-              .querySelector(".assembly-host")
-              ?.contains(document.activeElement)
+        : focused
           ? -2
-          : p === preferred
-            ? -1
-            : Math.abs(
-                rect.top +
-                  Math.min(rect.height, innerHeight) / 2 -
-                  innerHeight / 2,
-              );
-    if (d < distance) {
-      best = p;
-      distance = d;
-    }
+          : Math.abs(rect.top + rect.height / 2 - innerHeight / 2);
+    candidates.push({ panel, score: (visible ? 0 : 100000) + priority });
   }
-  if (best === owner) return;
-  owner?.activate(false);
-  owner = best;
-  owner?.activate(true);
+  candidates.sort((a, b) => a.score - b.score);
+  const next = new Set(candidates.slice(0, 3).map((c) => c.panel));
+  for (const panel of active)
+    if (!next.has(panel)) {
+      panel.activate(false);
+      active.delete(panel);
+    }
+  for (const panel of next)
+    if (!active.has(panel)) {
+      active.add(panel);
+      panel.activate(true);
+    }
 }
 function schedule() {
   if (!frame) frame = requestAnimationFrame(update);
@@ -60,10 +58,7 @@ export function registerAssembly(panel: Panel) {
       schedule();
     },
     dispose: () => {
-      if (owner === panel) {
-        panel.activate(false);
-        owner = undefined;
-      }
+      if (active.delete(panel)) panel.activate(false);
       if (preferred === panel) preferred = undefined;
       panels.delete(panel);
       schedule();

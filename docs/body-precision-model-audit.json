@@ -22,9 +22,9 @@
     "kind": "truck",
     "title": "Freight tractor / line haul",
     "action": "Drive, steer, suspension",
-    "meshes": 174,
-    "vertices": 18740,
-    "motionFingerprint": "25d47ed34d334cd73ffc534257deeadad176ae4f982dd02f48f5fdefc76d72d1"
+    "meshes": 175,
+    "vertices": 18812,
+    "motionFingerprint": "0dd84aad7c4d62efbd7113d2f85ca235ade95c15d3dc92bfe2391cc1806680c4"
   },
   {
     "id": "home-warehouse",
@@ -67,9 +67,9 @@
     "kind": "truck",
     "title": "Tractor trailer / unloading",
     "action": "Open, deploy, unload",
-    "meshes": 203,
-    "vertices": 26692,
-    "motionFingerprint": "7739ccc16993a82d019d70000fcb048cc6e054221070dc7b31c597c84aed8894"
+    "meshes": 204,
+    "vertices": 26764,
+    "motionFingerprint": "5463e2134bd64b657d25c975dfe903f7bd0c7e21a614572b6c1593636b286f69"
   },
   {
     "id": "services-warehouse",
@@ -103,18 +103,18 @@
     "kind": "plane",
     "title": "Turboprop / cold-chain handling",
     "action": "Propellers, insulated cargo",
-    "meshes": 107,
-    "vertices": 18997,
-    "motionFingerprint": "5faa8d45d5710bbdd095798f57fdcc8a53666cda696d9d6f05fe1f9e393a06ee"
+    "meshes": 117,
+    "vertices": 21883,
+    "motionFingerprint": "5b849bae21188d49045b584875e284c34c54a3cafaf3407a7e26bd9f4c4fe1ed"
   },
   {
     "id": "industries-industrial",
     "kind": "truck",
     "title": "Low-loader / project cargo",
     "action": "Slew, lower, secure",
-    "meshes": 151,
-    "vertices": 26445,
-    "motionFingerprint": "fb1fd3b5192c0ba54e65047730dbb8f09527afc46eefdd766c89baa078462ebc"
+    "meshes": 152,
+    "vertices": 26517,
+    "motionFingerprint": "11e6abc4e9585d5818a24feb62f0d2d0d43e84950fa47c6ac65b658b34ac64f9"
   },
   {
     "id": "industries-warehouse",

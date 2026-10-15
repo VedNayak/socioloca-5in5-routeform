@@ -23,7 +23,7 @@ const names: Record<VehicleKind, string> = {
   crate: "Packed cargo",
 };
 /** Working geometry by default. Static projections of these same meshes provide
- * the no-WebGL/reduced-motion view; only the nearest panel leases a live scene. */
+ * the no-WebGL/reduced-motion view; visible panels share a bounded renderer budget. */
 export default function MediaAssembly({
   name,
   className = "",
@@ -87,7 +87,6 @@ export default function MediaAssembly({
           },
           study,
         );
-        engine.current.update(1);
         engine.current.pause(pausedRef.current);
         engine.current.technical(technicalRef.current);
         setReady(true);

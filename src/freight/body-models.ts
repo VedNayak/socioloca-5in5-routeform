@@ -219,7 +219,52 @@ export function createBodyModel(id: BodyStudy) {
     const body = mesh(new T.SphereGeometry(1, 56, 28), paint);
     body.scale.set(4.6, 0.56, 0.59);
     body.position.y = 1.35;
-    box(1, 0.07, 0.87, 3.55, 1.75, 0, glass);
+    const curvedGlazing = (
+      x0: number,
+      x1: number,
+      a0: number,
+      a1: number,
+      side: number,
+    ) => {
+      const vertices: number[] = [],
+        indices: number[] = [],
+        n = 18,
+        m = 8;
+      for (let i = 0; i <= n; i++)
+        for (let j = 0; j <= m; j++) {
+          const x = T.MathUtils.lerp(x0, x1, i / n),
+            a = T.MathUtils.lerp(a0, a1, j / m),
+            r = Math.sqrt(Math.max(0, 1 - (x / 4.6) ** 2));
+          const y = 0.56 * r * Math.cos(a),
+            z = side * 0.59 * r * Math.sin(a);
+          const normal = new T.Vector3(
+            x / 4.6 ** 2,
+            y / 0.56 ** 2,
+            z / 0.59 ** 2,
+          ).normalize();
+          vertices.push(
+            x + normal.x * 0.003,
+            1.35 + y + normal.y * 0.003,
+            z + normal.z * 0.003,
+          );
+        }
+      for (let i = 0; i < n; i++)
+        for (let j = 0; j < m; j++) {
+          const k = i * (m + 1) + j;
+          indices.push(k, k + 1, k + m + 1, k + 1, k + m + 2, k + m + 1);
+        }
+      const g = new T.BufferGeometry();
+      g.setAttribute("position", new T.Float32BufferAttribute(vertices, 3));
+      g.setIndex(indices);
+      g.computeVertexNormals();
+      const pane = mesh(g, glass);
+      pane.name = "turboprop-shell-glazing";
+      pane.userData.glazingSurface = "ellipsoid";
+    };
+    glass.side = T.DoubleSide;
+    for (const side of [-1, 1])
+      for (let i = 0; i < 2; i++)
+        curvedGlazing(3.12 + i * 0.43, 3.51 + i * 0.43, 0.3, 1.16, side);
     for (const sign of [-1, 1]) {
       const vertices: number[] = [],
         indices: number[] = [],
@@ -321,7 +366,8 @@ export function createBodyModel(id: BodyStudy) {
     wheel(3.1, 0.23, 0, 0.23);
     box(0.07, 0.7, 0.07, 3.1, 0.65, 0, metal);
     for (let i = 0; i < 7; i++)
-      box(0.23, 0.2, 0.012, -2.4 + i * 0.57, 1.62, 0.57, glass);
+      for (const side of [-1, 1])
+        curvedGlazing(-2.51 + i * 0.57, -2.29 + i * 0.57, 1.0, 1.3, side);
     const cargo = pallet(moving, true);
     cargo.position.set(-2.5, 0.35, 2.4);
     const trolley = box(2.1, 0.18, 1.65, -2.5, 0.32, 2.4, metal);
@@ -450,9 +496,35 @@ export function createBodyModel(id: BodyStudy) {
     box(10.4, 0.3, 1.9, -0.1, 0.9, 0, dark, tractor);
     box(2.1, 2, 2.2, 3.95, 2.08, 0, paint, tractor, 0.15);
     box(2.15, 0.65, 2.12, 3.9, 3.2, 0, paint, tractor, 0.12);
-    box(0.035, 0.8, 1.95, 5.02, 2.65, 0, glass, tractor);
+    const cabPane = (w: number, h: number) => {
+      const s = new T.Shape(),
+        r = 0.055,
+        x = -w / 2,
+        y = -h / 2;
+      s.moveTo(x + r, y);
+      s.lineTo(x + w - r, y);
+      s.quadraticCurveTo(x + w, y, x + w, y + r);
+      s.lineTo(x + w, y + h - r);
+      s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      s.lineTo(x + r, y + h);
+      s.quadraticCurveTo(x, y + h, x, y + h - r);
+      s.lineTo(x, y + r);
+      s.quadraticCurveTo(x, y, x + r, y);
+      return mesh(new T.ShapeGeometry(s, 8), glass, tractor);
+    };
     for (const sign of [-1, 1]) {
-      box(1.5, 0.73, 0.025, 4.03, 2.64, sign * 1.11, glass, tractor);
+      const pane = cabPane(0.82, 0.6);
+      pane.rotation.y = Math.PI / 2;
+      pane.position.set(5.003, 2.57, sign * 0.45);
+      pane.name = "cab-front-glazing";
+      pane.userData.glazingSurface = "cab-front";
+    }
+    for (const sign of [-1, 1]) {
+      const pane = cabPane(1.34, 0.6);
+      pane.rotation.y = sign === 1 ? 0 : Math.PI;
+      pane.position.set(3.93, 2.57, sign * 1.103);
+      pane.name = "cab-side-glazing";
+      pane.userData.glazingSurface = "cab-side";
       box(0.45, 0.12, 0.1, 4.1, 1.83, sign * 1.14, metal, tractor);
       box(0.08, 0.5, 0.25, 4.82, 2.66, sign * 1.32, dark, tractor);
       box(0.52, 0.12, 0.09, 4.6, 1.35, sign * 0.78, glow, tractor);
@@ -931,7 +1003,7 @@ export function createBodyModel(id: BodyStudy) {
               (_, j) => side * (0.12 + pane * 0.31 + (j * 0.275) / 4),
             ),
             false,
-            0.015,
+            0.004,
           ),
           glass,
         );
