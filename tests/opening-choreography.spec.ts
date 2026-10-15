@@ -55,10 +55,10 @@ for (const route of ["services", "industries", "about", "quote"]) {
       "data-final-form",
       (
         {
-          services: "orbital-sphere",
-          industries: "modular-cube",
-          about: "navigation-ring",
-          quote: "dimension-cuboid",
+          services: "geographic-services",
+          industries: "geographic-industries",
+          about: "geographic-about",
+          quote: "geographic-quote",
         } as Record<string, string>
       )[route],
     );

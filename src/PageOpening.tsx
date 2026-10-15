@@ -552,10 +552,15 @@ export default function PageOpening({
           </div>
         ))}
         <div className="opening-bottom">
-          <span className="mono">
-            {failed
+          <span className="mono opening-scroll-cue">
+            {enhanced && (
+              <span className="opening-scroll-rail" aria-hidden="true" />
+            )}
+            {!enhanced || failed
               ? "ILLUSTRATIVE SCENE / STATIC VIEW"
-              : "ILLUSTRATIVE SCENE / SPATIAL STUDY"}
+              : phase === 2
+                ? "CONTINUE SCROLLING ↓"
+                : "SCROLL TO TRANSFORM ↓"}
           </span>
           <a href={destination} className="opening-skip">
             {story.action}

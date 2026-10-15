@@ -140,7 +140,11 @@ export default function MediaAssembly({
         </span>
       </div>
       <div className="relief-toolbar">
-        <figcaption>ORIGINAL GEOMETRY / INDEPENDENT CONCEPT</figcaption>
+        <figcaption>
+          {enhanced && !unavailable
+            ? "SCROLL TO ASSEMBLE ↓ / DRAG TO INSPECT"
+            : "ORIGINAL GEOMETRY / INDEPENDENT CONCEPT"}
+        </figcaption>
         {unavailable && (
           <span className="assembly-unavailable mono" role="status">
             3D unavailable / static geometry

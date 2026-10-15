@@ -1,3 +1,13 @@
+# Routeform — geographic globe endings
+
+15 October 2026. Supersedes the abstract line-form iteration below. All four internal openings now resolve into geographic dotted globes using the same local Natural Earth land mask, dot shading and restrained orange accents as the accepted Home. Services adds original aircraft silhouettes that follow spherical flight arcs and orient to each path tangent. About uses explicit ocean waypoints for illustrative connections. Industries and Quote use quieter connecting routes. Existing registered plates, wireframes, separated components, distinct page openings and Home renderer are preserved.
+
+Internal hero footers now show an explicit scroll instruction and progress rail, changing to a continuation prompt at the final chapter. Workflow sequences show the active stage count and a continuation cue; reduced motion retains manual selection. Body models indicate scroll assembly and drag inspection. Routes are illustrative, not operating-lane claims. No new paid media.
+
+Validation and deployment results are recorded in docs/QA.md and docs/DEPLOYMENT.md.
+
+---
+
 # Routeform — clean internal hero endings
 
 15 October 2026. Final internal hero frames now resolve into sparse original 3D line forms: Services orbital sphere, Industries modular cube, About navigation ring/core, Quote dimension cuboid. The detailed particle vehicles, floor grids, racking and long environment paths are removed from the endpoint. Particles converge to the form and fade completely by progress .86; their draw object is then hidden. The accepted plate, wireframes, component separation and Home globe source remain unchanged.

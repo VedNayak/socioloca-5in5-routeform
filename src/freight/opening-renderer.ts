@@ -252,7 +252,10 @@ export async function createOpeningRenderer(
       .addScaledVector(face.b, r * (1 - s))
       .addScaledVector(face.c, r * s);
   };
-  const formation = createOpeningFormation(kind, rest);
+  const land = await new T.TextureLoader().loadAsync(
+    "/images/globe-land-mask.png",
+  );
+  const formation = createOpeningFormation(kind, rest, land);
   const count = mobile ? 6500 : 16000,
     positions = new Float32Array(count * 3),
     explode = new Float32Array(count * 3),
@@ -594,6 +597,7 @@ export async function createOpeningRenderer(
     renderer.domElement.removeEventListener("webglcontextlost", lost);
     disposeVehicle(study.root);
     disposeVehicle(formation.root);
+    land.dispose();
     floor.geometry.dispose();
     shadowMaterial.dispose();
     plateGeometry.dispose();

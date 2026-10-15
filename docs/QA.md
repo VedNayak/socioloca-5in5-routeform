@@ -1,3 +1,11 @@
+# Geographic globe endings — 15 October 2026
+
+Build (including TypeScript and five-route prerender), lint and whitespace checks pass. Twenty-three targeted Chrome checks pass: geographic point buffers/route marker movement; four-page desktop and mobile screenshots; distinct internal openings; body models and keyboard/context recovery; native workflow scrolling; reduced motion; all four reversible assembly/burst/globe sequences and pause/resume; mobile clearance at 320x844, 390x667 and 768x1024. Desktop 1440x1000 and mobile 390x844 screenshots captured for all four internal pages; Services desktop, Industries mobile and About desktop visually inspected. Home renderer remains unchanged.
+
+An initial overlapping pair of test runners collided in their shared trace-artifact directory. The sequential final runner completed all 23 checks without that artifact collision. Browsers other than installed Chrome and physical devices were not tested in this revision. Existing quote/backend limitations remain: local-only demonstration, no enquiry transmission. Additional About sea-waypoint refinements validated separately before release.
+
+---
+
 # Routeform release verification
 
 Build, TypeScript and lint pass. Chrome regression: 68/70 initial cases pass; the two failures expected old source-business location text or empty measurements. Tests were updated to assert the fictional node and explicitly clear the prefilled weight before testing validation. Both rechecks pass (17.4s); no application changes were required. All 70 cases are resolved.

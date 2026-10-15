@@ -33,12 +33,19 @@ export function useScrollSequence(count: number) {
       const value = Math.min(count - 1, Math.floor(progress * count));
       setActive(value);
       el.style.setProperty("--sequence-progress", String(progress));
+      el.dataset.scrollCue =
+        progress > 0.95
+          ? "CONTINUE BELOW ↓"
+          : `SCROLL TO EXPLORE ↓  ${value + 1} / ${count}`;
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
     const mode = () => {
       setEnabled(!reduced.matches);
+      el.dataset.scrollCue = reduced.matches
+        ? "CHOOSE A STAGE BELOW"
+        : `SCROLL TO EXPLORE ↓  1 / ${count}`;
       selection.current = null;
       schedule();
     };
