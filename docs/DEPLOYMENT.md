@@ -1,3 +1,9 @@
+# Latest geographic globe release
+
+Source: 0de15ab. Worker version: 19ead6d6-7b38-497d-afbf-62a71a493d53. Tag: routeform-geographic-globes. Target: socioloca-5in5-routeform only; 14 changed assets uploaded. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five live HTTPS routes passed asset, metadata, security-header and console checks; useful 404 returns HTTP 404. No broken images or unexpected console errors. Both deployed desktop/mobile globe preview tests pass; renderer/application bundle hashes match the tested build exactly. The original SASCO checkout remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c; its Worker was not deployed. Home renderer source is unchanged. Documentation commits after the application source do not change the deployed build.
+
+---
+
 # Latest clean internal hero endings
 
 Source 7cf6d12f7fab48dd78eba30add5f9447df1d152f. Worker version 0a97d7e2-758a-4600-a14e-309d11f3d5b6. Tag routeform-clean-hero-endings. Target socioloca-5in5-routeform only. Thirteen changed static assets uploaded. Preview https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five HTTPS routes/assets/404/security headers, four clean endpoints with zero final particles and exact renderer bytes verified. Mobile final-chapter button also checked live. Home globe source and source-company repository/Worker untouched. Subsequent documentation commits do not change the deployed application.

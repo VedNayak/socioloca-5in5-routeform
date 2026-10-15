@@ -1,0 +1,17 @@
+[
+  {
+    "asset": "index-Bvu9zNsI.js",
+    "exactMatch": true,
+    "sha256": "3efcc2c9016df2a5a646b223cce885dff7021bf543c1cc5c4ecc815ef2cdc748"
+  },
+  {
+    "asset": "index-DyxB9MXi.js",
+    "exactMatch": true,
+    "sha256": "7ce5db203b8bd8f9dca477fb74e9b91a0ead9444861743a1f973532c2844c0d6"
+  },
+  {
+    "asset": "opening-renderer-C1GJMFO9.js",
+    "exactMatch": true,
+    "sha256": "26c60e6bd2a13d6030f9b0cd76116e971bb11191ce408d41d228a710861c3ca3"
+  }
+]
