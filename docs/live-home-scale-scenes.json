@@ -1,0 +1,15 @@
+{
+  "report": [
+    {
+      "route": "services",
+      "formation": "geographic-services"
+    },
+    {
+      "route": "quote",
+      "formation": "dotted-calculator"
+    }
+  ],
+  "renderer": "opening-renderer-YmJaNhvb.js",
+  "exactHash": "3596c59de039094c8ad28a93b0c8ce090dc4cd1778aae0e6b03b7406693086d9",
+  "errors": []
+}

@@ -2,7 +2,7 @@
 
 Pass: build, TypeScript, lint and whitespace checks. Eleven targeted Chrome checks passed (1.7m): coherent calculator point groups/animated keypad; bounded geographic dots and moving transport markers; desktop/mobile screenshots of all four internal endings; each route's reversible registered model → separated structure → transient field → finished formation sequence, including pause/resume; text/control clearance at 320×844, 390×667 and 768×1024. Captured Home's actual finished scene at 1440×1000 and 390×844 for comparison; inspected Home, Services, Industries and Quote desktop screenshots and Services/Quote mobile screenshots. The desktop globe diameter now follows Home's camera ratio; mobile fitting preserves copy and controls. Quote's display is illustrative, not a freight rate or submitted enquiry.
 
-Final widescreen and live-deployment results follow in deployment documentation. Cross-browser/physical-device coverage and field Core Web Vitals were not measured in this revision. Home renderer source and quote form implementation were not changed.
+The final 1920×1080 four-page screenshot check passed (20.9s); Services and Quote widescreen captures inspected. All five deployed routes/assets/404/headers pass. Normal-motion live Services and Quote endpoint identities are verified with zero console errors, and browser-fetched renderer SHA-256 matches the tested build exactly (docs/live-home-scale-scenes.json). Cross-browser/physical-device coverage and field Core Web Vitals were not measured in this revision. Home renderer source and quote form implementation were not changed.
 
 ---
 

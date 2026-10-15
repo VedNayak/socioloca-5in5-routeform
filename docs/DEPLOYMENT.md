@@ -1,3 +1,9 @@
+# Latest Home-scale / dotted calculator release
+
+Source: 5a05951. Worker version: 151810d3-c6f9-4843-a101-7466a58402cc. Tag: routeform-home-scale-calculator. Target: socioloca-5in5-routeform only; 13 changed assets uploaded. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five live HTTPS routes/assets/metadata/security headers pass with zero broken images or unexpected console errors; useful 404 returns 404. The source company's repository and Worker remain untouched. Subsequent documentation commits do not change the deployed application.
+
+---
+
 # Latest geographic globe release
 
 Source: 0de15ab. Worker version: 19ead6d6-7b38-497d-afbf-62a71a493d53. Tag: routeform-geographic-globes. Target: socioloca-5in5-routeform only; 14 changed assets uploaded. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five live HTTPS routes passed asset, metadata, security-header and console checks; useful 404 returns HTTP 404. No broken images or unexpected console errors. Both deployed desktop/mobile globe preview tests pass; renderer/application bundle hashes match the tested build exactly. The original SASCO checkout remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c; its Worker was not deployed. Home renderer source is unchanged. Documentation commits after the application source do not change the deployed build.
