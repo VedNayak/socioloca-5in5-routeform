@@ -1,0 +1,96 @@
+{
+  "source": "0971a14",
+  "version": "78e7bb31-22e1-4188-9773-ed160cb3a69d",
+  "results": [
+    {
+      "path": "/assets/index-DrjXcYUw.js",
+      "exact": true
+    },
+    {
+      "path": "/assets/assembly-renderer-D49pnSJH.js",
+      "exact": true
+    },
+    {
+      "path": "/geometry/about-warehouse.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/crate.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/forklift.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/home-air.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/home-electronics.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/home-port.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/home-warehouse.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/industries-electronics.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/industries-food.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/industries-industrial.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/industries-warehouse.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/plane.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/services-air.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/services-electronics.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/services-port.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/services-warehouse.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/ship.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/truck.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/home-road.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/services-road.svg",
+      "exact": true
+    }
+  ],
+  "failures": [],
+  "note": "Initial propagation differences resolved; all assets exact on final verification."
+}

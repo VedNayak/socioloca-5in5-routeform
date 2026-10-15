@@ -1,5 +1,10 @@
 
 
+## Body scene stability deployment - 16 October 2026
+
+Application source 0971a14. Worker version 78e7bb31-22e1-4188-9773-ed160cb3a69d, tag routeform-scene-stability. Only socioloca-5in5-routeform deployed. All five live routes, images, security headers and useful 404 pass with zero console errors on final check. Both live pointer/scroll canvas-stability tests pass at 1812px and 1440px. All 22 checked bundles/SVGs match local output exactly after initial deployment propagation settled. See scene-stability-live-assets.json and live-checks-scene-stability.json. Heroes unchanged; SASCO remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c. Documentation commits do not alter deployed code.
+
+
 ## 16 October 2026 - body stability and fitted glazing
 
 Visible body studies now retain up to three stable renderer leases rather than swapping to SVG fallbacks as the pointer crosses cards. The first frame is drawn before revealing a canvas; offscreen resources dispose. Unused Skyline rise logic is removed. Heroes are unchanged.

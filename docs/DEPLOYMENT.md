@@ -1,3 +1,8 @@
+
+
+## Body scene stability deployment - 16 October 2026
+
+Application source 0971a14. Worker version 78e7bb31-22e1-4188-9773-ed160cb3a69d, tag routeform-scene-stability. Only socioloca-5in5-routeform deployed. All five live routes, images, security headers and useful 404 pass with zero console errors on final check. Both live pointer/scroll canvas-stability tests pass at 1812px and 1440px. All 22 checked bundles/SVGs match local output exactly after initial deployment propagation settled. See scene-stability-live-assets.json and live-checks-scene-stability.json. Heroes unchanged; SASCO remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c. Documentation commits do not alter deployed code.
 # Detailed body equipment release
 
 16 October 2026. Application source: b3b20d9. Worker: socioloca-5in5-routeform only. Version: c3dc58c5-6d1a-48c2-9ab5-0caf8d40fcbf. Tag: routeform-body-precision. Uploaded 29 changed/new static assets, including 15 distinct model projections and the lazy body renderer. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ .
