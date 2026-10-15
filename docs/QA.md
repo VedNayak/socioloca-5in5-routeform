@@ -1,3 +1,17 @@
+# Final visual pass — 16 October 2026
+
+Pass: visual inspection of all five routes at 1440×1000 and 390×844. Captured 133 viewport screenshots and inspected 27 contact sheets, plus original-size typography, workflow, hero and prototype captures. The Home structural sample was taken after WebGL readiness and at a settled chapter position, rather than the intentional masked entrance boundary.
+
+Fixes: About's 01—05 remains on one line, with its label wrapping as a group; narrow comparison tables have a visible horizontal-scroll cue and thin scrollbar; workflow cues are native text inside the sticky content, below the header, and follow manual stage choices. Desktop/tablet tables that already fit do not show an unnecessary swipe prompt.
+
+The comprehensive Chrome run completed 89 of 90 checks successfully (6.7m). The sole failed assertion incorrectly assumed the 768px table must overflow. The test now measures actual overflow, and the hint's responsive cutoff was narrowed. All four corrected layout checks pass at 320×844, 390×667, 768×1024 and 1440×1000. Both all-route glyph-comparison checks pass on the final build (six targeted checks total, 45.9s). The broad run covers navigation, quote validation/review/download and local-only behaviour, working models, native scroll, hero reversibility/pause, network interactions, reduced motion, graphics fallback, fonts/assets, accessibility and overflow. Build including TypeScript/prerender, lint and whitespace checks pass.
+
+Prototype: exactly one separate aircraft study, with no production replacement. Its actual cargo motion, scrubbing, technical mode, orbit, responsive bounds and browser/WebGL console were tested; detailed result in docs/aircraft-study-checks.json. Bundled locally with real fonts and retained MIT/OFL notices; no external assets or media-generation charges. The self-contained fragment is below 1 MB.
+
+Browser: installed Chrome 155.0.8059.40 on Windows. Other browser engines, physical mobile devices and field Core Web Vitals remain not checked in this revision. Mobile coverage uses responsive viewports; no physical-device claim. See deployment documentation for live verification.
+
+---
+
 # Typography clearance — 15 October 2026
 
 Build including TypeScript/prerender, lint and whitespace: Pass. Targeted Chrome checks verify the orange glyph sweep, all-five-route editorial entrances/reduced-motion restoration, journey layout/accessibility at 1440/768/390/320px, narrow Home actions and each internal film/poster framing on desktop/mobile. New pixel checks compare representative headings on every route plus the exact About disclosure against unclipped masks and native font ink at 1440/390px; no lost solid strokes or page overflow. The disclosure's section margin is preserved (40px desktop, 30px mobile); screenshots captured and visually inspected at both widths.

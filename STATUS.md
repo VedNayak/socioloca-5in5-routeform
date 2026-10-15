@@ -1,3 +1,13 @@
+# Routeform — final visual pass
+
+16 October 2026. Reviewed all five pages at desktop 1440×1000 and mobile 390×844, including opening/structural/final hero states, page sections, workflow endpoints, quote workbench and footers. Captured 133 viewport images and inspected all 27 contact sheets, with full-size follow-ups. No remaining settled-heading clipping observed. Fixed the About 01—05 range wrapping onto two lines, added a comparison-table horizontal-scroll hint at narrow widths, and moved workflow scroll cues inside their sticky panels so the header cannot cover them. Manual stage selection now updates the visible count directly from React state. Existing aircraft and other production 3D assets are preserved.
+
+A single independent aircraft study was created for review in the conversation: a more detailed airframe, flush glazing, profiled wings, recessed engine fans, cargo door/lift/pallet action, and a registered spatial solid-to-wireframe scan. It is self-contained, uses the real brand fonts, and is separate from the deployed application. No new paid media generation.
+
+Build/typecheck/lint and visual regression evidence: docs/QA.md. Release target and live verification: docs/DEPLOYMENT.md. SASCO remains untouched.
+
+---
+
 # Routeform — typography clearance
 
 15 October 2026. Shared word and hero masks now reserve font-relative space above, below and beside glyphs. Gradient-filled words have their own expanded paint area. Heading wrappers retain horizontal containment for the orange sweep, with explicit glyph padding, and no longer override each section's bottom margin. The About disclosure regains its intended 40px desktop / 30px mobile separation from the following grid. Hero leading is adjusted to maintain readable lines with the safer reveal masks. All five pages retain their original fonts, colour sweeps and reveal choreography.

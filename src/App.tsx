@@ -349,6 +349,22 @@ function Footer() {
   );
 }
 
+function SequenceScrollCue({
+  enabled,
+  active,
+}: {
+  enabled: boolean;
+  active: number;
+}) {
+  return (
+    <p className="sequence-scroll-cue mono">
+      {!enabled
+        ? "Choose a stage below"
+        : `${active === 4 ? "Continue below" : "Scroll to explore"} ↓  ${active + 1} / 5`}
+    </p>
+  );
+}
+
 function Journey({ compact = false }: { compact?: boolean }) {
   const { root, active, choose, enabled } = useScrollSequence(5);
   return (
@@ -358,6 +374,7 @@ function Journey({ compact = false }: { compact?: boolean }) {
       data-sequence-active={active}
     >
       <div className="sequence-sticky">
+        <SequenceScrollCue enabled={enabled} active={active} />
         <div className="section-heading reveal">
           <div>
             <span className="eyebrow">
@@ -879,11 +896,16 @@ function Services() {
               guarantees. Actual suitability depends on your shipment.
             </p>
           </div>
+          <p className="comparison-scroll-hint mono" id="mode-scroll-hint">
+            Scroll sideways to compare all modes{" "}
+            <ArrowRight size={15} aria-hidden="true" />
+          </p>
           <div
             className="table-scroll"
             tabIndex={0}
             role="region"
             aria-label="Transport mode comparison"
+            aria-describedby="mode-scroll-hint"
           >
             <table>
               <caption>Illustrative transport mode planning guide</caption>
@@ -982,6 +1004,7 @@ function SupplyChain() {
       data-sequence-active={selected}
     >
       <div className="sequence-sticky geometric-panel">
+        <SequenceScrollCue enabled={enabled} active={selected} />
         <div className="section-heading">
           <div>
             <span className="eyebrow">ILLUSTRATIVE SUPPLY CHAIN</span>

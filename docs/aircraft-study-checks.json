@@ -1,0 +1,14 @@
+{
+  "errors": [],
+  "browser": "155.0.8059.40",
+  "size": 667341,
+  "verified": [
+    "cargo scrub",
+    "technical scan",
+    "orbit",
+    "320px fit",
+    "embedded fonts",
+    "no external assets"
+  ],
+  "productionReplacement": false
+}
