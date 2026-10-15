@@ -13,7 +13,7 @@ Existing unique cinematic openings, GSAP scroll choreography, registered wire ge
 | Accessibility essentials | Pass | Automated audits on all five pages, keyboard navigation and reduced-motion tests; no claim of independent conformance certification |
 | Engineering | Pass | Build, TypeScript, lint, prerender, staged whitespace checks |
 | Visual review | Pass (internal) | Captured and inspected desktop/home and desktop/mobile workbench screenshots; user acceptance not inferred |
-| Performance | Pending lab check | Field Core Web Vitals not available |
+| Performance | Pass (quote lab) | Desktop LCP 0.47s / CLS <0.001; mobile LCP 2.19s / CLS 0.007; local production lab, field CWV unavailable |
 | Browsers / devices | Partial | Installed Chrome on Windows; other engines and physical devices not verified |
 | Deployment | Pending | New Worker preflight confirms target does not exist; source Worker untouched |
 

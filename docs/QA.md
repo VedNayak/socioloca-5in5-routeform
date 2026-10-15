@@ -7,3 +7,7 @@ Coverage: five routes at 1440/768/390/320px, asset decode and reload, mobile/meg
 Local screenshots were captured and visually inspected: docs/screenshots/quote-desktop.png, quote-mobile.png, home-desktop.png. Screenshots are ignored local QA artefacts.
 
 Only installed Chrome was verified on this Windows host. Other engines, physical devices and field Core Web Vitals are not asserted. No historical source-site test results are counted toward this release.
+
+Quote page Lighthouse production-preview lab: desktop LCP 0.47s, TBT 12ms, CLS <0.001; mobile LCP 2.19s, TBT 76ms, CLS 0.007. Reports are local lab results, not field measurements or INP. No other page performance claim is inferred. Detailed reports and summary are committed.
+
+Initial separate live deployment: all five HTTPS pages return 200 with decoded images, correct titles, CSP and noindex headers; unknown routes return 404; no unexpected console errors. Eight live Chrome checks pass (1.3m): all four internal poster/film handoffs on desktop/mobile, full quote edit/validation/download flow, dimensional workbench, final-review revalidation and five-page fictional identity. Final review also replaced a remaining geographic foundation caption with the Routeform positioning.

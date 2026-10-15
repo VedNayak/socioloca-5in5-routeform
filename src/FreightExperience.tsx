@@ -447,7 +447,7 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
               <span className="eyebrow">
                 <span className="cinema-status" />{" "}
                 {index === 0
-                  ? (opening?.label ?? "DUBAI FOUNDATION / GLOBAL OUTLOOK")
+                  ? (opening?.label ?? "CARGO FIRST / ROUTEFORM LOGISTICS")
                   : `0${index + 1} / ${chapter.label.toUpperCase()}`}
               </span>
               <Heading aria-label={chapter.lines.join(" ")}>
