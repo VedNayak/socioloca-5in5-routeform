@@ -18,6 +18,8 @@ The broad 99-check Chrome run completed 98 successfully; its one failure caught 
 
 See docs/BODY_PRECISION.md, docs/body-precision-model-audit.json and docs/body-precision-final-checks.json.
 
+Live release: all five HTTPS routes/assets/404/headers pass with zero console errors; both deployed allocation/fallback and visible crane/pause/release checks pass. All 17 app/model resources match local bytes. Source b3b20d9; Worker version c3dc58c5-6d1a-48c2-9ab5-0caf8d40fcbf. See docs/DEPLOYMENT.md.
+
 ---
 
 # Routeform — final visual pass

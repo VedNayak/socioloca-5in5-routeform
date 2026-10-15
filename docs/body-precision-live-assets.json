@@ -1,0 +1,92 @@
+{
+  "source": "b3b20d9",
+  "workerVersion": "c3dc58c5-6d1a-48c2-9ab5-0caf8d40fcbf",
+  "origin": "https://socioloca-5in5-routeform.ved-593.workers.dev",
+  "exactMatches": [
+    {
+      "file": "/assets/index-Bn6W9dky.js",
+      "bytes": 405494,
+      "sha256": "c83cb43e31408e1842b7a068da4d55b0ea8ec0c9b2c8c6fd88906221298cbccc"
+    },
+    {
+      "file": "/assets/assembly-renderer-tWrFvFtl.js",
+      "bytes": 25790,
+      "sha256": "17016205f20cedba23a10781347a9cfc500ac51e32b3df385f61b4433686d0f9"
+    },
+    {
+      "file": "/geometry/about-warehouse.svg",
+      "bytes": 246204,
+      "sha256": "a2a42c40a0c51ba13e4c5039d6f178552ec69e6844db6a34fb032ed3867baddd"
+    },
+    {
+      "file": "/geometry/home-air.svg",
+      "bytes": 997619,
+      "sha256": "33d3f30823922fcf4115b1336403e5aec72f9bd3fc03f427ecd8faa557319db6"
+    },
+    {
+      "file": "/geometry/home-electronics.svg",
+      "bytes": 52753,
+      "sha256": "26657674f7e10f338895b0c6c65987d1dcf2f3ae784ce42717eef7ce07c1d47a"
+    },
+    {
+      "file": "/geometry/home-port.svg",
+      "bytes": 175720,
+      "sha256": "1f2906a626341f4fd1c65b435ae8fe76f6bdc0194a29925b575b69ce5aee4ac4"
+    },
+    {
+      "file": "/geometry/home-road.svg",
+      "bytes": 318166,
+      "sha256": "8a5b14b470d814b167861bcf427ac751726bb110b930227776fd951c9a71e55e"
+    },
+    {
+      "file": "/geometry/home-warehouse.svg",
+      "bytes": 176618,
+      "sha256": "0d520f43cb04fa21d66dfee945734e999d77836272805f152ddb50efce886c7d"
+    },
+    {
+      "file": "/geometry/industries-electronics.svg",
+      "bytes": 12312,
+      "sha256": "f9280b47bdea07b40486ab7e683b1f5a33bd064531d15b47a7906706e9eb0532"
+    },
+    {
+      "file": "/geometry/industries-food.svg",
+      "bytes": 340568,
+      "sha256": "3e8453c4d23218c0e2b2ae72cbdf289ecebe0ab1b0aa45d48106a79f2c7fa164"
+    },
+    {
+      "file": "/geometry/industries-industrial.svg",
+      "bytes": 395069,
+      "sha256": "9630be0286bbc6c44f72b59eebf92990f576e50f0644b0616d3d861887c654bd"
+    },
+    {
+      "file": "/geometry/industries-warehouse.svg",
+      "bytes": 185702,
+      "sha256": "51cb8663097a150875689ec05cd6a6d715d926eb77117f108952b9c55b62d688"
+    },
+    {
+      "file": "/geometry/services-air.svg",
+      "bytes": 1160802,
+      "sha256": "c114be6ed2f59f3d8588b29507dd630b53d499cf62bdbc8ad270ad740b811fb4"
+    },
+    {
+      "file": "/geometry/services-electronics.svg",
+      "bytes": 5417,
+      "sha256": "6bedab2f5a5cbfd1f7bedb84a3f4beb88b94e776d0e124a884fb75c9bcf2a742"
+    },
+    {
+      "file": "/geometry/services-port.svg",
+      "bytes": 178970,
+      "sha256": "bd42017ec030c537dfc34cb96c75e40bef14f99e8f2f6954cfd429fc8ea757eb"
+    },
+    {
+      "file": "/geometry/services-road.svg",
+      "bytes": 306873,
+      "sha256": "3157192eb316a981a41dfeceb2fa81c0ea7c1b15c2b7d653779c0638ce6748e9"
+    },
+    {
+      "file": "/geometry/services-warehouse.svg",
+      "bytes": 193681,
+      "sha256": "47c49d2cc7200a3f46d761919a3e819af53310a1cbfc9ba9c5a6be90baf4696a"
+    }
+  ]
+}

@@ -8,6 +8,8 @@ Comprehensive Chrome regression: 98 of 99 checks passed in 13.0m. The single fai
 
 Browser: Chrome 155.0.8059.40 on Windows. Other browser engines, physical mobile hardware and field Core Web Vitals were not verified in this revision. Rendering is capped at 30fps and leases one body canvas; this is an implementation budget, not a device frame-rate guarantee. The existing Three.js bundle-size warning remains. See BODY_PRECISION.md for architecture/provenance and DEPLOYMENT.md for final live checks.
 
+Live release: all five HTTPS routes/assets/404/headers pass with zero console errors; both deployed allocation/fallback and visible crane/pause/release checks pass. All 17 app/model resources match local bytes. Source b3b20d9; Worker version c3dc58c5-6d1a-48c2-9ab5-0caf8d40fcbf. See docs/DEPLOYMENT.md.
+
 ---
 
 # Final visual pass — 16 October 2026

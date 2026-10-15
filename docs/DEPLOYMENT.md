@@ -1,3 +1,13 @@
+# Detailed body equipment release
+
+16 October 2026. Application source: b3b20d9. Worker: socioloca-5in5-routeform only. Version: c3dc58c5-6d1a-48c2-9ab5-0caf8d40fcbf. Tag: routeform-body-precision. Uploaded 29 changed/new static assets, including 15 distinct model projections and the lazy body renderer. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ .
+
+All five live HTTPS routes, original images, security headers and real 404 handling pass with zero console errors. Both live Chrome checks pass (22.7s): all 15 scene allocations/static projections across all five routes, and actual visible crane work with pause/resume/canvas release. Seventeen served application/model assets (main, body renderer and all 15 model projections) match the tested local build byte-for-byte; served root HTML references the current main bundle. Evidence: live-checks-body-precision.json and body-precision-live-assets.json.
+
+All hero source files and media remain unchanged. The original SASCO checkout remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c; its Worker was not deployed. Subsequent documentation commits do not change the deployed application.
+
+---
+
 # Final five-page visual review release
 
 Source: bc29e95. Worker version: 3649cb18-1466-4d16-9e14-08936fa9705a. Tag: routeform-final-visual-pass. Deployed only socioloca-5in5-routeform; eight changed assets uploaded. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five live routes, images, security headers and 404 handling pass with zero console errors after deployment propagation. Initial check during propagation saw stale stylesheet references; the complete retry passed. Separate aircraft study remains outside the production build. Original SASCO checkout remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c and its Worker was not deployed.
