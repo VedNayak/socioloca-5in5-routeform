@@ -4,7 +4,7 @@ Build including TypeScript/prerender, lint and whitespace: Pass. Targeted Chrome
 
 During verification, an expanded clipping-path approach let the decorative sweep enlarge the scrollable page. Replaced with overflow containment and explicit glyph padding. The native-ink comparison allows browser antialiasing differences; the mask-only comparison remains strict. A spacing assertion was corrected to follow the existing responsive margin rather than imposing the desktop minimum on mobile.
 
-Other browsers, physical devices and field Core Web Vitals were not tested in this revision. No fonts, media, 3D geometry, quote logic or source-company files were changed. Live release details follow in docs/DEPLOYMENT.md.
+Other browsers, physical devices and field Core Web Vitals were not tested in this revision. No fonts, media, 3D geometry, quote logic or source-company files were changed. Both live glyph-comparison checks pass at 1440/390px (28.3s), covering representative headings on all five routes and the reported About section. All five live routes/assets/metadata/headers/404 pass with zero broken images or unexpected console errors. An initial concurrent live-smoke page-load timeout cleared on a sequential retry. Release details: docs/DEPLOYMENT.md.
 
 ---
 

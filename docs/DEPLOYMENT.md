@@ -1,3 +1,9 @@
+# Latest typography clearance release
+
+Source: 765739f. Worker version: a28c8f3f-808b-4fdb-b000-d2410ea8c5ef. Tag: routeform-typography-clearance. Target: socioloca-5in5-routeform only; seven changed assets uploaded, including the new stylesheet and five prerendered routes. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/about/#concept . Both live desktop/mobile glyph-comparison tests pass; all five route/asset/404/header checks pass with zero broken images or console errors. Typography-only source changes; original SASCO repository and Worker untouched. Documentation commits after this source do not change the deployed application.
+
+---
+
 # Latest Home-scale / dotted calculator release
 
 Source: 5a05951. Worker version: 151810d3-c6f9-4843-a101-7466a58402cc. Tag: routeform-home-scale-calculator. Target: socioloca-5in5-routeform only; 13 changed assets uploaded. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five live HTTPS routes/assets/metadata/security headers pass with zero broken images or unexpected console errors; useful 404 returns 404. The source company's repository and Worker remain untouched. Subsequent documentation commits do not change the deployed application.
