@@ -1,0 +1,30 @@
+{
+  "origin": "https://socioloca-5in5-routeform.ved-593.workers.dev",
+  "source": "7cf6d12f7fab48dd78eba30add5f9447df1d152f",
+  "version": "0a97d7e2-758a-4600-a14e-309d11f3d5b6",
+  "results": [
+    {
+      "route": "services",
+      "form": "orbital-sphere",
+      "endpointParticleOpacity": "0.000"
+    },
+    {
+      "route": "industries",
+      "form": "modular-cube",
+      "endpointParticleOpacity": "0.000"
+    },
+    {
+      "route": "about",
+      "form": "navigation-ring",
+      "endpointParticleOpacity": "0.000"
+    },
+    {
+      "route": "quote",
+      "form": "dimension-cuboid",
+      "endpointParticleOpacity": "0.000"
+    }
+  ],
+  "errors": [],
+  "renderer": "/assets/opening-renderer-kWSAtqTG.js",
+  "sha256": "2816e3b13714ec06b03df7c444133094ebd7b2958336c8d76e9860fb85a233a7"
+}
