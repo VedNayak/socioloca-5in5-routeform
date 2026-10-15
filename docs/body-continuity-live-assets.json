@@ -1,0 +1,147 @@
+{
+  "source": "c178d54",
+  "version": "32174ee8-35c0-41cf-8588-9e8a1d57c456",
+  "results": [
+    {
+      "path": "/assets/index-CRopAQC9.js",
+      "exact": true
+    },
+    {
+      "path": "/assets/assembly-renderer-d0iJyQuO.js",
+      "exact": true
+    },
+    {
+      "path": "/assets/index-CZ9LMa93.css",
+      "exact": true
+    },
+    {
+      "path": "/geometry/home-port.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/services-port.svg",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/about-warehouse-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/about-warehouse-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-air-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-air-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-electronics-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-electronics-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-port-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-port-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-road-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-road-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-warehouse-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/home-warehouse-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-electronics-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-electronics-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-food-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-food-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-industrial-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-industrial-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-warehouse-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/industries-warehouse-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-air-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-air-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-electronics-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-electronics-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-port-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-port-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-road-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-road-wide.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-warehouse-compact.webp",
+      "exact": true
+    },
+    {
+      "path": "/geometry/posters/services-warehouse-wide.webp",
+      "exact": true
+    }
+  ],
+  "failures": []
+}

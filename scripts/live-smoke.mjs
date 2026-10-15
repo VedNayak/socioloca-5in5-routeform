@@ -31,7 +31,8 @@ try {
     const response = await page.goto(origin + route);
     await page.locator("h1").waitFor();
     for (const img of await page.locator("img").all()) {
-      await img.scrollIntoViewIfNeeded();
+      // Responsive model posters include a deliberately hidden size variant.
+      if (await img.isVisible()) await img.scrollIntoViewIfNeeded();
       await img.evaluate((el) => el.decode().catch(() => {}));
     }
     const broken = await page.evaluate(() =>

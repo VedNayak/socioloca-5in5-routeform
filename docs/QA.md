@@ -1,5 +1,10 @@
 
 
+## Body continuity live QA - 16 October 2026
+
+Deployed source c178d54, version 32174ee8-35c0-41cf-8588-9e8a1d57c456. Four live Chrome checks pass (1.9m): all 15 subjects retain their paused rendered pixels and operation time after disposal/re-entry at 1440/390px; the visible Home trio retains its canvases during pointer crossings at 1812/1440px. All five routes/assets/headers/404 pass with zero console errors, and 35 checked deployed assets match local bytes. Final live desktop/mobile screenshots captured and inspected. No claim of physical-device, other-engine or field-CWV coverage. Heroes and SASCO unchanged. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/?v=body-continuity-c178d54 .
+
+
 ## Body continuity verification - 16 October 2026
 
 Pass: production build/TypeScript, lint, whitespace, unchanged hero sources and 15-model finite/distinct audit. Nine focused Chrome cases resolved: both 15-subject static/live appearance checks (1440/390px; final run 2 passed in 2.6m), both all-subject re-entry checks, both recorded pointer-crossing regressions, body canvas/accessibility controls, keyboard/context-loss recovery and reduced-motion fallback. The latter checks passed in their focused runs; no claim that every exploratory run passed. Static/live tests use matching rest poses, correct per-panel ratios and subpixel normalisation; re-entry checks retain the strict unblurred pixel/time comparisons. Initial test setup failures from preference-change scroll restoration and prewarm timing were corrected. The ship's actual coplanar deck/hull defect and mismatched preview framing were fixed. Desktop/mobile screenshots inspected. Other engines, physical devices and field CWV remain unverified. Heroes and SASCO untouched.

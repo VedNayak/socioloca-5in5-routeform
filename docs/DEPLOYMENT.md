@@ -1,5 +1,15 @@
 
 
+## Body continuity live QA - 16 October 2026
+
+Deployed source c178d54, version 32174ee8-35c0-41cf-8588-9e8a1d57c456. Four live Chrome checks pass (1.9m): all 15 subjects retain their paused rendered pixels and operation time after disposal/re-entry at 1440/390px; the visible Home trio retains its canvases during pointer crossings at 1812/1440px. All five routes/assets/headers/404 pass with zero console errors, and 35 checked deployed assets match local bytes. Final live desktop/mobile screenshots captured and inspected. No claim of physical-device, other-engine or field-CWV coverage. Heroes and SASCO unchanged. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/?v=body-continuity-c178d54 .
+
+
+## Body continuity deployment - 16 October 2026
+
+Source c178d54; Worker version 32174ee8-35c0-41cf-8588-9e8a1d57c456; tag routeform-body-continuity. Target socioloca-5in5-routeform only; 41 changed assets uploaded. Preview https://socioloca-5in5-routeform.ved-593.workers.dev/?v=body-continuity-c178d54 . All five live routes, decoded images, security headers and useful 404 pass with zero console errors. Thirty rest frames plus main/renderer/CSS and both changed ship SVGs (35 assets total) match local bytes exactly. Evidence: body-continuity-live-assets.json and live-checks-body-continuity.json. The smoke checker now decodes hidden responsive variants without attempting to scroll them into view. Heroes remain unchanged; the SASCO checkout remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c. No other Worker was deployed. Subsequent QA/documentation commits do not alter deployed application code.
+
+
 ## Body scene stability deployment - 16 October 2026
 
 Application source 0971a14. Worker version 78e7bb31-22e1-4188-9773-ed160cb3a69d, tag routeform-scene-stability. Only socioloca-5in5-routeform deployed. All five live routes, images, security headers and useful 404 pass with zero console errors on final check. Both live pointer/scroll canvas-stability tests pass at 1812px and 1440px. All 22 checked bundles/SVGs match local output exactly after initial deployment propagation settled. See scene-stability-live-assets.json and live-checks-scene-stability.json. Heroes unchanged; SASCO remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c. Documentation commits do not alter deployed code.
