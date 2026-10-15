@@ -4,7 +4,14 @@ import { createBodyModel } from "./body-models";
 import type { BodyStudy } from "./body-studies";
 const lerp = T.MathUtils.lerp;
 
+export type AssemblyState = {
+  time: number;
+  yaw: number;
+  pitch: number;
+  technical: number;
+};
 export type AssemblyRenderer = {
+  suspend: () => { image: string; state: AssemblyState };
   reset: () => void;
   pause: (paused: boolean) => void;
   technical: (enabled: boolean) => void;
@@ -15,6 +22,7 @@ export function createAssemblyRenderer(
   kind: VehicleKind,
   onError: () => void,
   study: BodyStudy,
+  resume?: AssemblyState,
 ): AssemblyRenderer {
   const renderer = new T.WebGLRenderer({
     alpha: true,
@@ -122,16 +130,17 @@ export function createAssemblyRenderer(
   scene.add(axes);
   let alive = true,
     frame = 0,
-    yaw = 0,
-    pitch = 0,
-    yawGoal = 0,
-    pitchGoal = 0,
+    yaw = resume?.yaw ?? 0,
+    pitch = resume?.pitch ?? 0,
+    yawGoal = resume?.yaw ?? 0,
+    pitchGoal = resume?.pitch ?? 0,
     paused = false,
-    technical = 0,
-    technicalGoal = 0,
-    workTime = 0,
-    lastDraw = 0,
-    previous = performance.now();
+    technical = resume?.technical ?? 0,
+    technicalGoal = resume?.technical ?? 0,
+    workTime = resume?.time ?? 0,
+    lastDraw = -Infinity,
+    previous = performance.now(),
+    firstFrame = true;
   let drag: { x: number; y: number; yaw: number; pitch: number } | null = null;
   const fit = () => {
     const w = host.clientWidth,
@@ -155,9 +164,12 @@ export function createAssemblyRenderer(
       return;
     }
     lastDraw = now;
-    const dt = Math.max(0, Math.min(0.1, (now - previous) / 1000)),
+    const dt = firstFrame
+        ? 0
+        : Math.max(0, Math.min(0.1, (now - previous) / 1000)),
       gain = 1 - Math.exp(-dt * 8);
     previous = now;
+    firstFrame = false;
     yaw = lerp(yaw, yawGoal, gain);
     pitch = lerp(pitch, pitchGoal, gain);
     const heading =
@@ -313,6 +325,14 @@ export function createAssemblyRenderer(
   frame = 0;
   draw(performance.now());
   return {
+    suspend() {
+      // Copy the actual lit frame before releasing its WebGL context.
+      renderer.render(scene, cam);
+      return {
+        image: renderer.domElement.toDataURL("image/webp", 0.92),
+        state: { time: workTime, yaw, pitch, technical },
+      };
+    },
     reset,
     pause(value) {
       paused = value;

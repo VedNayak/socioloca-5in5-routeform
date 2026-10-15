@@ -1,5 +1,17 @@
 
 
+## Body continuity verification - 16 October 2026
+
+Pass: production build/TypeScript, lint, whitespace, unchanged hero sources and 15-model finite/distinct audit. Nine focused Chrome cases resolved: both 15-subject static/live appearance checks (1440/390px; final run 2 passed in 2.6m), both all-subject re-entry checks, both recorded pointer-crossing regressions, body canvas/accessibility controls, keyboard/context-loss recovery and reduced-motion fallback. The latter checks passed in their focused runs; no claim that every exploratory run passed. Static/live tests use matching rest poses, correct per-panel ratios and subpixel normalisation; re-entry checks retain the strict unblurred pixel/time comparisons. Initial test setup failures from preference-change scroll restoration and prewarm timing were corrected. The ship's actual coplanar deck/hull defect and mismatched preview framing were fixed. Desktop/mobile screenshots inspected. Other engines, physical devices and field CWV remain unverified. Heroes and SASCO untouched.
+
+
+## 16 October 2026 - consistent static/live body rendering
+
+The remaining reported appearance flicker was the handoff between flat SVG previews and lit WebGL, plus scene resets after offscreen disposal. All 15 studies now have compact/wide WebP rest frames rendered locally from their own WebGL renderer (same geometry, camera, materials and lighting). These are loading/reduced-motion fallbacks, not replacements for the working 3D subjects. Thirty files total 648,008 bytes. The original SVG remains an underlying geometry fallback. No external media, generated stock images or paid media used.
+
+An outgoing scene captures its actual rendered frame and retains its operation time, yaw, pitch and technical state. Re-entry starts from that state with zero first-frame time advancement. Prewarming extends one viewport ahead; offscreen GPU resources still release and the active body canvas budget remains three. Hero sources are unchanged. Tests now compare actual rendered pixels, in addition to canvas identity and operation time.
+
+
 ## Body scene stability deployment - 16 October 2026
 
 Application source 0971a14. Worker version 78e7bb31-22e1-4188-9773-ed160cb3a69d, tag routeform-scene-stability. Only socioloca-5in5-routeform deployed. All five live routes, images, security headers and useful 404 pass with zero console errors on final check. Both live pointer/scroll canvas-stability tests pass at 1812px and 1440px. All 22 checked bundles/SVGs match local output exactly after initial deployment propagation settled. See scene-stability-live-assets.json and live-checks-scene-stability.json. Heroes unchanged; SASCO remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c. Documentation commits do not alter deployed code.

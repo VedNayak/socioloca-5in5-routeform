@@ -16,7 +16,8 @@ function update() {
   for (const panel of panels) {
     if (!panel.eligible()) continue;
     const rect = panel.element.getBoundingClientRect();
-    if (rect.top > innerHeight + 120 || rect.bottom < -120) continue;
+    // Prepare a screen ahead, before fast scrolling exposes the fallback.
+    if (rect.top > innerHeight * 2 || rect.bottom < -120) continue;
     const visible = rect.top < innerHeight && rect.bottom > 0;
     const focused = panel.element.contains(document.activeElement);
     const priority =

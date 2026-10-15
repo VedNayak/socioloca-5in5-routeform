@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { RotateCcw, Pause, Play, ScanLine } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { bodyStudies, type BodyStudy } from "../../freight/body-studies";
-import type { AssemblyRenderer } from "../../freight/assembly-renderer";
+import type {
+  AssemblyRenderer,
+  AssemblyState,
+} from "../../freight/assembly-renderer";
 import type { VehicleKind } from "../../freight/vehicles";
 import { registerAssembly } from "../../freight/assembly-pool";
 
@@ -37,6 +40,8 @@ export default function MediaAssembly({
     host = useRef<HTMLDivElement>(null);
   const engine = useRef<AssemblyRenderer | undefined>(undefined);
   const prefer = useRef<(() => void) | undefined>(undefined);
+  const [frozen, setFrozen] = useState<string>();
+  const resume = useRef<AssemblyState | undefined>(undefined);
   const [ready, setReady] = useState(false),
     [enhanced, setEnhanced] = useState(false);
   const [unavailable, setUnavailable] = useState(false),
@@ -60,6 +65,11 @@ export default function MediaAssembly({
     const stop = () => {
       leased = false;
       generation++;
+      if (engine.current && alive && !failed) {
+        const frame = engine.current.suspend();
+        resume.current = frame.state;
+        setFrozen(frame.image);
+      }
       engine.current?.dispose();
       engine.current = undefined;
       if (alive) setReady(false);
@@ -86,6 +96,7 @@ export default function MediaAssembly({
             stop();
           },
           study,
+          resume.current,
         );
         engine.current.pause(pausedRef.current);
         engine.current.technical(technicalRef.current);
@@ -131,6 +142,28 @@ export default function MediaAssembly({
       onFocusCapture={() => prefer.current?.()}
     >
       <div className="relief-housing">
+        {(["compact", "wide"] as const).map((size) => (
+          <img
+            key={size}
+            className={`assembly-poster assembly-poster-${size}`}
+            src={frozen ?? `/geometry/posters/${study}-${size}.webp`}
+            alt=""
+            aria-hidden="true"
+            onLoad={(event) => {
+              event.currentTarget.style.visibility = "";
+              event.currentTarget.parentElement?.removeAttribute(
+                "data-poster-error",
+              );
+            }}
+            onError={(event) => {
+              event.currentTarget.style.visibility = "hidden";
+              event.currentTarget.parentElement?.setAttribute(
+                "data-poster-error",
+                "true",
+              );
+            }}
+          />
+        ))}
         <svg
           className="assembly-static"
           viewBox="0 0 640 440"

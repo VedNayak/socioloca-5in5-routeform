@@ -402,7 +402,8 @@ export function createBodyModel(id: BodyStudy) {
     });
     g.rotateX(-Math.PI / 2);
     mesh(g, dark).position.y = 0.2;
-    box(11.6, 0.1, 2.8, -0.3, 1.55, 0, paint);
+    // Keep the deck above the beveled hull cap, rather than coplanar with it.
+    box(11.6, 0.1, 2.8, -0.3, 1.64, 0, paint);
     for (let x = 0; x < 6; x++)
       for (let z = 0; z < 3; z++)
         for (let y = 0; y < (x === 4 && z === 2 ? 1 : 2); y++)

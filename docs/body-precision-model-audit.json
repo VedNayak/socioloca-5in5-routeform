@@ -6,7 +6,7 @@
     "action": "Propulsion, wake, navigation",
     "meshes": 155,
     "vertices": 47801,
-    "motionFingerprint": "305e3f881705a386acd38952cc0400983b7e66a6e94ec985c3722413400cb431"
+    "motionFingerprint": "6f468ca4558194478fd0a8f9d5a86adfde5e43f6a32f8d73480ddd63d5a40ba3"
   },
   {
     "id": "home-air",
@@ -51,7 +51,7 @@
     "action": "Hoist, traverse, stow",
     "meshes": 167,
     "vertices": 54516,
-    "motionFingerprint": "e47cebe6cd66fb90c15a47c372e22f8ba931d84d37ed431aa52c09127fc80a06"
+    "motionFingerprint": "ebcee9882c04f7f1a13a97c35c336f229560a2480a185ca061e37955ce8b1f9b"
   },
   {
     "id": "services-air",

@@ -123,8 +123,17 @@ test("service objects are 3D by default with a bounded body canvas budget", asyn
       await page.locator(".assembly-host canvas").count(),
     ).toBeLessThanOrEqual(3);
     await expect(scene.locator("canvas")).toHaveCount(1);
+    expect(
+      await scene
+        .locator(".assembly-poster")
+        .evaluateAll((els) =>
+          els.every((el) => getComputedStyle(el).visibility === "hidden"),
+        ),
+    ).toBe(true);
     await expect(scene).toHaveAttribute("data-relief-view", "model");
-    await expect(scene.locator("img,picture")).toHaveCount(0);
+    await expect(
+      scene.locator("img:not(.assembly-poster),picture"),
+    ).toHaveCount(0);
     await expect(
       scene.getByRole("button", { name: /^Assemble|Show photograph/ }),
     ).toHaveCount(0);
@@ -243,9 +252,9 @@ test("reduced motion keeps static geometry and manual stages", async ({
   await page.locator("#warehousing").scrollIntoViewIfNeeded();
   await expect(page.locator(".assembly-host canvas")).toHaveCount(0);
   await expect(page.locator("#warehousing .assembly-static")).toBeVisible();
-  await expect(page.locator("#warehousing").locator("img,picture")).toHaveCount(
-    0,
-  );
+  await expect(
+    page.locator("#warehousing").locator("img:not(.assembly-poster),picture"),
+  ).toHaveCount(0);
   await expect(page.locator(".journey")).not.toHaveClass(/sequence-enhanced/);
   await page.getByRole("tab", { name: /Deliver/ }).click();
   await expect(page.locator(".journey-panel")).toBeVisible();
