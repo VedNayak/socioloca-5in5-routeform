@@ -18,15 +18,20 @@ function update() {
     if (!p.eligible()) continue;
     const rect = p.element.getBoundingClientRect();
     if (rect.top > innerHeight - 100 || rect.bottom < 120) continue;
-    const d = p.element
-      .querySelector(".assembly-host")
-      ?.contains(document.activeElement)
-      ? -2
-      : p === preferred
-        ? -1
-        : Math.abs(
-            rect.top + Math.min(rect.height, innerHeight) / 2 - innerHeight / 2,
-          );
+    const d =
+      p === preferred
+        ? -3
+        : p.element
+              .querySelector(".assembly-host")
+              ?.contains(document.activeElement)
+          ? -2
+          : p === preferred
+            ? -1
+            : Math.abs(
+                rect.top +
+                  Math.min(rect.height, innerHeight) / 2 -
+                  innerHeight / 2,
+              );
     if (d < distance) {
       best = p;
       distance = d;

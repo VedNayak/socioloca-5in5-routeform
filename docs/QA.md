@@ -1,3 +1,15 @@
+# Detailed body equipment QA — 16 October 2026
+
+Build (including TypeScript and five-route prerender), lint and whitespace: Pass on the final source. All 15 scene factories have finite moving transforms and distinct model/action fingerprints. Hero source files are unchanged, verified against Git. No new video/image dependencies or equipment downloads.
+
+Visual: all 15 body studies captured in solid and technical modes at 1440×1000 and 390×844 (60 images). Inspected all six contact sheets and full-size follow-ups. Corrected a slab-like wing, enlarged body framing, then fitted each camera to the complete motion envelope to prevent clipping of lids/forks/racking. Trailer unloading is viewed from the rear. Quay containers use an actual suspended spreader; project cargo follows a hook, cable and slings. Final mobile crane captures were inspected again after the last changes. Complete five-page visual sweeps also pass and refresh 133 viewport screenshots.
+
+Comprehensive Chrome regression: 98 of 99 checks passed in 13.0m. The single failure was the existing strict ship motion pixel check (58 changed pixels; >100 required): the new crane's main action initially started too late. Fixed the production choreography to begin hoisting in the first second; the test was not weakened. Final source also links project cargo to its rigging. All six final targeted checks pass in 2.1m: Services and Industries at desktop/mobile, all 15 fallback resources/scene allocations, and strict ship visible movement/pause/canvas release. Results: body-precision-final-checks.json. The unchanged functionality is covered by the broad run: all five route widths 1440/768/390/320, accessibility, menus/filters/FAQ, honest quote validation/edit/review/download and calculations, heading clipping, actual video-to-geometry registration, reversible hero choreography, scroll markers/workflows, graphics loss and reduced motion.
+
+Browser: Chrome 155.0.8059.40 on Windows. Other browser engines, physical mobile hardware and field Core Web Vitals were not verified in this revision. Rendering is capped at 30fps and leases one body canvas; this is an implementation budget, not a device frame-rate guarantee. The existing Three.js bundle-size warning remains. See BODY_PRECISION.md for architecture/provenance and DEPLOYMENT.md for final live checks.
+
+---
+
 # Final visual pass â€” 16 October 2026
 
 Pass: visual inspection of all five routes at 1440Ã—1000 and 390Ã—844. Captured 133 viewport screenshots and inspected 27 contact sheets, plus original-size typography, workflow, hero and prototype captures. The Home structural sample was taken after WebGL readiness and at a settled chapter position, rather than the intentional masked entrance boundary.

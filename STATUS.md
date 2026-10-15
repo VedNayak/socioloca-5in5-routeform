@@ -1,3 +1,25 @@
+# Detailed body equipment release
+
+16 October 2026. Upgraded all 15 body scenes with original detailed Three.js equipment, working mechanisms, studio reflections, contact shadows, and registered technical scans. Repeated subjects have distinct models or operations: departure versus apron loading, ocean passage versus quay handling, line haul versus trailer unloading versus project lifting, four different warehouse systems, and three cargo inspection/packing compositions. All five routes remain complete. Hero source and media are unchanged; the quote workbench remains intact. SASCO remains untouched.
+
+Camera framing covers the full operation range, including open lids and raised forks. Homepage cards support hover/focus selection. Pause, keyboard inspection, reduced motion and distinct static fallbacks remain available. Only one body renderer is active; hidden/offscreen scenes release their resources. No paid media generation.
+
+| Acceptance | Result |
+|---|---|
+| Art direction and scenes | Pass: 15 original model/action compositions; 60 desktop/mobile solid/technical captures inspected in six contact sheets, plus full-size and final crane follow-ups. |
+| Pages and responsive layout | Pass: all five routes at 1440, 768, 390 and 320px; 133 complete-page viewport captures refreshed. |
+| Navigation, form and accessibility | Pass: full Chrome route/menu/filter/FAQ, quote validation/review/download, focus, contrast and fallback coverage. |
+| Motion and typography | Pass after fixing delayed crane movement: all unchanged hero sequences, workflow stages and glyph clearance checks pass; final six targeted animation/fallback checks pass on the final build. |
+| Engineering | Pass: build, TypeScript, lint, whitespace and 15 distinct finite motion fingerprints. Existing large Three.js chunk warning remains; body code is lazy loaded. |
+| Other engines / physical devices / field CWV | Not checked in this release; Chrome 155.0.8059.40 on Windows and responsive viewports verified. |
+| Deployment | Recorded in docs/DEPLOYMENT.md after publishing to the Routeform Worker only. |
+
+The broad 99-check Chrome run completed 98 successfully; its one failure caught an overly quiet first second of the new quay scene. The hoist now starts immediately. After that fix and connected project-cargo rigging, the final build passed all six targeted checks, including both changed pages at desktop/mobile, every fallback, and the original strict visible-work/pause/release ship check (2.1m). No assertion thresholds were weakened.
+
+See docs/BODY_PRECISION.md, docs/body-precision-model-audit.json and docs/body-precision-final-checks.json.
+
+---
+
 # Routeform — final visual pass
 
 16 October 2026. Reviewed all five pages at desktop 1440×1000 and mobile 390×844, including opening/structural/final hero states, page sections, workflow endpoints, quote workbench and footers. Captured 133 viewport images and inspected all 27 contact sheets, with full-size follow-ups. No remaining settled-heading clipping observed. Fixed the About 01—05 range wrapping onto two lines, added a comparison-table horizontal-scroll hint at narrow widths, and moved workflow scroll cues inside their sticky panels so the header cannot cover them. Manual stage selection now updates the visible count directly from React state. Existing aircraft and other production 3D assets are preserved.

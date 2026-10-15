@@ -1,0 +1,73 @@
+{
+  "scope": "Final local body precision verification",
+  "stats": {
+    "startTime": "2026-10-15T20:44:54.817Z",
+    "duration": 127212.576,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": [
+    {
+      "title": "services distinct working studies at 1440px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 56808
+        }
+      ]
+    },
+    {
+      "title": "industries distinct working studies at 1440px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 41025
+        }
+      ]
+    },
+    {
+      "title": "services distinct working studies at 390px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 60761
+        }
+      ]
+    },
+    {
+      "title": "industries distinct working studies at 390px",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 40006
+        }
+      ]
+    },
+    {
+      "title": "all body fallbacks are distinct and heroes retain their renderers",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 10307
+        }
+      ]
+    },
+    {
+      "title": "ship performs visible work, pauses and releases its canvas",
+      "outcome": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 13558
+        }
+      ]
+    }
+  ]
+}

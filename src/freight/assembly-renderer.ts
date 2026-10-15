@@ -1,5 +1,7 @@
 import * as T from "three";
-import { createVehicle, disposeVehicle, type VehicleKind } from "./vehicles";
+import { disposeVehicle, type VehicleKind } from "./vehicles";
+import { createBodyModel } from "./body-models";
+import type { BodyStudy } from "./body-studies";
 import {
   camera as skylineCamera,
   easeInOutCubic,
@@ -11,12 +13,14 @@ export type AssemblyRenderer = {
   update: (value: number) => void;
   reset: () => void;
   pause: (paused: boolean) => void;
+  technical: (enabled: boolean) => void;
   dispose: () => void;
 };
 export function createAssemblyRenderer(
   host: HTMLElement,
   kind: VehicleKind,
   onError: () => void,
+  study: BodyStudy,
 ): AssemblyRenderer {
   const renderer = new T.WebGLRenderer({
     alpha: true,
@@ -27,22 +31,84 @@ export function createAssemblyRenderer(
   renderer.setClearColor("#101d21", 1);
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.55;
+  renderer.toneMappingExposure = 1.12;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = T.PCFSoftShadowMap;
   host.append(renderer.domElement);
   const scene = new T.Scene(),
     cam = new T.OrthographicCamera(-10, 10, 7, -7, 0.1, 150);
-  const vehicle = createVehicle(kind);
+  const vehicle = createBodyModel(study);
+  const frameCorners: T.Vector3[] = [];
+  for (const x of [vehicle.frameBounds.min.x, vehicle.frameBounds.max.x])
+    for (const y of [vehicle.frameBounds.min.y, vehicle.frameBounds.max.y])
+      for (const z of [vehicle.frameBounds.min.z, vehicle.frameBounds.max.z])
+        frameCorners.push(new T.Vector3(x, y, z));
+  const cameraPoint = new T.Vector3();
+  host.dataset.subject = kind;
   scene.add(vehicle.root);
-  scene.add(new T.HemisphereLight("#dcebe7", "#524d39", 2.2));
-  const key = new T.DirectionalLight("#fff1df", 3.6);
+  scene.add(new T.HemisphereLight("#e9f0ed", "#172b31", 1.7));
+  const key = new T.DirectionalLight("#fff1df", 3.2);
   key.position.set(5, 14, 8);
+  key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024);
+  Object.assign(key.shadow.camera, {
+    left: -13,
+    right: 13,
+    top: 13,
+    bottom: -13,
+    near: 1,
+    far: 40,
+  });
+  key.shadow.bias = -0.0002;
+  key.shadow.normalBias = 0.035;
   scene.add(key);
-  const rim = new T.DirectionalLight("#ff7438", 2.1);
+  const rim = new T.DirectionalLight("#a9d4dd", 2.1);
   rim.position.set(-7, 4, -5);
   scene.add(rim);
-  const grid = new T.GridHelper(20, 20, "#405b5b", "#25393b");
+  const grid = new T.GridHelper(20, 4, "#273b3d", "#1b2e31");
   grid.position.y = -0.1;
   scene.add(grid);
+  const ground = new T.Mesh(
+    new T.PlaneGeometry(80, 80),
+    new T.ShadowMaterial({ opacity: 0.24, color: 0x000000 }),
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.035;
+  ground.receiveShadow = true;
+  scene.add(ground);
+  const envCanvas = document.createElement("canvas");
+  envCanvas.width = 512;
+  envCanvas.height = 256;
+  const ec = envCanvas.getContext("2d")!;
+  ec.fillStyle = "#17262c";
+  ec.fillRect(0, 0, 512, 256);
+  for (const [x, y, w, h] of [
+    [50, 30, 85, 50],
+    [275, 10, 50, 95],
+    [425, 75, 70, 23],
+  ]) {
+    const gradient = ec.createRadialGradient(
+      x + w / 2,
+      y + h / 2,
+      1,
+      x + w / 2,
+      y + h / 2,
+      w * 0.7,
+    );
+    gradient.addColorStop(0, "#f6efe1");
+    gradient.addColorStop(0.5, "#c2d3d1");
+    gradient.addColorStop(1, "#17262c");
+    ec.fillStyle = gradient;
+    ec.fillRect(x - w * 0.3, y - h * 0.3, w * 1.6, h * 1.6);
+  }
+  const envTexture = new T.CanvasTexture(envCanvas);
+  envTexture.mapping = T.EquirectangularReflectionMapping;
+  envTexture.colorSpace = T.SRGBColorSpace;
+  const pmrem = new T.PMREMGenerator(renderer),
+    environment = pmrem.fromEquirectangular(envTexture);
+  scene.environment = environment.texture;
+  envTexture.dispose();
+  pmrem.dispose();
   const axes = new T.Group();
   const floorMaterial = new T.LineBasicMaterial({
     color: "#ec7b42",
@@ -69,6 +135,8 @@ export function createAssemblyRenderer(
     yawGoal = 0,
     pitchGoal = 0,
     paused = false,
+    technical = 0,
+    technicalGoal = 0,
     workTime = 0,
     lastDraw = 0,
     previous = performance.now();
@@ -77,7 +145,7 @@ export function createAssemblyRenderer(
     const w = host.clientWidth,
       h = host.clientHeight;
     if (!w || !h) return;
-    const half = w < 520 ? 9 : 8;
+    const half = w < 520 ? 7 : 6;
     cam.top = half;
     cam.bottom = -half;
     cam.left = (-half * w) / h;
@@ -95,7 +163,7 @@ export function createAssemblyRenderer(
       return;
     }
     lastDraw = now;
-    const dt = Math.min(0.05, (now - previous) / 1000),
+    const dt = Math.max(0, Math.min(0.1, (now - previous) / 1000)),
       gain = 1 - Math.exp(-dt * 8);
     previous = now;
     progress =
@@ -103,14 +171,34 @@ export function createAssemblyRenderer(
     yaw = lerp(yaw, yawGoal, gain);
     pitch = lerp(pitch, pitchGoal, gain);
     const e = easeInOutCubic(progress),
-      c = skylineCamera(e, yaw, pitch),
+      c = skylineCamera(
+        e,
+        yaw + (study === "services-road" ? Math.PI : 0),
+        pitch,
+      ),
       distance = 28;
     cam.position.set(
       c.sn * c.ce * distance,
       c.se * distance + vehicle.height * 0.28,
       c.cs * c.ce * distance,
     );
-    cam.lookAt(0, vehicle.height * 0.34 * e, 0);
+    cam.lookAt(0, vehicle.height * 0.5 * e, 0);
+    cam.updateMatrixWorld(true);
+    const aspect = host.clientWidth / Math.max(1, host.clientHeight);
+    let frameHalf = host.clientWidth < 520 ? 6 : 5;
+    for (const corner of frameCorners) {
+      cameraPoint.copy(corner).applyMatrix4(cam.matrixWorldInverse);
+      frameHalf = Math.max(
+        frameHalf,
+        Math.abs(cameraPoint.y) * 1.18,
+        (Math.abs(cameraPoint.x) / aspect) * 1.18,
+      );
+    }
+    cam.top = frameHalf;
+    cam.bottom = -frameHalf;
+    cam.left = -frameHalf * aspect;
+    cam.right = -cam.left;
+    cam.updateProjectionMatrix();
     for (const p of vehicle.parts) {
       const rise = riseAt(progress, p.column, 18, p.row, 12);
       p.group.position.y = p.home.y * Math.max(0.018, rise);
@@ -118,23 +206,26 @@ export function createAssemblyRenderer(
     }
     if (!paused && progress > 0.9) workTime += dt;
     vehicle.work(workTime, Math.max(0, Math.min(1, (progress - 0.88) / 0.12)));
-    vehicle.wire.opacity = 0.45 * (1 - e) + 0.1;
+    technical = lerp(technical, technicalGoal, gain);
+    vehicle.technical(technical);
     renderer.render(scene, cam);
     host.dataset.assemblyProgress = progress.toFixed(3);
     host.dataset.cameraYaw = yaw.toFixed(3);
     host.dataset.workTime = workTime.toFixed(3);
     host.dataset.working = String(!paused && progress > 0.9);
+    host.dataset.technical = technical.toFixed(3);
+    host.dataset.cycle = (workTime % vehicle.duration).toFixed(3);
     if (
       Math.abs(goal - progress) > 0.001 ||
       Math.abs(yaw - yawGoal) > 0.001 ||
       Math.abs(pitch - pitchGoal) > 0.001 ||
+      Math.abs(technical - technicalGoal) > 0.001 ||
       (!paused && goal > 0.9)
     )
       kick();
   };
   function kick() {
     if (!frame && alive) {
-      previous = performance.now();
       frame = requestAnimationFrame(draw);
     }
   }
@@ -240,6 +331,10 @@ export function createAssemblyRenderer(
       paused = value;
       kick();
     },
+    technical(value) {
+      technicalGoal = value ? 1 : 0;
+      kick();
+    },
     dispose() {
       alive = false;
       cancelAnimationFrame(frame);
@@ -253,6 +348,13 @@ export function createAssemblyRenderer(
       host.removeEventListener("keydown", keyboard);
       renderer.domElement.removeEventListener("webglcontextlost", lost);
       disposeVehicle(vehicle.root);
+      vehicle.root.traverse((o) => {
+        if (o instanceof T.InstancedMesh) o.dispose();
+      });
+      ground.geometry.dispose();
+      ground.material.dispose();
+      environment.dispose();
+      key.shadow.dispose();
       grid.geometry.dispose();
       for (const m of Array.isArray(grid.material)
         ? grid.material

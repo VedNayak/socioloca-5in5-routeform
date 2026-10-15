@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { RotateCcw, Pause, Play } from "lucide-react";
+import { RotateCcw, Pause, Play, ScanLine } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { bodyStudies, type BodyStudy } from "../../freight/body-studies";
 import type { AssemblyRenderer } from "../../freight/assembly-renderer";
 import type { VehicleKind } from "../../freight/vehicles";
 import { registerAssembly } from "../../freight/assembly-pool";
@@ -41,6 +43,11 @@ export default function MediaAssembly({
     [paused, setPaused] = useState(false);
   const pausedRef = useRef(false),
     kind = subjects[name] ?? "crate";
+  const route = useLocation().pathname.split("/").filter(Boolean)[0] || "home";
+  const study = `${route}-${name}` as BodyStudy;
+  const descriptor = bodyStudies[study];
+  const [technical, setTechnical] = useState(false);
+  const technicalRef = useRef(false);
   useEffect(() => {
     const el = root.current,
       target = host.current;
@@ -68,15 +75,21 @@ export default function MediaAssembly({
         const { createAssemblyRenderer } =
           await import("../../freight/assembly-renderer");
         if (!alive || !leased || id !== generation || reduce.matches) return;
-        engine.current = createAssemblyRenderer(target, kind, () => {
-          failed = true;
-          setUnavailable(true);
-          if (target.contains(document.activeElement))
-            el.focus({ preventScroll: true });
-          stop();
-        });
+        engine.current = createAssemblyRenderer(
+          target,
+          kind,
+          () => {
+            failed = true;
+            setUnavailable(true);
+            if (target.contains(document.activeElement))
+              el.focus({ preventScroll: true });
+            stop();
+          },
+          study,
+        );
         engine.current.update(1);
         engine.current.pause(pausedRef.current);
+        engine.current.technical(technicalRef.current);
         setReady(true);
       } catch {
         failed = true;
@@ -106,14 +119,17 @@ export default function MediaAssembly({
       prefer.current = undefined;
       reduce.removeEventListener("change", changed);
     };
-  }, [kind]);
+  }, [kind, study]);
   return (
     <figure
       ref={root}
       tabIndex={-1}
       className={`photo image-relief media-assembly ${ready ? "relief-ready" : ""} ${className}`}
       data-model={kind}
+      data-study={study}
       data-relief-view="model"
+      onPointerEnter={() => prefer.current?.()}
+      onFocusCapture={() => prefer.current?.()}
     >
       <div className="relief-housing">
         <svg
@@ -123,7 +139,7 @@ export default function MediaAssembly({
           aria-label={`${names[kind]}. Illustrative model, static view.`}
           aria-hidden={ready}
         >
-          <use href={`/geometry/${kind}.svg#study`} />
+          <use href={`/geometry/${study}.svg#study`} />
         </svg>
         <div
           ref={host}
@@ -136,13 +152,13 @@ export default function MediaAssembly({
         />
         <span className="relief-edge" aria-hidden="true" />
         <span className="assembly-label mono">
-          {names[kind].toUpperCase()} / ILLUSTRATIVE STUDY
+          {(descriptor?.title ?? names[kind]).toUpperCase()} / ILLUSTRATIVE
         </span>
       </div>
       <div className="relief-toolbar">
         <figcaption>
           {enhanced && !unavailable
-            ? "SCROLL TO ASSEMBLE ↓ / DRAG TO INSPECT"
+            ? `${descriptor?.action.toUpperCase() ?? "WORKING STUDY"} / DRAG TO INSPECT`
             : "ORIGINAL GEOMETRY / INDEPENDENT CONCEPT"}
         </figcaption>
         {unavailable && (
@@ -152,6 +168,20 @@ export default function MediaAssembly({
         )}
         {enhanced && !unavailable && (
           <div role="group" aria-label="Object controls">
+            <button
+              type="button"
+              aria-label="Toggle technical view"
+              aria-pressed={technical}
+              onClick={() => {
+                const next = !technical;
+                technicalRef.current = next;
+                setTechnical(next);
+                prefer.current?.();
+                engine.current?.technical(next);
+              }}
+            >
+              <ScanLine size={15} />
+            </button>
             <button
               type="button"
               aria-label={

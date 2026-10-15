@@ -1,0 +1,137 @@
+[
+  {
+    "id": "home-port",
+    "kind": "ship",
+    "title": "Feeder vessel / ocean passage",
+    "action": "Propulsion, wake, navigation",
+    "meshes": 155,
+    "vertices": 47801,
+    "motionFingerprint": "305e3f881705a386acd38952cc0400983b7e66a6e94ec985c3722413400cb431"
+  },
+  {
+    "id": "home-air",
+    "kind": "plane",
+    "title": "Widebody / departure",
+    "action": "Rotate, retract, climb",
+    "meshes": 94,
+    "vertices": 27862,
+    "motionFingerprint": "0fdeebaf898565b9d701dba7e37d6b5f74906b65dc8b54f0b912d78f15ae0cc5"
+  },
+  {
+    "id": "home-road",
+    "kind": "truck",
+    "title": "Freight tractor / line haul",
+    "action": "Drive, steer, suspension",
+    "meshes": 174,
+    "vertices": 18740,
+    "motionFingerprint": "25d47ed34d334cd73ffc534257deeadad176ae4f982dd02f48f5fdefc76d72d1"
+  },
+  {
+    "id": "home-warehouse",
+    "kind": "forklift",
+    "title": "Counterbalance / receiving",
+    "action": "Lift, carry, lower",
+    "meshes": 97,
+    "vertices": 17629,
+    "motionFingerprint": "dd613777fd06be5c9f0b2af96850ab44ebd9e958c0c5d1cc249f7c68840b9172"
+  },
+  {
+    "id": "home-electronics",
+    "kind": "crate",
+    "title": "Cargo / inspection line",
+    "action": "Convey, scan, release",
+    "meshes": 67,
+    "vertices": 13352,
+    "motionFingerprint": "55d6ad8f49ccfcd414271561dc8ba7f1e9e76e4f85a1a188c7382ecb2fdab8d6"
+  },
+  {
+    "id": "services-port",
+    "kind": "ship",
+    "title": "Container vessel / quay transfer",
+    "action": "Hoist, traverse, stow",
+    "meshes": 167,
+    "vertices": 54516,
+    "motionFingerprint": "e47cebe6cd66fb90c15a47c372e22f8ba931d84d37ed431aa52c09127fc80a06"
+  },
+  {
+    "id": "services-air",
+    "kind": "plane",
+    "title": "Widebody / apron loading",
+    "action": "Open, elevate, transfer",
+    "meshes": 181,
+    "vertices": 42050,
+    "motionFingerprint": "b62615cf2dd61a5760ddf73ad78f52bb1bb362dc539d89c398ff54a7a6e181f9"
+  },
+  {
+    "id": "services-road",
+    "kind": "truck",
+    "title": "Tractor trailer / unloading",
+    "action": "Open, deploy, unload",
+    "meshes": 203,
+    "vertices": 26692,
+    "motionFingerprint": "7739ccc16993a82d019d70000fcb048cc6e054221070dc7b31c597c84aed8894"
+  },
+  {
+    "id": "services-warehouse",
+    "kind": "forklift",
+    "title": "Reach truck / rack put-away",
+    "action": "Raise, reach, place",
+    "meshes": 158,
+    "vertices": 19093,
+    "motionFingerprint": "119646b81094a24260a30ab4759845a11f3cd0aba9f3847a28a6960653256e80"
+  },
+  {
+    "id": "services-electronics",
+    "kind": "crate",
+    "title": "Transit case / release inspection",
+    "action": "Unlatch, open, verify",
+    "meshes": 17,
+    "vertices": 8292,
+    "motionFingerprint": "2c2b372a9eff6ce7330109d6bfc45b194fa111a3e3bdea9067c012c7b447ce4d"
+  },
+  {
+    "id": "industries-electronics",
+    "kind": "crate",
+    "title": "Electronics / protective packing",
+    "action": "Nest, cushion, secure",
+    "meshes": 40,
+    "vertices": 7968,
+    "motionFingerprint": "9d470f282dfbbe7b618121219dc77425d02c7befd081b9f768e051a6198e1d13"
+  },
+  {
+    "id": "industries-food",
+    "kind": "plane",
+    "title": "Turboprop / cold-chain handling",
+    "action": "Propellers, insulated cargo",
+    "meshes": 107,
+    "vertices": 18997,
+    "motionFingerprint": "5faa8d45d5710bbdd095798f57fdcc8a53666cda696d9d6f05fe1f9e393a06ee"
+  },
+  {
+    "id": "industries-industrial",
+    "kind": "truck",
+    "title": "Low-loader / project cargo",
+    "action": "Slew, lower, secure",
+    "meshes": 151,
+    "vertices": 26445,
+    "motionFingerprint": "fb1fd3b5192c0ba54e65047730dbb8f09527afc46eefdd766c89baa078462ebc"
+  },
+  {
+    "id": "industries-warehouse",
+    "kind": "forklift",
+    "title": "Pallet stacker / dispatch",
+    "action": "Stage, lift, release",
+    "meshes": 102,
+    "vertices": 17912,
+    "motionFingerprint": "5334e749df44c591927c4f71761e9cbb485a42f52cbe30f68bd9b91092f75769"
+  },
+  {
+    "id": "about-warehouse",
+    "kind": "forklift",
+    "title": "Automated shuttle / coordination",
+    "action": "Index, transfer, return",
+    "meshes": 383,
+    "vertices": 45820,
+    "motionFingerprint": "ffae1a5826af429b27469c1e85bbe4749aae1fc7daaa730545aac930f082fe11"
+  }
+]
