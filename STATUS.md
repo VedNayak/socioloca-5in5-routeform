@@ -4,7 +4,7 @@
 
 Build / TypeScript / lint / whitespace: Pass. Targeted Chrome QA: 47 unique checks resolved, comprising seven new editorial/icon checks and 40 existing navigation, route, motion, accessibility and quote checks. The broad run found one transient contrast issue; text and panel opacity dips were removed, and the final 16-case sweep/accessibility/route/quote subset passes (1.7m). Four widths (1440/768/390/320px) have no journey icon/copy overlap. Actual five-stage desktop and mobile panels captured and visually inspected.
 
-Deployment pending. Chrome on Windows verified; other engines and physical devices were not rerun. No field-performance claim. No new media, assets from the reference, dependencies or media spend. The source company repository and Worker remain untouched.
+Deployed successfully to the Routeform Worker from 358b5638d2e9d01469a7920ec5c352e73665f08f; version feb38380-c6b5-479b-bd4e-de57833b17e4. All five live pages/assets/404/security headers pass, with no console errors. Three live motion checks pass (37.7s): actual glyph sweep, all five icon actions and editorial/reduced-motion cleanup across all five pages. Exact served bundle matches local output. Chrome on Windows verified; other engines and physical devices were not rerun. No field-performance claim. No new media, assets from the reference, dependencies or media spend. The source company repository and Worker remain untouched.
 
 [Motion architecture](docs/EDITORIAL_MOTION.md).
 

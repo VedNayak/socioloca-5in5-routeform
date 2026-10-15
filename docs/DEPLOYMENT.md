@@ -1,3 +1,9 @@
+# Latest editorial/icons/colour-sweep release
+
+Source: 358b5638d2e9d01469a7920ec5c352e73665f08f. Worker version: feb38380-c6b5-479b-bd4e-de57833b17e4. Tag: routeform-editorial-sweep. Eight changed static assets uploaded to socioloca-5in5-routeform. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/ . All five live routes/assets/404/headers and three motion tests pass; exact served main bundle SHA verified. No other Worker or source-company checkout was changed. Following documentation commits do not alter deployed application code.
+
+---
+
 # Independent Routeform deployment
 
 GitHub: https://github.com/VedNayak/socioloca-5in5-routeform

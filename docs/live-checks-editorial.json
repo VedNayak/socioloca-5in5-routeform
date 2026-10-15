@@ -1,0 +1,56 @@
+{
+  "origin": "https://socioloca-5in5-routeform.ved-593.workers.dev",
+  "browser": "155.0.8059.40",
+  "pages": [
+    {
+      "route": "/",
+      "status": 200,
+      "url": "https://socioloca-5in5-routeform.ved-593.workers.dev/",
+      "title": "Commerce, in motion. | Routeform — Independent concept",
+      "brokenImages": [],
+      "robots": "noindex, nofollow",
+      "csp": true
+    },
+    {
+      "route": "/services",
+      "status": 200,
+      "url": "https://socioloca-5in5-routeform.ved-593.workers.dev/services/",
+      "title": "A considered route for every cargo. | Routeform — Independent concept",
+      "brokenImages": [],
+      "robots": "noindex, nofollow",
+      "csp": true
+    },
+    {
+      "route": "/industries",
+      "status": 200,
+      "url": "https://socioloca-5in5-routeform.ved-593.workers.dev/industries/",
+      "title": "Built around what you move. | Routeform — Independent concept",
+      "brokenImages": [],
+      "robots": "noindex, nofollow",
+      "csp": true
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "url": "https://socioloca-5in5-routeform.ved-593.workers.dev/about/",
+      "title": "Built around cargo. Connected by design. | Routeform — Independent concept",
+      "brokenImages": [],
+      "robots": "noindex, nofollow",
+      "csp": true
+    },
+    {
+      "route": "/quote",
+      "status": 200,
+      "url": "https://socioloca-5in5-routeform.ved-593.workers.dev/quote/",
+      "title": "Prepare your shipment brief. | Routeform — Independent concept",
+      "brokenImages": [],
+      "robots": "noindex, nofollow",
+      "csp": true
+    }
+  ],
+  "notFoundStatus": 404,
+  "consoleErrors": [],
+  "expectedRecoveryMessages": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ]
+}
