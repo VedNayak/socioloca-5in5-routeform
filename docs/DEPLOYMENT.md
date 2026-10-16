@@ -1,5 +1,10 @@
 
 
+## Quiet headers deployed - 16 October 2026
+
+Application source 2805f3a; Worker version 5c9491ce-48e3-4a12-bb5d-2dc6ebb5b12f; tag routeform-quiet-headers. Only socioloca-5in5-routeform deployed, with 14 changed assets. Both live five-page desktop/mobile checks pass (54.9s): zero transient-cloud opacity at all four checkpoints on every page, zero internal particle anchors, correct final globe/calculator endpoints. All five live routes/assets/404/security headers pass with zero console errors. All 11 served JS/CSS files match local bytes exactly. Desktop/mobile screenshots inspected. Body scene sources and SASCO remain untouched. No new media spend. Other browser engines, physical devices and field CWV not checked for this focused change. Preview https://socioloca-5in5-routeform.ved-593.workers.dev/?v=quiet-headers-2805f3a . Documentation commits after this source do not change the deployed application.
+
+
 ## Body continuity live QA - 16 October 2026
 
 Deployed source c178d54, version 32174ee8-35c0-41cf-8588-9e8a1d57c456. Four live Chrome checks pass (1.9m): all 15 subjects retain their paused rendered pixels and operation time after disposal/re-entry at 1440/390px; the visible Home trio retains its canvases during pointer crossings at 1812/1440px. All five routes/assets/headers/404 pass with zero console errors, and 35 checked deployed assets match local bytes. Final live desktop/mobile screenshots captured and inspected. No claim of physical-device, other-engine or field-CWV coverage. Heroes and SASCO unchanged. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/?v=body-continuity-c178d54 .

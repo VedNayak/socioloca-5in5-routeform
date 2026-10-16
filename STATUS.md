@@ -1,5 +1,10 @@
 
 
+## Quiet headers deployed - 16 October 2026
+
+Application source 2805f3a; Worker version 5c9491ce-48e3-4a12-bb5d-2dc6ebb5b12f; tag routeform-quiet-headers. Only socioloca-5in5-routeform deployed, with 14 changed assets. Both live five-page desktop/mobile checks pass (54.9s): zero transient-cloud opacity at all four checkpoints on every page, zero internal particle anchors, correct final globe/calculator endpoints. All five live routes/assets/404/security headers pass with zero console errors. All 11 served JS/CSS files match local bytes exactly. Desktop/mobile screenshots inspected. Body scene sources and SASCO remain untouched. No new media spend. Other browser engines, physical devices and field CWV not checked for this focused change. Preview https://socioloca-5in5-routeform.ved-593.workers.dev/?v=quiet-headers-2805f3a . Documentation commits after this source do not change the deployed application.
+
+
 Quiet-header validation: build/TypeScript, lint and whitespace pass. Eight focused Chrome cases resolved: four internal reversible separation/endpoint/pause tests; five-page cloud-free desktop/mobile checks at 1440/390px and four scroll checkpoints each; internal pointer/context-loss recovery; Home wireframe pointer interaction. Final four-case run passes in 59.5s. Mobile test setup now waits for graphics initialisation and includes the existing sticky-header scroll offsets (96px Home, 100px internal). Desktop/mobile screenshots captured and inspected. Other engines, physical devices and field CWV not checked for this focused visual change. SASCO untouched.
 
 

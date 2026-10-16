@@ -1,0 +1,18 @@
+{
+  "source": "2805f3a",
+  "version": "5c9491ce-48e3-4a12-bb5d-2dc6ebb5b12f",
+  "exact": [
+    "assembly-renderer-CNGuX-NN.js",
+    "index-Bvu9zNsI.js",
+    "index-BxgWWX-J.js",
+    "index-CZ9LMa93.css",
+    "opening-renderer-DAF0HDTK.js",
+    "renderer-DRRyOTR7.js",
+    "RoomEnvironment-wqAJs-w4.js",
+    "RoundedBoxGeometry-DmWG9nTy.js",
+    "ScrollTrigger-7Zy99s9Q.js",
+    "three.module-D60miwEG.js",
+    "vehicles-C-u9M4jL.js"
+  ],
+  "failures": []
+}
