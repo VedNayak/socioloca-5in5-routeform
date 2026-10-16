@@ -71,7 +71,7 @@ const staging: Record<
 
 /** The same choreography as Home's cargo story, on each route's registered
  * subject: film -> pixel peel -> rendered model -> push into the structure ->
- * separation and particle burst -> sparse geometric formation. */
+ * component separation -> clean geographic/calculator formation. */
 export async function createOpeningRenderer(
   host: HTMLElement,
   kind: OpeningKind,
@@ -165,7 +165,7 @@ export async function createOpeningRenderer(
     uTime: { value: 0 },
   };
   const plateGeometry = new T.PlaneGeometry(2, 2);
-  // Home's pixel-cell peel and orange rim, entering from the subject's side.
+  // A smooth directional reveal and orange rim, entering from the subject's side.
   const plateMaterial = new T.ShaderMaterial({
     uniforms: plateUniforms,
     transparent: true,
@@ -174,10 +174,9 @@ export async function createOpeningRenderer(
     toneMapped: false,
     vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`,
     fragmentShader: `uniform sampler2D uPhoto,uFilm;uniform vec4 uCrop;uniform float uFilmMix,uPeel,uDirection,uTime;uniform vec2 uPointer;varying vec2 vUv;
-    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
     void main(){vec2 uv=vUv*uCrop.xy+uCrop.zw;float distanceToPointer=length(vUv*2.-1.-uPointer);uv+=sin(uTime+vUv.yx*12.)*.0015*exp(-distanceToPointer*8.);
     vec3 color=mix(texture2D(uPhoto,uv).rgb,sRGBTransferEOTF(texture2D(uFilm,uv)).rgb,uFilmMix);
-    float cell=hash(floor(vUv*vec2(210.,135.)));float across=uDirection>0.?1.-vUv.x:vUv.x;float threshold=across*.66+vUv.y*.2+cell*.14;
+    float across=uDirection>0.?1.-vUv.x:vUv.x;float threshold=across*.8+vUv.y*.2;
     float alpha=1.-smoothstep(threshold-.026,threshold+.026,uPeel);float rim=(1.-smoothstep(0.,.016,abs(threshold-uPeel)))*step(.01,uPeel)*step(uPeel,.99);
     color=mix(color,vec3(1.,.30,.065),rim*.8);gl_FragColor=vec4(color,alpha);
     #include <colorspace_fragment>
@@ -185,74 +184,6 @@ export async function createOpeningRenderer(
   });
   hud.add(new T.Mesh(plateGeometry, plateMaterial));
 
-  // Particles start on the actual model surfaces and follow their component.
-  type Face = { a: T.Vector3; b: T.Vector3; c: T.Vector3; end: number };
-  const faces: (Face & { delta: T.Vector3 })[] = [];
-  let area = 0;
-  const shown = (o: T.Object3D) => {
-    for (let n: T.Object3D | null = o; n; n = n.parent)
-      if (!n.visible) return false;
-    return true;
-  };
-  study.root.traverse((o) => {
-    if (!shown(o)) return;
-    const g = (o as T.Mesh).geometry as T.BufferGeometry | undefined,
-      p = g?.getAttribute("position");
-    if (!g || !p) return;
-    // Slivers such as container ribs and fan blades would crowd the cloud
-    // without adding a readable outline.
-    g.computeBoundingBox();
-    const extent = g
-      .boundingBox!.getSize(new T.Vector3())
-      .multiply(o.getWorldScale(new T.Vector3()));
-    if (
-      Math.min(extent.x, extent.y, extent.z) < 0.04 &&
-      o.parent !== study.root
-    )
-      return;
-    const vertex = (i: number) =>
-      new T.Vector3().fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld);
-    if (o instanceof T.Mesh) {
-      const idx = g.index,
-        delta =
-          (o.parent?.userData.explode as T.Vector3 | undefined)?.clone() ??
-          new T.Vector3();
-      for (let i = 0; i < (idx?.count ?? p.count); i += 3) {
-        const a = vertex(idx ? idx.getX(i) : i),
-          b = vertex(idx ? idx.getX(i + 1) : i + 1),
-          c = vertex(idx ? idx.getX(i + 2) : i + 2);
-        const size = new T.Triangle(a, b, c).getArea();
-        if (size < 0.00001) continue;
-        area += size;
-        faces.push({ a, b, c, delta, end: area });
-      }
-    }
-  });
-  let seed = 117;
-  const random = () => {
-    seed = (seed * 16807) % 2147483647;
-    return (seed - 1) / 2147483646;
-  };
-  const pick = <V extends { end: number }>(list: V[], total: number) => {
-    const target = random() * total;
-    let lo = 0,
-      hi = list.length - 1;
-    while (lo < hi) {
-      const m = (lo + hi) >> 1;
-      if (list[m].end < target) lo = m + 1;
-      else hi = m;
-    }
-    return list[lo];
-  };
-  const onSurface = (face: Face) => {
-    const r = Math.sqrt(random()),
-      s = random();
-    return face.a
-      .clone()
-      .multiplyScalar(1 - r)
-      .addScaledVector(face.b, r * (1 - s))
-      .addScaledVector(face.c, r * s);
-  };
   const land = await new T.TextureLoader().loadAsync(
     "/images/globe-land-mask.png",
   );
@@ -289,79 +220,12 @@ export async function createOpeningRenderer(
             ),
           mobile,
         );
-  const count = mobile ? 6500 : 16000,
-    positions = new Float32Array(count * 3),
-    explode = new Float32Array(count * 3),
-    bursts = new Float32Array(count * 3),
-    targets = new Float32Array(count * 3),
-    meta = new Float32Array(count * 2),
-    seeds = new Float32Array(count);
   const silhouette: T.Vector3[] = [...formation.outline];
-  for (let i = 0; i < count; i++) {
-    const face = pick(faces, area);
-    onSurface(face).toArray(positions, i * 3);
-    face.delta.toArray(explode, i * 3);
-    // Home's burst volume, centred on this subject.
-    const theta = random() * Math.PI * 2,
-      radius = 2 + random() * 8;
-    bursts.set(
-      [
-        centre.x + Math.cos(theta) * radius,
-        centre.y + (random() - 0.5) * 8,
-        centre.z + Math.sin(theta) * radius * 0.55,
-      ],
-      i * 3,
-    );
-    const target = formation.sample(i / count);
-    target.toArray(targets, i * 3);
-    meta.set([0, 0.6], i * 2);
-    seeds[i] = random();
-  }
-  const particleGeometry = new T.BufferGeometry();
-  particleGeometry.setAttribute(
-    "position",
-    new T.BufferAttribute(positions, 3),
-  );
-  particleGeometry.setAttribute("aExplode", new T.BufferAttribute(explode, 3));
-  particleGeometry.setAttribute("aBurst", new T.BufferAttribute(bursts, 3));
-  particleGeometry.setAttribute("aTarget", new T.BufferAttribute(targets, 3));
-  particleGeometry.setAttribute("aMeta", new T.BufferAttribute(meta, 2));
-  particleGeometry.setAttribute("aSeed", new T.BufferAttribute(seeds, 1));
-  const particleUniforms = {
-    uExplode: { value: 0 },
-    uBurst: { value: 0 },
-    uForm: { value: 0 },
-    uOpacity: { value: 0 },
-    uTime: { value: 0 },
-    uWave: { value: 0 },
-    uScan: { value: -100 },
-    uScanAxis: { value: 0 },
-    uPointer: { value: pointer },
-    uDpr: { value: renderer.getPixelRatio() },
-  };
-  // Home's particle shader, with a finite formation in place of the globe.
-  const particleMaterial = new T.ShaderMaterial({
-    transparent: true,
-    depthWrite: false,
-    blending: T.AdditiveBlending,
-    uniforms: particleUniforms,
-    vertexShader: `attribute vec3 aExplode,aBurst,aTarget;attribute vec2 aMeta;attribute float aSeed;uniform float uExplode,uBurst,uForm,uTime,uDpr,uWave,uScan,uScanAxis;uniform vec2 uPointer;varying float vSeed,vForm,vFade,vScan;
-    void main(){vec3 target=aTarget;float ground=step(.5,aMeta.x)*step(aMeta.x,1.5);target.y+=(sin(target.x*.55+uTime*.9)*.16+sin(target.z*.8+uTime*.6)*.11)*uWave*ground;
-    vec3 p=mix(position+aExplode*uExplode,aBurst,uBurst);p=mix(p,target,uForm);float wave=sin(uTime*.35+aSeed*20.);p+=vec3(sin(aSeed*40.+uTime*.2),wave,cos(aSeed*30.+uTime*.2))*.18*uBurst*(1.-uForm);
-    vec4 projected=projectionMatrix*modelViewMatrix*vec4(p,1.);vec2 ndc=projected.xy/projected.w;float repel=exp(-length(ndc-uPointer)*16.);p+=normalize(vec3(ndc-uPointer,.3))*repel*.65*uBurst;
-    gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);float coord=uScanAxis<.5?aTarget.x:aTarget.y;vScan=exp(-pow((coord-uScan)*1.5,2.))*uForm*step(aMeta.x,.5);
-    float large=step(.989,aSeed)*(1.-uForm)*uBurst;gl_PointSize=uDpr*mix(1.6+1.8*aSeed+vScan*1.2,30.+25.*aSeed,large);vSeed=aSeed;vForm=uForm;vFade=mix(1.,aMeta.y,uForm);}`,
-    fragmentShader: `uniform float uOpacity;varying float vSeed,vForm,vFade,vScan;
-    void main(){float dist=length(gl_PointCoord-.5);if(dist>.5)discard;vec3 color=mix(vec3(.64,.80,.80),vec3(1.,.28,.065),step(.83,vSeed));color=mix(color,vec3(1.,.52,.28),vScan*.55);
-    float soft=1.-smoothstep(.12,.5,dist);float sparse=mix(mix(.12,.58,step(.62,vSeed)),.7,vForm);float alpha=soft*uOpacity*sparse*vFade*(1.+vScan*1.6);if(vSeed>.989&&vForm<.8)alpha*=.14;gl_FragColor=vec4(color,alpha);}`,
-  });
-  const points = new T.Points(particleGeometry, particleMaterial);
-  points.frustumCulled = false;
   const pivot = new T.Group(),
     contents = new T.Group();
   pivot.position.copy(centre);
   contents.position.copy(centre).negate();
-  contents.add(study.root, floor, points, formation.root);
+  contents.add(study.root, floor, formation.root);
   pivot.add(contents);
   scene.add(pivot);
 
@@ -515,21 +379,13 @@ export async function createOpeningRenderer(
     });
     for (const mesh of meshes) mesh.visible = solid > 0.003;
     study.wire.opacity =
-      smooth(0.13, 0.28, p) * (1 - smooth(0.49, 0.7, p)) * 0.8;
+      smooth(0.13, 0.28, p) * (1 - smooth(0.59, 0.82, p)) * 0.8;
     const explosion = smooth(0.31, 0.59, p);
     assembly.update(explosion);
     shadowMaterial.opacity = 0.16 * (1 - smooth(0.12, 0.3, p));
     floor.visible = p < 0.3;
     if (floor.visible) renderer.shadowMap.needsUpdate = true;
     const form = smooth(0.59, 0.82, p);
-    particleUniforms.uExplode.value = explosion;
-    particleUniforms.uBurst.value = smooth(0.34, 0.57, p);
-    particleUniforms.uForm.value = form;
-    particleUniforms.uOpacity.value =
-      smooth(0.18, 0.36, p) * (1 - smooth(0.64, 0.86, p));
-    particleUniforms.uTime.value = time;
-    particleUniforms.uScan.value = -100;
-    points.visible = particleUniforms.uOpacity.value > 0.001;
     formation.update(smooth(0.65, 0.86, p), time);
     const pointed = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1;
     pivot.rotation.y =
@@ -561,12 +417,12 @@ export async function createOpeningRenderer(
     host.dataset.frameSource = filmReady ? "film" : "poster";
     host.dataset.registered = "true";
     host.dataset.geometry = "volumetric";
-    host.dataset.anchorCount = String(count);
+    host.dataset.anchorCount = "0";
     host.dataset.explosion = explosion.toFixed(3);
-    host.dataset.particleBurst = particleUniforms.uBurst.value.toFixed(3);
-    host.dataset.particleConnection = form.toFixed(3);
+    host.dataset.particleBurst = "0.000";
+    host.dataset.particleConnection = "0.000";
     host.dataset.finalForm = formation.name;
-    host.dataset.particleOpacity = particleUniforms.uOpacity.value.toFixed(3);
+    host.dataset.particleOpacity = "0.000";
   };
   const render = (now: number) => {
     raf = 0;
@@ -641,8 +497,6 @@ export async function createOpeningRenderer(
     shadowMaterial.dispose();
     plateGeometry.dispose();
     plateMaterial.dispose();
-    particleGeometry.dispose();
-    particleMaterial.dispose();
     photoTexture.dispose();
     filmTexture?.dispose();
     environment.dispose();

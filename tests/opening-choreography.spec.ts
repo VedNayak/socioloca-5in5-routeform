@@ -37,6 +37,7 @@ for (const route of ["services", "industries", "about", "quote"]) {
         .poll(async () => Number(await host.getAttribute("data-progress")))
         .toBeCloseTo(p, 2);
       await page.waitForTimeout(2000);
+      await expect(host).toHaveAttribute("data-particle-opacity", "0.000");
       const canvas = await page
         .locator(".opening-geometry canvas")
         .screenshot();
@@ -49,7 +50,7 @@ for (const route of ["services", "industries", "about", "quote"]) {
     };
     const structural = await capture(0.51),
       exploded = await capture(0.69),
-      burst = await capture(0.8),
+      settling = await capture(0.8),
       connected = await capture(0.96);
     await expect(host).toHaveAttribute(
       "data-final-form",
@@ -68,11 +69,11 @@ for (const route of ["services", "industries", "about", "quote"]) {
       "components must visibly separate",
     ).toBeGreaterThan(1.0);
     expect(
-      diff(exploded, burst),
-      "the field must visibly spread beyond the assembly",
+      diff(exploded, settling),
+      "the assembly must crossfade towards its clean endpoint",
     ).toBeGreaterThan(0.5);
     expect(
-      diff(burst, connected),
+      diff(settling, connected),
       "the transition must resolve into crisp geometry with no particle cloud",
     ).toBeGreaterThan(0.5);
     const repeat = await capture(0.51);

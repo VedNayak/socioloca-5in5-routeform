@@ -128,10 +128,9 @@ export async function createFreightRenderer(
     toneMapped: false,
     vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`,
     fragmentShader: `uniform sampler2D uImage;uniform float uPeel,uAspect,uImageAspect,uTime;uniform vec2 uPointer;varying vec2 vUv;
-    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
     void main(){vec2 uv=vUv;float ratio=uAspect/uImageAspect;if(ratio<1.)uv.x=(uv.x-.5)*ratio+.5;else uv.y=(uv.y-.5)/ratio+.5;
     float distanceToPointer=length(vUv*2.-1.-uPointer);uv+=sin(uTime+vUv.yx*12.)*.0015*exp(-distanceToPointer*8.);
-    vec4 color=texture2D(uImage,uv);float cell=hash(floor(vUv*vec2(210.,135.)));float threshold=(1.-vUv.x)*.66+vUv.y*.2+cell*.14;
+    vec4 color=texture2D(uImage,uv);float threshold=(1.-vUv.x)*.8+vUv.y*.2;
     float alpha=1.-smoothstep(threshold-.026,threshold+.026,uPeel);float rim=(1.-smoothstep(0.,.016,abs(threshold-uPeel)))*step(.01,uPeel)*step(uPeel,.99);
     color.rgb=mix(color.rgb,vec3(1.,.30,.065),rim*.8);gl_FragColor=vec4(color.rgb,alpha);
     #include <colorspace_fragment>
@@ -140,9 +139,7 @@ export async function createFreightRenderer(
   const plate = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), plateMaterial);
   hud.add(plate);
   const count = mobile ? 6500 : 16000;
-  const cargoPoints = new Float32Array(count * 3),
-    burstPoints = new Float32Array(count * 3),
-    globePoints = new Float32Array(count * 3),
+  const globePoints = new Float32Array(count * 3),
     seeds = new Float32Array(count),
     uvs = new Float32Array(count * 2);
   let seed = 739;
@@ -151,28 +148,6 @@ export async function createFreightRenderer(
     return seed / 4294967296;
   };
   for (let i = 0; i < count; i++) {
-    const face = i % 6,
-      x = (random() - 0.5) * 12.19,
-      y = random() * 2.6 + 1.2,
-      z = (random() - 0.5) * 2.44;
-    cargoPoints.set(
-      [
-        face < 2 ? (face === 0 ? -6.1 : 6.1) : x,
-        face >= 2 && face < 4 ? (face === 2 ? 1.2 : 3.8) : y,
-        face >= 4 ? (face === 4 ? -1.23 : 1.23) : z,
-      ],
-      i * 3,
-    );
-    const theta = random() * Math.PI * 2,
-      r = 2 + random() * 8;
-    burstPoints.set(
-      [
-        Math.cos(theta) * r,
-        1.8 + (random() - 0.5) * 8,
-        Math.sin(theta) * r * 0.55,
-      ],
-      i * 3,
-    );
     const latitude = Math.asin(1 - (2 * (i + 0.5)) / count),
       longitude =
         ((i * Math.PI * (3 - Math.sqrt(5))) % (Math.PI * 2)) - Math.PI;
@@ -189,23 +164,12 @@ export async function createFreightRenderer(
   const particlesGeometry = new THREE.BufferGeometry();
   particlesGeometry.setAttribute(
     "position",
-    new THREE.BufferAttribute(cargoPoints, 3),
-  );
-  particlesGeometry.setAttribute(
-    "aBurst",
-    new THREE.BufferAttribute(burstPoints, 3),
-  );
-  particlesGeometry.setAttribute(
-    "aGlobe",
     new THREE.BufferAttribute(globePoints, 3),
   );
   particlesGeometry.setAttribute("aSeed", new THREE.BufferAttribute(seeds, 1));
   particlesGeometry.setAttribute("aEarthUV", new THREE.BufferAttribute(uvs, 2));
   const particleUniforms = {
-    uProgress: { value: 0 },
-    uTime: { value: 0 },
     uOpacity: { value: 0 },
-    uPointer: { value: mouse },
     uDpr: { value: renderer.getPixelRatio() },
     uLand: { value: land },
   };
@@ -214,10 +178,8 @@ export async function createFreightRenderer(
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     uniforms: particleUniforms,
-    vertexShader: `attribute vec3 aBurst,aGlobe;attribute float aSeed;attribute vec2 aEarthUV;uniform float uProgress,uTime,uDpr;uniform vec2 uPointer;varying float vSeed,vGlobe,vFacing;varying vec2 vEarthUV;
-    void main(){float burst=smoothstep(.34,.57,uProgress),globe=smoothstep(.59,.82,uProgress);vec3 p=mix(position,aBurst,burst);p=mix(p,aGlobe,globe);float wave=sin(uTime*.35+aSeed*20.);p+=vec3(sin(aSeed*40.+uTime*.2),wave,cos(aSeed*30.+uTime*.2))*.18*burst*(1.-globe);
-    vec4 projected=projectionMatrix*modelViewMatrix*vec4(p,1.);vec2 ndc=projected.xy/projected.w;float repel=exp(-length(ndc-uPointer)*16.);p+=normalize(vec3(ndc-uPointer,.3))*repel*.65*burst;
-    gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);float large=step(.989,aSeed)*(1.-globe)*burst;gl_PointSize=uDpr*mix(1.6+1.8*aSeed,30.+25.*aSeed,large);vSeed=aSeed;vGlobe=globe;vEarthUV=aEarthUV;vFacing=smoothstep(-.1,.7,(mat3(modelViewMatrix)*normalize(aGlobe-vec3(0.,2.6,0.))).z);}`,
+    vertexShader: `attribute float aSeed;attribute vec2 aEarthUV;uniform float uDpr;varying float vSeed,vGlobe,vFacing;varying vec2 vEarthUV;
+    void main(){gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);gl_PointSize=uDpr*(1.6+1.8*aSeed);vSeed=aSeed;vGlobe=1.;vEarthUV=aEarthUV;vFacing=smoothstep(-.1,.7,(mat3(modelViewMatrix)*normalize(position-vec3(0.,2.6,0.))).z);}`,
     fragmentShader: `uniform float uOpacity;uniform sampler2D uLand;varying float vSeed,vGlobe,vFacing;varying vec2 vEarthUV;
     void main(){float dist=length(gl_PointCoord-.5);if(dist>.5)discard;float continent=texture2D(uLand,vEarthUV).r;float intensity=mix(1.,mix(.025,1.,continent),vGlobe);vec3 color=mix(vec3(.64,.80,.80),vec3(1.,.28,.065),step(.83,vSeed));float soft=1.-smoothstep(.12,.5,dist);float sparse=mix(mix(.12,.58,step(.62,vSeed)),1.,vGlobe);float alpha=soft*uOpacity*intensity*mix(.55,.95,continent*vGlobe)*mix(1.,mix(.035,1.,vFacing),vGlobe)*sparse;if(vSeed>.989&&vGlobe<.8)alpha*=.14;gl_FragColor=vec4(color,alpha);}`,
   });
@@ -302,8 +264,11 @@ export async function createFreightRenderer(
       new THREE.BufferGeometry().setFromPoints(coordinates),
       ringMaterial,
     );
-    if (tilt === -1) { ring.position.y = 2.6; ring.geometry.translate(0, -2.6, 0); ring.rotation.x = Math.PI / 2; }
-    else ring.rotation.y = tilt;
+    if (tilt === -1) {
+      ring.position.y = 2.6;
+      ring.geometry.translate(0, -2.6, 0);
+      ring.rotation.x = Math.PI / 2;
+    } else ring.rotation.y = tilt;
     world.add(ring);
   }
   let progress = 0,
@@ -362,9 +327,10 @@ export async function createFreightRenderer(
     mouse.lerp(pointerTarget, 0.09);
     // Push into the registered cargo only after the beauty plate has peeled away.
     // Return to the original lens before the geographic sphere and projected city buttons.
-    const macro = smooth(.28, .44, progress) * (1 - smooth(.55, .72, progress));
-    camera.zoom = 1 + macro * (mobile ? .22 : .8);
-    camera.lookAt(macro * (mobile ? .5 : 2.1), 2.6 + macro * .25, 0);
+    const macro =
+      smooth(0.28, 0.44, progress) * (1 - smooth(0.55, 0.72, progress));
+    camera.zoom = 1 + macro * (mobile ? 0.22 : 0.8);
+    camera.lookAt(macro * (mobile ? 0.5 : 2.1), 2.6 + macro * 0.25, 0);
     camera.updateProjectionMatrix();
     const darken = smooth(0.12, 0.33, progress);
     host.style.backgroundColor = pale.clone().lerp(dark, darken).getStyle();
@@ -380,9 +346,9 @@ export async function createFreightRenderer(
     for (const material of cargo.materials) material.opacity = solidOpacity;
     cargo.cableMaterial.opacity = solidOpacity;
     cargo.solid.visible = solidOpacity > 0.003;
-    cargo.lattice.visible = progress > 0.12 && progress < 0.7;
+    cargo.lattice.visible = progress > 0.12 && progress < 0.82;
     cargo.wire.opacity =
-      smooth(0.13, 0.28, progress) * (1 - smooth(0.49, 0.7, progress)) * 0.8;
+      smooth(0.13, 0.28, progress) * (1 - smooth(0.59, 0.82, progress)) * 0.8;
     const explosion = smooth(0.31, 0.59, progress);
     for (const part of cargo.parts)
       part.group.position
@@ -400,9 +366,10 @@ export async function createFreightRenderer(
         : 0);
     shadowMaterial.opacity = 0.16 * (1 - smooth(0.12, 0.3, progress));
     floor.visible = progress < 0.3;
-    particleUniforms.uProgress.value = progress;
-    particleUniforms.uTime.value = time;
-    particleUniforms.uOpacity.value = smooth(0.18, 0.36, progress);
+    particleUniforms.uOpacity.value = smooth(0.65, 0.82, progress);
+    points.visible = particleUniforms.uOpacity.value > 0.001;
+    host.dataset.particleOpacity = "0.000";
+    host.dataset.globeOpacity = particleUniforms.uOpacity.value.toFixed(3);
     const globeBlend = smooth(0.59, 0.82, progress);
     world.position.copy(cargo.root.position);
     world.scale.copy(cargo.root.scale);

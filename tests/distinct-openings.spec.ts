@@ -248,9 +248,8 @@ for (const route of routes.slice(1))
         }),
       );
       await expect(scene).toHaveAttribute("data-phase", "1");
-      await expect
-        .poll(async () => Number(await host.getAttribute("data-anchor-count")))
-        .toBeGreaterThan(100);
+      await expect(host).toHaveAttribute("data-anchor-count", "0");
+      await expect(host).toHaveAttribute("data-geometry", "volumetric");
       if (width > 820) {
         const clip = page.locator("video");
         await expect
@@ -305,7 +304,7 @@ for (const [id, kind] of subjects)
     await page.locator(".footer").scrollIntoViewIfNeeded();
     await expect(page.locator(".assembly-host canvas")).toHaveCount(0);
   });
-test("opening particles react to pointer and graphics loss restores the still", async ({
+test("opening geometry reacts to pointer and graphics loss restores the still", async ({
   page,
 }) => {
   test.setTimeout(60000);

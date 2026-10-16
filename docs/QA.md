@@ -1,5 +1,13 @@
 
 
+Quiet-header validation: build/TypeScript, lint and whitespace pass. Eight focused Chrome cases resolved: four internal reversible separation/endpoint/pause tests; five-page cloud-free desktop/mobile checks at 1440/390px and four scroll checkpoints each; internal pointer/context-loss recovery; Home wireframe pointer interaction. Final four-case run passes in 59.5s. Mobile test setup now waits for graphics initialisation and includes the existing sticky-header scroll offsets (96px Home, 100px internal). Desktop/mobile screenshots captured and inspected. Other engines, physical devices and field CWV not checked for this focused visual change. SASCO untouched.
+
+
+## Quiet hero transitions - 16 October 2026
+
+Removed the transient scatter/repulsion clouds from all five hero openings. Internal openings no longer allocate, sample or draw the old surface/burst particle layer. Home dots exist only at their final geographic globe positions, with no cargo-to-cloud morph, drift, large glow sprites or pointer repulsion. Clean dotted globes, flight/ocean connections and the quote calculator remain. Wireframe/exploded model views crossfade into these endpoints; the wireframe fades a little later to avoid an empty interval. Image/video reveals use a smooth directional wipe rather than random pixel cells. Body models, their continuity fix and all quote logic are unchanged. No new media or spend.
+
+
 ## Body continuity live QA - 16 October 2026
 
 Deployed source c178d54, version 32174ee8-35c0-41cf-8588-9e8a1d57c456. Four live Chrome checks pass (1.9m): all 15 subjects retain their paused rendered pixels and operation time after disposal/re-entry at 1440/390px; the visible Home trio retains its canvases during pointer crossings at 1812/1440px. All five routes/assets/headers/404 pass with zero console errors, and 35 checked deployed assets match local bytes. Final live desktop/mobile screenshots captured and inspected. No claim of physical-device, other-engine or field-CWV coverage. Heroes and SASCO unchanged. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/?v=body-continuity-c178d54 .

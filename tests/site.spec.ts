@@ -399,13 +399,13 @@ test("cinematic story transforms through four scenes and supports mobile and red
   await expect(page.locator("#intro")).toBeInViewport();
 });
 
-test("pointer interaction changes the rendered particle scene while autonomous motion is paused", async ({
+test("pointer interaction changes the rendered wireframe scene while autonomous motion is paused", async ({
   page,
 }, info) => {
   if (!(await motionStory(page, info.project.name))) return;
   await page.getByRole("button", { name: "Pause scene motion" }).click();
-  await page.getByRole("button", { name: "Scene 3: The handovers" }).click();
-  await expect(page.locator("#movement")).toHaveAttribute("data-phase", "2");
+  await page.getByRole("button", { name: "Scene 2: The detail" }).click();
+  await expect(page.locator("#movement")).toHaveAttribute("data-phase", "1");
   await page.waitForTimeout(2400);
   const canvas = page.locator(".cinema-webgl canvas");
   const pixels = async () => {
