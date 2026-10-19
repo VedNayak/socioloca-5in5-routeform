@@ -576,3 +576,60 @@
     flex-shrink: 0;
   }
 }
+
+/* Reserve Home-sized endpoint space below the final mobile narrative. The same
+   destination remains available in the persistent bottom action. */
+@layer responsive {
+  @media (max-width: 820px) {
+    .opening-enhanced .opening-copy.opening-copy-2 {
+      top: 9%;
+    }
+    .opening-enhanced .opening-copy-2 .eyebrow {
+      margin-bottom: 14px;
+    }
+    .opening-enhanced .opening-copy-2 p {
+      margin-block: 12px;
+    }
+    .opening-enhanced .opening-copy-2 .opening-diagram-labels {
+      margin-block: 12px;
+    }
+    .opening-enhanced .opening-copy-2 > .inline-link {
+      display: none;
+    }
+  }
+  @media (max-width: 820px) and (max-height: 750px) {
+    .opening-enhanced .opening-copy-2 h2 {
+      font-size: 32px;
+    }
+    .opening-enhanced .opening-copy-2 .eyebrow {
+      margin-bottom: 10px;
+    }
+    .opening-enhanced .opening-copy-2 p {
+      margin-block: 10px;
+      line-height: 1.6;
+    }
+    .opening-enhanced .opening-copy-2 .opening-diagram-labels {
+      margin-block: 8px;
+    }
+  }
+}
+@layer responsive {
+  @media (max-width: 820px) and (max-height: 700px) {
+    .opening-enhanced .opening-copy.opening-copy-2 {
+      top: 5%;
+    }
+    .opening-enhanced .opening-copy-2 h2 {
+      font-size: 28px;
+    }
+    .opening-enhanced .opening-copy-2 p {
+      font-size: 10px;
+      margin-block: 8px;
+    }
+    .opening-enhanced .opening-copy-2 .opening-diagram-labels {
+      display: none;
+    }
+    .opening-enhanced .opening-rule {
+      top: 4%;
+    }
+  }
+}

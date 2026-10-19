@@ -1,3 +1,9 @@
+## Mobile hero endpoint framing - 19 October 2026
+
+Replaced copy-dependent mobile endpoint fitting with the homepage's final orthographic lens, globe scale and projected centre. Services, Industries and About now use the same core sphere diameter; Quote uses the same projected height for its proportional dotted calculator. Padded route envelopes no longer make the globe smaller. Framing uses the actual sticky scene height (small viewport units), including the 96/100px header offset difference and minimum scene heights. Short phones retain that diameter and lift the scene only enough to clear chapter controls; their narrative is compacted accordingly. Desktop framing and earlier image/wireframe/explosion stages are preserved; transient particle clouds remain absent.
+
+Mobile final narratives now reserve the scene area; the duplicate internal final CTA is available through the persistent bottom action. Home's final mobile text is also compacted to clear its unchanged globe on small phones. No assets generated, no new media spend, no body model or quote logic changes. SASCO remains untouched.
+
 
 
 ## Quiet headers deployed - 16 October 2026

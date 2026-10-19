@@ -382,6 +382,20 @@ export async function createFreightRenderer(
       -0.28,
       globeBlend,
     );
+    if (progress > 0.9) {
+      world.updateMatrixWorld(true);
+      const centre = world
+        .localToWorld(new THREE.Vector3(0, 2.6, 0))
+        .project(camera);
+      host.dataset.endpointBounds = JSON.stringify({
+        x: ((centre.x + 1) * host.clientWidth) / 2,
+        y: ((1 - centre.y) * host.clientHeight) / 2,
+        size:
+          ((8.4 * world.scale.x) / (camera.top - camera.bottom)) *
+          camera.zoom *
+          host.clientHeight,
+      });
+    }
     const globe = smooth(0.69, 0.85, progress);
     lineMaterial.opacity = globe;
     nodeMaterial.opacity = globe;

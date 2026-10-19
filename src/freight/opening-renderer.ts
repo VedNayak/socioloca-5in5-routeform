@@ -272,47 +272,40 @@ export async function createOpeningRenderer(
       extent = box.getSize(new T.Vector3()),
       mid = box.getCenter(new T.Vector3());
     let cx = stage.place[0],
-      cy = stage.place[1],
-      heightShare = 0.46,
-      widthShare = stage.width;
-    if (mobile) {
-      // Fit between the later copy and the scene controls.
-      const area = host.getBoundingClientRect(),
-        copy = Math.max(
-          ...[
-            ...(host.parentElement?.querySelectorAll<HTMLElement>(
-              ".opening-later",
-            ) ?? []),
-          ].map((el) => el.getBoundingClientRect().bottom - area.top),
-          area.height * 0.45,
-        ),
-        controls =
-          (host.parentElement
-            ?.querySelector(".opening-controls")
-            ?.getBoundingClientRect().top ?? area.bottom) - area.top;
-      const start = (copy + 16) / area.height,
-        end = Math.max(start + 0.12, (controls - 16) / area.height);
-      cx = 0.5;
-      cy = (start + end) / 2;
-      heightShare = (end - start) * 0.92;
-      widthShare = 0.9;
-    }
-    // Home's 8.4-unit globe through its 13.8-unit lens, fitted to actual
-    // sphere diameter rather than padded route bounds. Mobile keeps copy clearance.
+      cy = stage.place[1];
+    // Desktop keeps the editorial framing. Mobile uses Home's actual final
+    // lens, world scale and screen centre, independent of subject/route bounds.
     const diameter = Math.max(size.x, size.y, size.z) * 0.72;
     const homeShare = 8.4 / 13.8 / Math.min(1, 3 / 2 / aspect);
-    const sy = mobile
-        ? Math.max(extent.y / heightShare, extent.x / (aspect * widthShare))
-        : Math.max(
-            (kind === "quote" ? extent.y : diameter) / homeShare,
-            extent.x / (aspect * (kind === "industries" ? 0.55 : 0.61)),
-          ),
-      sx = sy * aspect;
+    let sy = Math.max(
+      (kind === "quote" ? extent.y : diameter) / homeShare,
+      extent.x / (aspect * (kind === "industries" ? 0.55 : 0.61)),
+    );
+    let target = mid;
+    if (mobile) {
+      const homeHeight = Math.max(h + 4, 600);
+      const homeLens = 17 * Math.min(1, 0.5 / (w / homeHeight));
+      const homeDiameterPx = ((8.4 * 0.68) / homeLens) * homeHeight;
+      // Use the sphere itself, not its padded route envelope. The calculator's
+      // long side has the same visual size; its proportions remain unchanged.
+      sy = ((kind === "quote" ? extent.y : diameter) / homeDiameterPx) * h;
+      target = kind === "quote" ? mid : toView(centre, settledTurn);
+      homeCamera.updateMatrixWorld(true);
+      const homeCentre = new T.Vector3(0.3, 2.6 * 0.68 - 1.3, 0).applyMatrix4(
+        homeCamera.matrixWorldInverse,
+      );
+      cx = 0.5 + homeCentre.x / ((homeLens * w) / homeHeight);
+      cy = (96 + homeHeight * (0.5 - homeCentre.y / homeLens) - 100) / h;
+      // Short phones retain the same diameter, but lift the scene just enough
+      // to clear the chapter controls rather than shrinking the object.
+      cy = Math.min(cy, (h - 76 - 48 - 8 - homeDiameterPx / 2) / h);
+    }
+    const sx = sy * aspect;
     settled = {
-      l: mid.x - sx * cx,
-      r: mid.x + sx * (1 - cx),
-      t: mid.y + sy * cy,
-      b: mid.y - sy * (1 - cy),
+      l: target.x - sx * cx,
+      r: target.x + sx * (1 - cx),
+      t: target.y + sy * cy,
+      b: target.y - sy * (1 - cy),
     };
   };
   const fit = () => {
@@ -408,6 +401,25 @@ export async function createOpeningRenderer(
     camera.top = view.t;
     camera.bottom = view.b;
     camera.updateProjectionMatrix();
+    if (p > 0.9) {
+      const centreWorld = formation.root
+        .getWorldPosition(new T.Vector3())
+        .project(camera);
+      host.dataset.endpointBounds = JSON.stringify({
+        x: ((centreWorld.x + 1) * host.clientWidth) / 2,
+        y: ((1 - centreWorld.y) * host.clientHeight) / 2,
+        size:
+          ((kind === "quote"
+            ? new T.Box3()
+                .setFromPoints(
+                  silhouette.map((point) => toView(point, pivot.rotation.y)),
+                )
+                .getSize(new T.Vector3()).y
+            : Math.max(size.x, size.y, size.z) * 0.72) /
+            (camera.top - camera.bottom)) *
+          host.clientHeight,
+      });
+    }
     renderer.clear();
     if (p < 0.33) renderer.render(hud, hudCamera);
     renderer.clearDepth();
