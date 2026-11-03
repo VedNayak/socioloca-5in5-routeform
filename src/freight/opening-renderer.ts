@@ -361,9 +361,9 @@ export async function createOpeningRenderer(
     pointer.lerp(pointerTarget, 0.09);
     // Film crossfades to its registered first frame before the peel begins.
     plateUniforms.uFilmMix.value = filmReady ? 1 - smooth(0.06, 0.12, p) : 0;
-    plateUniforms.uPeel.value = T.MathUtils.clamp((p - 0.12) / 0.2, 0, 1);
+    plateUniforms.uPeel.value = T.MathUtils.clamp((p - 0.015) / 0.305, 0, 1);
     plateUniforms.uTime.value = time;
-    const solid = (1 - smooth(0.33, 0.57, p)) * smooth(0.1, 0.23, p),
+    const solid = (1 - smooth(0.33, 0.57, p)) * smooth(0.015, 0.23, p),
       scanned = smooth(0.22, 0.41, p);
     study.surfaces.forEach((m, i) => {
       m.color.copy(originalColors[i]).lerp(steel, scanned);
@@ -372,7 +372,7 @@ export async function createOpeningRenderer(
     });
     for (const mesh of meshes) mesh.visible = solid > 0.003;
     study.wire.opacity =
-      smooth(0.13, 0.28, p) * (1 - smooth(0.59, 0.82, p)) * 0.8;
+      smooth(0.02, 0.28, p) * (1 - smooth(0.59, 0.82, p)) * 0.8;
     const explosion = smooth(0.31, 0.59, p);
     assembly.update(explosion);
     shadowMaterial.opacity = 0.16 * (1 - smooth(0.12, 0.3, p));
@@ -434,6 +434,7 @@ export async function createOpeningRenderer(
     host.dataset.particleBurst = "0.000";
     host.dataset.particleConnection = "0.000";
     host.dataset.finalForm = formation.name;
+    host.dataset.revealProgress = plateUniforms.uPeel.value.toFixed(3);
     host.dataset.particleOpacity = "0.000";
   };
   const render = (now: number) => {

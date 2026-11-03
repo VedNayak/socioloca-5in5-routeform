@@ -255,7 +255,8 @@
     color: var(--orange);
   }
   .cinema-enhanced {
-    height: 440svh !important;
+    /* Layered !important heights override mobile rules; vary the value instead. */
+    height: var(--hero-runway, 300svh) !important;
   }
   .cinema-enhanced .cinema-frame {
     position: sticky;
@@ -496,7 +497,7 @@
       min-height: 600px;
     }
     .cinema-enhanced {
-      height: 390svh !important;
+      --hero-runway: 250svh;
     }
     .cinema-enhanced .cinema-frame {
       top: 96px;

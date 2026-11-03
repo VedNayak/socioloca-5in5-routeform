@@ -1,3 +1,4 @@
+import { prepareHeroOnIdle } from "./hero-pacing";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Pause, Play } from "lucide-react";
 import type { OpeningKind, OpeningRenderer } from "./freight/opening-renderer";
@@ -204,7 +205,7 @@ export default function PageOpening({
               trigger: el,
               start: mode === "mobile" ? "top 100px" : "top top",
               end: "bottom bottom",
-              scrub: 0.55,
+              scrub: mode === "mobile" ? 0.16 : 0.28,
               invalidateOnRefresh: true,
               onRefresh: (self) => {
                 range.current = { start: self.start, end: self.end };
@@ -347,8 +348,8 @@ export default function PageOpening({
         pendingJump.current = undefined;
       }
     };
-    // As on Home, the film and copy are useful immediately; graphics and
-    // scroll choreography load when a visitor starts to explore the opening.
+    // Film/copy are immediately useful; prepare the visible graphics during
+    // idle time or on touch-down before the first scroll gesture.
     const launch = (event?: Event) => {
       if (cancelled || launched || !el.isConnected) return;
       if (event && event.type !== "pointerdown") {
@@ -374,9 +375,12 @@ export default function PageOpening({
       void start();
     };
     const input = (event: Event) => launch(event);
+    const cancelWarmup = prepareHeroOnIdle(el, () => launch());
     const removeIntent = () => {
+      cancelWarmup();
       window.removeEventListener("scroll", launch);
       window.removeEventListener("wheel", input);
+      window.removeEventListener("touchstart", input);
       window.removeEventListener("touchmove", input);
       window.removeEventListener("keydown", input);
       el.removeEventListener("pointerdown", input);
@@ -384,6 +388,7 @@ export default function PageOpening({
     activate.current = () => launch();
     window.addEventListener("scroll", launch, { passive: true });
     window.addEventListener("wheel", input, { passive: true });
+    window.addEventListener("touchstart", input, { passive: true });
     window.addEventListener("touchmove", input, { passive: true });
     window.addEventListener("keydown", input, { passive: true });
     el.addEventListener("pointerdown", input, { passive: true });

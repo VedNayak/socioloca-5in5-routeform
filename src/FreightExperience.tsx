@@ -1,3 +1,4 @@
+import { prepareHeroOnIdle } from "./hero-pacing";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight, Pause, Play, X } from "lucide-react";
@@ -165,7 +166,7 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
               trigger: el,
               start: mode === "mobile" ? "top 96px" : "top top",
               end: "bottom bottom",
-              scrub: 0.55,
+              scrub: mode === "mobile" ? 0.16 : 0.28,
               invalidateOnRefresh: true,
               onRefresh: (self) => {
                 range.current = { start: self.start, end: self.end };
@@ -278,8 +279,8 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
         );
       }
     };
-    // The opening film is useful immediately. Prepare the interactive scene
-    // when a visitor explores it, rather than blocking navigation on arrival.
+    // Keep the first paint light; idle preparation or touch-down gets the
+    // visible scene ready before the visitor's first swipe.
     let launched = false,
       inputObserved = false;
     const activate = (event?: Event) => {
@@ -312,9 +313,12 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
     const markPointer = () => {
       inputObserved = true;
     };
+    const cancelWarmup = prepareHeroOnIdle(el, () => activate());
     const removeIntent = () => {
+      cancelWarmup();
       window.removeEventListener("scroll", activate);
       window.removeEventListener("wheel", input);
+      window.removeEventListener("touchstart", input);
       window.removeEventListener("keydown", input);
       window.removeEventListener("pointerdown", markPointer);
       el.removeEventListener("pointerdown", input);
@@ -322,6 +326,7 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
     activateScene.current = () => activate();
     window.addEventListener("scroll", activate, { passive: true });
     window.addEventListener("wheel", input, { passive: true });
+    window.addEventListener("touchstart", input, { passive: true });
     window.addEventListener("keydown", input, { passive: true });
     window.addEventListener("pointerdown", markPointer, { passive: true });
     el.addEventListener("pointerdown", input, { passive: true });

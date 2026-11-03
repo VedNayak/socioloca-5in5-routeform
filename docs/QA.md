@@ -1,3 +1,7 @@
+## Responsive hero scroll pacing - 3 November 2026
+
+Fixed Home's layered !important rule that previously made its desktop height override the mobile height. Reduced pinned scroll runways (Home desktop/mobile 300/250svh; internal pages 290/240svh; Quote 270/230svh). Mobile scrub catch-up is 0.16s, desktop 0.28s. The image-to-geometry reveal begins at 1.5% progress instead of 12%, with matching early solid/wire visibility; exploded views and final geographic/calculator stages retain their choreography, sizes and placement. Visible headers prepare during idle time after the initial paint, or on touch-down, rather than waiting for the first swipe to load the renderer. Cleanup cancels pending preparation; reduced-motion fallbacks remain static. Native scrolling and chapter/skip controls are preserved. No new media, spend, body models or SASCO changes.
+
 ## Mobile endpoint deployment - 19 October 2026
 
 Source 40f045b; Worker version 03486f6c-dd8d-4bd7-ae67-f319a2682d8c; tag routeform-mobile-endpoints. Deployed only socioloca-5in5-routeform with 10 changed static assets. All 11 live JS/CSS files match the tested build byte for byte. Fresh preview: https://socioloca-5in5-routeform.ved-593.workers.dev/?v=mobile-endpoints-40f045b . Documentation commits after this source do not change the deployed application. SASCO remains clean at 9b071dbfd3a84526bd1431cd7743dd15bf0eca6c.

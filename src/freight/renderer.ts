@@ -334,21 +334,21 @@ export async function createFreightRenderer(
     camera.updateProjectionMatrix();
     const darken = smooth(0.12, 0.33, progress);
     host.style.backgroundColor = pale.clone().lerp(dark, darken).getStyle();
-    plateUniforms.uPeel.value = clamp((progress - 0.12) / 0.2);
+    plateUniforms.uPeel.value = clamp((progress - 0.015) / 0.305);
     plateUniforms.uTime.value = time;
     plateUniforms.uImage.value =
       videoTexture && progress < 0.1 ? videoTexture : image;
     const solidOpacity =
-      (1 - smooth(0.33, 0.57, progress)) * smooth(0.1, 0.23, progress);
+      (1 - smooth(0.33, 0.57, progress)) * smooth(0.015, 0.23, progress);
     cargo.materials[0].color
       .copy(cargoOrange)
       .lerp(scannedSteel, smooth(0.22, 0.41, progress));
     for (const material of cargo.materials) material.opacity = solidOpacity;
     cargo.cableMaterial.opacity = solidOpacity;
     cargo.solid.visible = solidOpacity > 0.003;
-    cargo.lattice.visible = progress > 0.12 && progress < 0.82;
+    cargo.lattice.visible = progress > 0.02 && progress < 0.82;
     cargo.wire.opacity =
-      smooth(0.13, 0.28, progress) * (1 - smooth(0.59, 0.82, progress)) * 0.8;
+      smooth(0.02, 0.28, progress) * (1 - smooth(0.59, 0.82, progress)) * 0.8;
     const explosion = smooth(0.31, 0.59, progress);
     for (const part of cargo.parts)
       part.group.position
@@ -368,6 +368,7 @@ export async function createFreightRenderer(
     floor.visible = progress < 0.3;
     particleUniforms.uOpacity.value = smooth(0.65, 0.82, progress);
     points.visible = particleUniforms.uOpacity.value > 0.001;
+    host.dataset.revealProgress = plateUniforms.uPeel.value.toFixed(3);
     host.dataset.particleOpacity = "0.000";
     host.dataset.globeOpacity = particleUniforms.uOpacity.value.toFixed(3);
     const globeBlend = smooth(0.59, 0.82, progress);

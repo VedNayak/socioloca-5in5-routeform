@@ -6,12 +6,12 @@
     isolation: isolate;
     min-height: 100svh;
   }
-  /* Home's cinematic runs 440svh; internal stories share its pacing. */
+  /* A shorter native scroll runway keeps each chapter responsive. */
   .opening-enhanced {
-    height: 420svh;
+    height: 290svh;
   }
   .opening-enhanced.opening-quote {
-    height: 360svh;
+    height: 270svh;
   }
   .opening-frame {
     position: sticky;
@@ -368,10 +368,10 @@
       min-height: calc(100svh - 100px);
     }
     .opening-enhanced {
-      height: 380svh;
+      height: 240svh;
     }
     .opening-enhanced.opening-quote {
-      height: 330svh;
+      height: 230svh;
     }
     .opening-rule {
       top: 7%;
