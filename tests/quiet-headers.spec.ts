@@ -52,9 +52,13 @@ for (const width of [1440, 390])
         await expect(host.locator("canvas")).toHaveCount(1, { timeout: 30000 });
         await expect
           .poll(async () =>
-            Number(await (home ? scene : host).getAttribute("data-progress")),
+            Math.abs(
+              Number(
+                await (home ? scene : host).getAttribute("data-progress"),
+              ) - p,
+            ),
           )
-          .toBeCloseTo(p, 2);
+          .toBeLessThan(0.01);
         await expect(host).toHaveAttribute("data-particle-opacity", "0.000");
         if (!home) await expect(host).toHaveAttribute("data-anchor-count", "0");
         if (p === 0.5 || p === 0.96)

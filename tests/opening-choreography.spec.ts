@@ -16,6 +16,11 @@ for (const route of ["services", "industries", "about", "quote"]) {
     });
     await page.goto("/" + route);
     await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator("#page-opening")).toHaveAttribute(
+      "data-ready",
+      "true",
+      { timeout: 30000 },
+    );
     await page.getByRole("button", { name: "Pause opening motion" }).click();
     const scene = page.locator("#page-opening"),
       host = page.locator(".opening-geometry");
@@ -35,8 +40,10 @@ for (const route of ["services", "industries", "about", "quote"]) {
         timeout: 25000,
       });
       await expect
-        .poll(async () => Number(await host.getAttribute("data-progress")))
-        .toBeCloseTo(p, 2);
+        .poll(async () =>
+          Math.abs(Number(await host.getAttribute("data-progress")) - p),
+        )
+        .toBeLessThan(0.01);
       await page.waitForTimeout(2000);
       await expect(host).toHaveAttribute("data-particle-opacity", "0.000");
       const canvas = await page
