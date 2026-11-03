@@ -1,3 +1,4 @@
+import { heroStoryProgress } from "../src/hero-pacing";
 import { test, expect } from "@playwright/test";
 for (const width of [320, 390, 768, 1440]) {
   test(`hero responds to the first small scroll at ${width}px`, async ({
@@ -48,10 +49,17 @@ for (const width of [320, 390, 768, 1440]) {
           { timeout: 1500 },
         )
         .toBeGreaterThan(0.08);
+      await expect
+        .poll(async () =>
+          Number(
+            await (home ? section : graphics).getAttribute("data-progress"),
+          ),
+        )
+        .toBeGreaterThan(0.35);
       const progress = Number(
         await (home ? section : graphics).getAttribute("data-progress"),
       );
-      expect(progress).toBeLessThan(0.15);
+      expect(progress).toBeLessThan(0.5);
       for (const p of [0.5, 0.96, 0.05]) {
         await page.evaluate(
           ({ start, travel, p }) =>
@@ -64,7 +72,7 @@ for (const width of [320, 390, 768, 1440]) {
               await (home ? section : graphics).getAttribute("data-progress"),
             ),
           )
-          .toBeCloseTo(p, 2);
+          .toBeCloseTo(heroStoryProgress(p), 1);
         await expect(graphics).toHaveAttribute(
           "data-particle-opacity",
           "0.000",

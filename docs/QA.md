@@ -1,3 +1,9 @@
+## First-swipe hero choreography - 3 November 2026
+
+The first deliberate scroll now triggers a short 0.8s eased reveal to a complete composition (36% of the story), even after a small wheel notch. Nothing advances on arrival. Continuing native scroll smoothly retargets through the separation and final globe/calculator stages; reverse scrolling to the start restores the opening. Chapter controls use the inverse mapping to retain their story destinations. No wheel/touch interception, scroll snapping or forced page movement. A small layout-settling deadband avoids accidental activation from the sticky header. Both desktop and mobile use this interaction. Existing short runways, endpoint scales, images and models are unchanged.
+
+Removed explanatory "scroll to transform" instructions in favour of simple scene counters. No new media/spend and no SASCO changes. Touch QA uses CDP-dispatched touchStart/touchMove/touchEnd gestures lasting about 312ms for 260px, separated by normal pauses; it does not use wheel events or teleport scrolling as a substitute for swipes. Physical phone testing is not claimed.
+
 ## Hero pacing deployed - 3 November 2026
 
 Source cca93d8; Worker version 656f142a-14fe-43e3-aa7f-7b05cbd86eff; tag routeform-hero-pacing. Target socioloca-5in5-routeform only; 10 changed assets uploaded. All 11 deployed JS/CSS files match the tested build byte for byte. All five live routes, decoded images, security headers and useful 404 pass with zero console errors. Preview: https://socioloca-5in5-routeform.ved-593.workers.dev/?v=hero-pacing-cca93d8 . Subsequent documentation commits do not change application code. SASCO remains untouched.

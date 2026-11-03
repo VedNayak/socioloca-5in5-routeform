@@ -1,4 +1,8 @@
-import { prepareHeroOnIdle } from "./hero-pacing";
+import {
+  prepareHeroOnIdle,
+  heroStoryProgress,
+  heroScrollPosition,
+} from "./hero-pacing";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight, Pause, Play, X } from "lucide-react";
@@ -161,18 +165,7 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
         let currentChapter = -1;
         const ctx = gsap.context(() => {
           const copies = gsap.utils.toArray<HTMLElement>(".cinema-copy", el);
-          const timeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: el,
-              start: mode === "mobile" ? "top 96px" : "top top",
-              end: "bottom bottom",
-              scrub: mode === "mobile" ? 0.16 : 0.28,
-              invalidateOnRefresh: true,
-              onRefresh: (self) => {
-                range.current = { start: self.start, end: self.end };
-              },
-            },
-          });
+          const timeline = gsap.timeline({ paused: true });
           timeline.to(
             director,
             {
@@ -262,6 +255,31 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
               start: "top top",
               end: "bottom bottom",
               scrub: 0.65,
+            },
+          });
+          // Scroll remains native. The first normal swipe reveals the structure;
+          // subsequent scroll distance carries the slower exploded/final stages.
+          const playhead = { value: 0 };
+          // Finish the first reveal on a composed frame, even for a small
+          // wheel notch. QuickTo retargets smoothly during continuing swipes.
+          const seek = gsap.quickTo(timeline, "progress", {
+            duration: 0.8,
+            ease: "power2.out",
+          });
+          gsap.to(playhead, {
+            value: 1,
+            duration: 1,
+            ease: "none",
+            onUpdate: () => seek(heroStoryProgress(playhead.value)),
+            scrollTrigger: {
+              trigger: el,
+              start: mode === "mobile" ? "top 96px" : "top top",
+              end: "bottom bottom",
+              scrub: true,
+              invalidateOnRefresh: true,
+              onRefresh: (self) => {
+                range.current = { start: self.start, end: self.end };
+              },
             },
           });
           ScrollTrigger.refresh();
@@ -383,7 +401,8 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
           ? range.current.end
           : top + el.offsetHeight - innerHeight;
       window.scrollTo({
-        top: start + (end - start) * chapterPositions[index],
+        top:
+          start + (end - start) * heroScrollPosition(chapterPositions[index]),
         behavior: "smooth",
       });
     } else
@@ -582,7 +601,9 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
         <div className="cinema-controls">
           <span className="mono cinema-scroll">
             <ArrowDown size={14} />
-            {enhanced ? "SCROLL TO TRANSFORM" : "FROM CARGO TO CONNECTIONS"}
+            {enhanced
+              ? `SCENE 0${active + 1} / 04`
+              : "FROM CARGO TO CONNECTIONS"}
           </span>
           <div
             className="cinema-chapters"

@@ -1,4 +1,8 @@
-import { prepareHeroOnIdle } from "./hero-pacing";
+import {
+  prepareHeroOnIdle,
+  heroStoryProgress,
+  heroScrollPosition,
+} from "./hero-pacing";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Pause, Play } from "lucide-react";
 import type { OpeningKind, OpeningRenderer } from "./freight/opening-renderer";
@@ -66,7 +70,7 @@ function scrollToChapter(
   const start = known ? range.start : top - (mode === "mobile" ? 100 : 0),
     end = known ? range.end : top + el.offsetHeight - innerHeight;
   window.scrollTo({
-    top: start + (end - start) * chapterPositions[index],
+    top: start + (end - start) * heroScrollPosition(chapterPositions[index]),
     behavior: mode === "static" ? "instant" : "smooth",
   });
 }
@@ -200,18 +204,7 @@ export default function PageOpening({
           const copies = gsap.utils.toArray<HTMLElement>(".opening-copy", el);
           const words = (copy: HTMLElement) =>
             copy.querySelectorAll(".opening-word");
-          const timeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: el,
-              start: mode === "mobile" ? "top 100px" : "top top",
-              end: "bottom bottom",
-              scrub: mode === "mobile" ? 0.16 : 0.28,
-              invalidateOnRefresh: true,
-              onRefresh: (self) => {
-                range.current = { start: self.start, end: self.end };
-              },
-            },
-          });
+          const timeline = gsap.timeline({ paused: true });
           timeline.to(
             director,
             {
@@ -295,6 +288,31 @@ export default function PageOpening({
               { autoAlpha: 0, duration: 0.028, ...later },
               0.645,
             );
+          });
+          // Scroll remains native. The first normal swipe reveals the structure;
+          // subsequent scroll distance carries the slower exploded/final stages.
+          const playhead = { value: 0 };
+          // Finish the first reveal on a composed frame, even for a small
+          // wheel notch. QuickTo retargets smoothly during continuing swipes.
+          const seek = gsap.quickTo(timeline, "progress", {
+            duration: 0.8,
+            ease: "power2.out",
+          });
+          gsap.to(playhead, {
+            value: 1,
+            duration: 1,
+            ease: "none",
+            onUpdate: () => seek(heroStoryProgress(playhead.value)),
+            scrollTrigger: {
+              trigger: el,
+              start: mode === "mobile" ? "top 100px" : "top top",
+              end: "bottom bottom",
+              scrub: true,
+              invalidateOnRefresh: true,
+              onRefresh: (self) => {
+                range.current = { start: self.start, end: self.end };
+              },
+            },
           });
           ScrollTrigger.refresh();
         }, el);
@@ -563,9 +581,7 @@ export default function PageOpening({
             )}
             {!enhanced || failed
               ? "ILLUSTRATIVE SCENE / STATIC VIEW"
-              : phase === 2
-                ? "CONTINUE SCROLLING ↓"
-                : "SCROLL TO TRANSFORM ↓"}
+              : `SCENE 0${phase + 1} / 03`}
           </span>
           <a href={destination} className="opening-skip">
             {story.action}
