@@ -31,7 +31,7 @@ for (const width of [320, 390, 430])
       });
       // A normal pause between swipes lets the guided chunk finish, rather than
       // issuing a synthetic scroll teleport or rapid wheel-event burst.
-      await page.waitForTimeout(650);
+      await page.waitForTimeout(1000);
     }
     for (const route of ["", "services", "industries", "about", "quote"]) {
       await page.goto("/" + route);
@@ -61,6 +61,25 @@ for (const width of [320, 390, 430])
       expect(first, "first normal swipe does not skip the finale").toBeLessThan(
         0.75,
       );
+      const activeWords = hero.locator(
+        home
+          ? `.cinema-copy-${first < 0.22 ? 0 : first < 0.46 ? 1 : first < 0.73 ? 2 : 3} .cinema-word`
+          : `.opening-copy-${first < 0.255 ? 0 : first < 0.68 ? 1 : 2} .opening-word`,
+      );
+      await expect(activeWords.first()).toBeVisible();
+      await expect
+        .poll(async () =>
+          activeWords.evaluateAll((elements) =>
+            elements.every((el) => {
+              const m = new DOMMatrixReadOnly(getComputedStyle(el).transform);
+              return (
+                Math.abs(m.m42) < 0.5 &&
+                Number(getComputedStyle(el).opacity) > 0.99
+              );
+            }),
+          ),
+        )
+        .toBe(true);
       await page.screenshot({
         path: `docs/screenshots/touch-first-${width}-${route || "home"}.png`,
       });
@@ -114,6 +133,9 @@ for (const width of [320, 390, 430])
         await hero.evaluate((el) => el.getBoundingClientRect().bottom),
         "normal swipes reach page content",
       ).toBeLessThan(600);
+      console.log(
+        `${width}px ${route || "home"}: idle still, first swipe ${first.toFixed(3)}, headings settled, final/reverse/body release passed`,
+      );
     }
     expect(errors).toEqual([]);
   });

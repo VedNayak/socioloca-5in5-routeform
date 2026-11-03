@@ -163,8 +163,18 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
           controller.video(video.current);
         const director = { progress: 0 };
         let currentChapter = -1;
+        let clearCopyMotion = () => {};
         const ctx = gsap.context(() => {
           const copies = gsap.utils.toArray<HTMLElement>(".cinema-copy", el);
+          const copyWords = copies.flatMap((copy) => [
+            ...copy.querySelectorAll(".cinema-word"),
+          ]);
+          gsap.set(copies, { autoAlpha: 0 });
+          gsap.set(copies[0], { autoAlpha: 1 });
+          gsap.set(copyWords, { yPercent: 0, rotation: 0, opacity: 1 });
+          clearCopyMotion = () => {
+            gsap.killTweensOf([...copies, ...copyWords]);
+          };
           const timeline = gsap.timeline({ paused: true });
           timeline.to(
             director,
@@ -190,61 +200,33 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
                 if (next !== currentChapter) {
                   currentChapter = next;
                   setActive(next);
+                  // Finish headings independently of scroll so resting gestures
+                  // cannot strand letters inside a mask.
+                  copies.forEach((copy, index) =>
+                    gsap.to(copy, {
+                      autoAlpha: index === next ? 1 : 0,
+                      duration: 0.22,
+                      overwrite: true,
+                    }),
+                  );
+                  gsap.fromTo(
+                    copies[next].querySelectorAll(".cinema-word"),
+                    { yPercent: 12, opacity: 0.5 },
+                    {
+                      yPercent: 0,
+                      opacity: 1,
+                      rotation: 0,
+                      duration: 0.42,
+                      stagger: 0.025,
+                      ease: "power2.out",
+                      overwrite: true,
+                    },
+                  );
                 }
               },
             },
             0,
           );
-          copies.forEach((copy, index) => {
-            const words = copy.querySelectorAll(".cinema-word");
-            if (index === 0) {
-              timeline.to(
-                words,
-                {
-                  yPercent: -118,
-                  duration: 0.065,
-                  stagger: 0.004,
-                  ease: "power2.in",
-                },
-                0.15,
-              );
-              timeline.to(copy, { autoAlpha: 0, duration: 0.025 }, 0.21);
-            } else {
-              const begin = [0, 0.3, 0.48, 0.76][index];
-              gsap.set(copy, { autoAlpha: 0 });
-              timeline.to(copy, { autoAlpha: 1, duration: 0.025 }, begin);
-              timeline.fromTo(
-                words,
-                { yPercent: 118, rotation: 4 },
-                {
-                  yPercent: 0,
-                  rotation: 0,
-                  duration: index === 1 ? 0.05 : 0.068,
-                  stagger: index === 1 ? 0.003 : 0.004,
-                  ease: "power3.out",
-                },
-                begin,
-              );
-              if (index < 3) {
-                const finish = [0, 0.42, 0.67][index];
-                timeline.to(
-                  words,
-                  {
-                    yPercent: -118,
-                    duration: 0.055,
-                    stagger: 0.002,
-                    ease: "power2.in",
-                  },
-                  finish,
-                );
-                timeline.to(
-                  copy,
-                  { autoAlpha: 0, duration: 0.028 },
-                  finish + 0.045,
-                );
-              }
-            }
-          });
           gsap.to(".cinema-corner", {
             rotation: 90,
             scale: 0.72,
@@ -284,7 +266,10 @@ export default function FreightExperience({ opening }: { opening?: Opening }) {
           });
           ScrollTrigger.refresh();
         }, el);
-        removeAnimation = () => ctx.revert();
+        removeAnimation = () => {
+          clearCopyMotion();
+          ctx.revert();
+        };
       } catch (error) {
         if (!cancelled) {
           setEnhanced(false);

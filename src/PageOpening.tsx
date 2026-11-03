@@ -199,11 +199,19 @@ export default function PageOpening({
         if (cancelled) return;
         gsap.registerPlugin(ScrollTrigger);
         let current = -1;
+        let clearCopyMotion = () => {};
         const director = { progress: 0 };
         const ctx = gsap.context(() => {
           const copies = gsap.utils.toArray<HTMLElement>(".opening-copy", el);
-          const words = (copy: HTMLElement) =>
-            copy.querySelectorAll(".opening-word");
+          const copyWords = copies.flatMap((copy) => [
+            ...copy.querySelectorAll(".opening-word"),
+          ]);
+          gsap.set(copies, { autoAlpha: 0 });
+          gsap.set(copies[0], { autoAlpha: 1 });
+          gsap.set(copyWords, { yPercent: 0, rotation: 0, opacity: 1 });
+          clearCopyMotion = () => {
+            gsap.killTweensOf([...copies, ...copyWords]);
+          };
           const timeline = gsap.timeline({ paused: true });
           timeline.to(
             director,
@@ -222,73 +230,33 @@ export default function PageOpening({
                 if (next !== current) {
                   current = next;
                   setPhase(next);
+                  // Finish headings independently of scroll so resting gestures
+                  // cannot strand letters inside a mask.
+                  copies.forEach((copy, index) =>
+                    gsap.to(copy, {
+                      autoAlpha: index === next ? 1 : 0,
+                      duration: 0.22,
+                      overwrite: true,
+                    }),
+                  );
+                  gsap.fromTo(
+                    copies[next].querySelectorAll(".opening-word"),
+                    { yPercent: 12, opacity: 0.5 },
+                    {
+                      yPercent: 0,
+                      opacity: 1,
+                      rotation: 0,
+                      duration: 0.42,
+                      stagger: 0.025,
+                      ease: "power2.out",
+                      overwrite: true,
+                    },
+                  );
                 }
               },
             },
             0,
           );
-          // Home's masked word choreography and timings. Explicit start
-          // values keep reversal exact even after a direct chapter jump.
-          const later = { immediateRender: false };
-          timeline.fromTo(
-            words(copies[0]),
-            { yPercent: 0 },
-            {
-              yPercent: -118,
-              duration: 0.065,
-              stagger: 0.004,
-              ease: "power2.in",
-              ...later,
-            },
-            0.15,
-          );
-          timeline.fromTo(
-            copies[0],
-            { autoAlpha: 1 },
-            { autoAlpha: 0, duration: 0.025, ...later },
-            0.21,
-          );
-          [0.3, 0.76].forEach((begin, i) => {
-            const copy = copies[i + 1];
-            gsap.set(copy, { autoAlpha: 0 });
-            timeline.fromTo(
-              copy,
-              { autoAlpha: 0 },
-              { autoAlpha: 1, duration: 0.025, ...later },
-              begin,
-            );
-            timeline.fromTo(
-              words(copy),
-              { yPercent: 118, rotation: 4 },
-              {
-                yPercent: 0,
-                rotation: 0,
-                duration: i ? 0.068 : 0.05,
-                stagger: i ? 0.004 : 0.003,
-                ease: "power3.out",
-              },
-              begin,
-            );
-            if (i) return;
-            timeline.fromTo(
-              words(copy),
-              { yPercent: 0, rotation: 0 },
-              {
-                yPercent: -118,
-                duration: 0.055,
-                stagger: 0.002,
-                ease: "power2.in",
-                ...later,
-              },
-              0.6,
-            );
-            timeline.fromTo(
-              copy,
-              { autoAlpha: 1 },
-              { autoAlpha: 0, duration: 0.028, ...later },
-              0.645,
-            );
-          });
           // Scroll remains native. The first normal swipe reveals the structure;
           // subsequent scroll distance carries the slower exploded/final stages.
           const playhead = { value: 0 };
@@ -319,6 +287,7 @@ export default function PageOpening({
         scrubbing.current = true;
         setScrubbed(true);
         removeTimeline = () => {
+          clearCopyMotion();
           scrubbing.current = false;
           setScrubbed(false);
           ctx.revert();

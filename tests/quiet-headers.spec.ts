@@ -1,3 +1,4 @@
+import { heroScrollPosition } from "../src/hero-pacing";
 import { test, expect } from "@playwright/test";
 for (const width of [1440, 390])
   test(`all five openings have clean particle-free transitions at ${width}px`, async ({
@@ -32,7 +33,7 @@ for (const width of [1440, 390])
           exact: true,
         })
         .click();
-      for (const p of [0.32, 0.5, 0.67, 0.96]) {
+      for (const p of [0.38, 0.5, 0.67, 0.96]) {
         await scene.evaluate(
           (el, { p, offset }) =>
             scrollTo({
@@ -43,7 +44,10 @@ for (const width of [1440, 390])
                 (el.clientHeight - innerHeight + offset) * p,
               behavior: "instant",
             }),
-          { p, offset: width < 821 ? (home ? 96 : 100) : 0 },
+          {
+            p: heroScrollPosition(p),
+            offset: width < 821 ? (home ? 96 : 100) : 0,
+          },
         );
         await expect(host.locator("canvas")).toHaveCount(1, { timeout: 30000 });
         await expect

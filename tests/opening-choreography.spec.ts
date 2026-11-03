@@ -1,3 +1,4 @@
+import { heroScrollPosition } from "../src/hero-pacing";
 import { test, expect } from "@playwright/test";
 import sharp from "sharp";
 
@@ -28,7 +29,7 @@ for (const route of ["services", "industries", "about", "quote"]) {
               (el.clientHeight - innerHeight) * p,
             behavior: "instant",
           }),
-        p,
+        heroScrollPosition(p),
       );
       await expect(scene).toHaveAttribute("data-ready", "true", {
         timeout: 25000,

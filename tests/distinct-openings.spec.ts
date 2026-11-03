@@ -200,19 +200,12 @@ for (const route of routes.slice(1))
       await page.getByRole("button", { name: "Pause opening motion" }).click();
       const scene = page.locator("#page-opening"),
         host = scene.locator(".opening-geometry");
-      await scene.evaluate((el) =>
-        scrollTo({
-          top:
-            el.getBoundingClientRect().top +
-            scrollY +
-            (el.clientHeight - innerHeight) * 0.05,
-          behavior: "instant",
-        }),
-      );
+      await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
       await expect(scene).toHaveAttribute("data-ready", "true", {
         timeout: 25000,
       });
-      // Before the peel at 0.12 the plate alone is on screen, as on Home.
+      // Before the first scroll the plate alone remains on screen. Preparing
+      // the renderer during idle time must not autoplay the transformation.
       await expect
         .poll(async () => Number(await host.getAttribute("data-progress")))
         .toBeLessThan(0.1);

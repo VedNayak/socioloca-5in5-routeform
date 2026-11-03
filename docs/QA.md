@@ -2,7 +2,7 @@
 
 The first deliberate scroll now triggers a short 0.8s eased reveal to a complete composition (36% of the story), even after a small wheel notch. Nothing advances on arrival. Continuing native scroll smoothly retargets through the separation and final globe/calculator stages; reverse scrolling to the start restores the opening. Chapter controls use the inverse mapping to retain their story destinations. No wheel/touch interception, scroll snapping or forced page movement. A small layout-settling deadband avoids accidental activation from the sticky header. Both desktop and mobile use this interaction. Existing short runways, endpoint scales, images and models are unchanged.
 
-Removed explanatory "scroll to transform" instructions in favour of simple scene counters. No new media/spend and no SASCO changes. Touch QA uses CDP-dispatched touchStart/touchMove/touchEnd gestures lasting about 312ms for 260px, separated by normal pauses; it does not use wheel events or teleport scrolling as a substitute for swipes. Physical phone testing is not claimed.
+Heading entrances now complete independently once a stage is reached, so stopping a swipe cannot freeze letters half-clipped in a mask. Transitions remain short, staggered and reversible; pending text tweens are cleaned up on navigation. Removed explanatory "scroll to transform" instructions in favour of simple scene counters. No new media/spend and no SASCO changes. Touch QA uses CDP-dispatched touchStart/touchMove/touchEnd gestures lasting about 312ms for 260px, separated by normal pauses; it does not use wheel events or teleport scrolling as a substitute for swipes. Physical phone testing is not claimed.
 
 ## Hero pacing deployed - 3 November 2026
 
