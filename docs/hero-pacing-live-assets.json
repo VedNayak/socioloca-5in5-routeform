@@ -1,0 +1,57 @@
+[
+  {
+    "name": "assembly-renderer-CNGuX-NN.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "index-Bvu9zNsI.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "index-DKYnN822.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "index-zWQz42Lh.css",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "opening-renderer-iW-y20jL.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "renderer-qH2GwT3b.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "RoomEnvironment-wqAJs-w4.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "RoundedBoxGeometry-DmWG9nTy.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "ScrollTrigger-7Zy99s9Q.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "three.module-D60miwEG.js",
+    "status": 200,
+    "identical": true
+  },
+  {
+    "name": "vehicles-C-u9M4jL.js",
+    "status": 200,
+    "identical": true
+  }
+]
